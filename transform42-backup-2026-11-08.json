@@ -1,0 +1,86 @@
+{
+  "app": "TRANSFORM 42",
+  "format": 1,
+  "exportedAt": "2026-11-08T10:41:00.222Z",
+  "timezone": "Africa/Johannesburg",
+  "data": {
+    "sample": false,
+    "modeNotice": 0,
+    "done": {},
+    "logs": {},
+    "goals": [
+      {
+        "id": "gmw7pad5025",
+        "start": "2026-11-08",
+        "p0": 0,
+        "wk": {},
+        "done": false,
+        "title": "Financial Literacy",
+        "scope": "sprint",
+        "cat": "behaviour",
+        "pri": "med",
+        "due": "2026-11-14",
+        "outcome": "Understand financial literacy fundamentals",
+        "ind": "Applied 3 methods to Investing",
+        "desc": "I will learn ways to save and invest money using minimum sources of income",
+        "why": "I will learn how to handle my finances better",
+        "from": "Basic Knowledge",
+        "acts": [
+          "Read and check available investment opportunities"
+        ],
+        "prog": 0,
+        "miles": [
+          {
+            "t": "Learn the importance of having your finances in order",
+            "done": false
+          }
+        ]
+      }
+    ],
+    "reasons": [],
+    "ph": {
+      "1": {
+        "read": {},
+        "ex": {},
+        "wk": {},
+        "obj": {},
+        "refl": {},
+        "notes": ""
+      },
+      "2": {
+        "read": {},
+        "ex": {},
+        "wk": {},
+        "obj": {},
+        "refl": {},
+        "notes": ""
+      },
+      "3": {
+        "read": {},
+        "ex": {},
+        "wk": {},
+        "obj": {},
+        "refl": {},
+        "notes": ""
+      }
+    },
+    "rd": {},
+    "rn": [],
+    "hb": [],
+    "hl": {},
+    "xs": [],
+    "xc": {},
+    "xr": {},
+    "rm": null,
+    "rmOn": false,
+    "rmTz": "Africa/Johannesburg",
+    "rmBrowser": false,
+    "rmSince": "",
+    "rmF": {},
+    "nc": [],
+    "wr": {},
+    "jn": [],
+    "jbuf": null,
+    "lastSaved": "2026-11-08T10:39:42.084Z"
+  }
+}

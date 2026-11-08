@@ -1,0 +1,512 @@
+{
+ "ran": "2026-11-08T03:51:07.460Z",
+ "chromium": "153",
+ "passed": 84,
+ "failed": 0,
+ "results": [
+  {
+   "id": "A1",
+   "name": "Fresh install: sample is false in the initial memory and in defMem()",
+   "pass": true,
+   "detail": "{\"memSample\":false,\"def\":false,\"raw\":null,\"preview\":false}"
+  },
+  {
+   "id": "A2",
+   "name": "Fresh install writes nothing to storage just by opening the app",
+   "pass": true,
+   "detail": "null"
+  },
+  {
+   "id": "A3",
+   "name": "Fresh install starts in real-date mode (no preview bar, no sample banner)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "A4",
+   "name": "Settings says real dates (South Africa time) with today’s programme status",
+   "pass": true,
+   "detail": "You are using real dates (South Africa time). Today is 07 Nov 2026: Before the programme starts."
+  },
+  {
+   "id": "A5",
+   "name": "No sample content on any page in real mode (11 pages checked)",
+   "pass": true,
+   "detail": "clean"
+  },
+  {
+   "id": "A6",
+   "name": "Official programme dates preserved: 9 Nov 2026 to 20 Dec 2026, 42 days",
+   "pass": true,
+   "detail": "[\"2026-11-09\",\"2026-12-20\",42,1,42,43]"
+  },
+  {
+   "id": "B1",
+   "name": "Dashboard, two days before start",
+   "pass": true,
+   "detail": "0 / 42 / 0% · Day 0"
+  },
+  {
+   "id": "B1p",
+   "name": "  all 12 pages render without NaN/undefined/Invalid Date, two days before start",
+   "pass": true,
+   "detail": "ok"
+  },
+  {
+   "id": "B2",
+   "name": "Dashboard, 23:59 SAST the night before (device in Los Angeles)",
+   "pass": true,
+   "detail": "0 / 42 / 0% · Day 0"
+  },
+  {
+   "id": "B2p",
+   "name": "  all 12 pages render without NaN/undefined/Invalid Date, 23:59 SAST the night before (device in Los Angeles)",
+   "pass": true,
+   "detail": "ok"
+  },
+  {
+   "id": "B3",
+   "name": "Dashboard, 23:59 SAST the night before (device in Auckland, a day ahead)",
+   "pass": true,
+   "detail": "0 / 42 / 0% · Day 0"
+  },
+  {
+   "id": "B3p",
+   "name": "  all 12 pages render without NaN/undefined/Invalid Date, 23:59 SAST the night before (device in Auckland, a day ahead)",
+   "pass": true,
+   "detail": "ok"
+  },
+  {
+   "id": "B4",
+   "name": "Dashboard, 00:00 SAST on 9 Nov = Day 1 (device in Los Angeles, still 8 Nov there)",
+   "pass": true,
+   "detail": "0 / 42 / 0% · Day 1 of 42"
+  },
+  {
+   "id": "B4p",
+   "name": "  all 12 pages render without NaN/undefined/Invalid Date, 00:00 SAST on 9 Nov = Day 1 (device in Los Angeles, still 8 Nov there)",
+   "pass": true,
+   "detail": "ok"
+  },
+  {
+   "id": "B5",
+   "name": "Dashboard, Day 2",
+   "pass": true,
+   "detail": "1 / 41 / 0% · Day 2 of 42"
+  },
+  {
+   "id": "B5p",
+   "name": "  all 12 pages render without NaN/undefined/Invalid Date, Day 2",
+   "pass": true,
+   "detail": "ok"
+  },
+  {
+   "id": "B6",
+   "name": "Dashboard, Sunday Day 7 (Week 1 review prompt)",
+   "pass": true,
+   "detail": "6 / 36 / 0% · Day 7 of 42"
+  },
+  {
+   "id": "B6p",
+   "name": "  all 12 pages render without NaN/undefined/Invalid Date, Sunday Day 7 (Week 1 review prompt)",
+   "pass": true,
+   "detail": "ok"
+  },
+  {
+   "id": "B7",
+   "name": "Dashboard, Day 12 (Phase 1, Week 2)",
+   "pass": true,
+   "detail": "11 / 31 / 0% · Day 12 of 42"
+  },
+  {
+   "id": "B7p",
+   "name": "  all 12 pages render without NaN/undefined/Invalid Date, Day 12 (Phase 1, Week 2)",
+   "pass": true,
+   "detail": "ok"
+  },
+  {
+   "id": "B8",
+   "name": "Dashboard, Day 15 (Phase 2 begins, Week 3)",
+   "pass": true,
+   "detail": "14 / 28 / 0% · Day 15 of 42"
+  },
+  {
+   "id": "B8p",
+   "name": "  all 12 pages render without NaN/undefined/Invalid Date, Day 15 (Phase 2 begins, Week 3)",
+   "pass": true,
+   "detail": "ok"
+  },
+  {
+   "id": "B9",
+   "name": "Dashboard, Day 29 (Phase 3 begins, Week 5)",
+   "pass": true,
+   "detail": "28 / 14 / 0% · Day 29 of 42"
+  },
+  {
+   "id": "B9p",
+   "name": "  all 12 pages render without NaN/undefined/Invalid Date, Day 29 (Phase 3 begins, Week 5)",
+   "pass": true,
+   "detail": "ok"
+  },
+  {
+   "id": "B10",
+   "name": "Dashboard, Last day, Sunday 20 Dec (Week 6 review prompt)",
+   "pass": true,
+   "detail": "41 / 1 / 0% · Day 42 of 42"
+  },
+  {
+   "id": "B10p",
+   "name": "  all 12 pages render without NaN/undefined/Invalid Date, Last day, Sunday 20 Dec (Week 6 review prompt)",
+   "pass": true,
+   "detail": "ok"
+  },
+  {
+   "id": "B11",
+   "name": "Dashboard, 23:59 SAST on 20 Dec is still Day 42",
+   "pass": true,
+   "detail": "41 / 1 / 0% · Day 42 of 42"
+  },
+  {
+   "id": "B11p",
+   "name": "  all 12 pages render without NaN/undefined/Invalid Date, 23:59 SAST on 20 Dec is still Day 42",
+   "pass": true,
+   "detail": "ok"
+  },
+  {
+   "id": "B12",
+   "name": "Dashboard, 00:00 SAST on 21 Dec: programme complete (device in Los Angeles)",
+   "pass": true,
+   "detail": "42 / 0 / 0% · Done of 42"
+  },
+  {
+   "id": "B12p",
+   "name": "  all 12 pages render without NaN/undefined/Invalid Date, 00:00 SAST on 21 Dec: programme complete (device in Los Angeles)",
+   "pass": true,
+   "detail": "ok"
+  },
+  {
+   "id": "B13",
+   "name": "Dashboard, months after the end",
+   "pass": true,
+   "detail": "42 / 0 / 0% · Done of 42"
+  },
+  {
+   "id": "B13p",
+   "name": "  all 12 pages render without NaN/undefined/Invalid Date, months after the end",
+   "pass": true,
+   "detail": "ok"
+  },
+  {
+   "id": "C1",
+   "name": "Day 12: Weekly Reviews opens on Week 2, in progress",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "C2",
+   "name": "Day 12: Week 1 review is shown as past due but still open (not failed)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "C3",
+   "name": "Day 12: Analytics shows programme day 12 of 42 and no broken numbers",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "C4",
+   "name": "Habit consistency counts only elapsed days (Reading: 2 ticks of 11 elapsed days = 18%)",
+   "pass": true,
+   "detail": "Reading 2 of 11 expected check-ins 18%"
+  },
+  {
+   "id": "C5",
+   "name": "Day 12: an unfinished week 1 exercise is \"Not done yet\", week 2 is \"Due now\", week 3 is \"Upcoming\", and one the person ticked stays \"Completed\"",
+   "pass": true,
+   "detail": "Phase 2Not done yet | Phase 2Due now | Phase 2Upcoming | Phase 1Completed"
+  },
+  {
+   "id": "C6",
+   "name": "Day 12: goals due 15 Nov counts as overdue; 20 Dec goal with 5% is at risk",
+   "pass": true,
+   "detail": "Active (2) At risk (1) Overdue (1) Completed (0)"
+  },
+  {
+   "id": "C7",
+   "name": "Weekly Reviews before the start: opens on Week 1, \"Not started\", no Sunday prompt",
+   "pass": true,
+   "detail": "Week 1"
+  },
+  {
+   "id": "C7a",
+   "name": "Analytics before the start: programme day 0 of 42, no NaN",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "C8",
+   "name": "Weekly Reviews after the end: opens on Week 6, no Sunday prompt",
+   "pass": true,
+   "detail": "Week 6"
+  },
+  {
+   "id": "C8a",
+   "name": "Analytics after the end: programme day 42 of 42, no NaN",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "D1",
+   "name": "Day 12 tasks are built from the person’s own habits and this week’s phase work (no sample wording)",
+   "pass": true,
+   "detail": "Today’s tasks 0 of 5 done | Reading | Every day · 20 min | Habit | Focused work | Weekdays (Mon–Fri) · 90 min | Habit | Read: Mindset, Chapters 1–2"
+  },
+  {
+   "id": "D2",
+   "name": "Ticking a habit on the dashboard writes that habit’s check-in for the South African date",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "D3",
+   "name": "Ticking the reading and the exercise updates the phase tracker (and the exercise gets a completion date)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "D4",
+   "name": "Real mode never writes the old placeholder task ids (t1 to t6) into the saved data",
+   "pass": true,
+   "detail": "{\"2026-11-20\":{\"t1\":1,\"t2\":1}}"
+  },
+  {
+   "id": "D5",
+   "name": "The Habit Tracker shows the habit as done today",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "D6",
+   "name": "The Phases page shows the week 2 reading and exercise ticked",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "D7",
+   "name": "A new journal entry defaults to the South African date (20 Nov)",
+   "pass": true,
+   "detail": "2026-11-20"
+  },
+  {
+   "id": "D8",
+   "name": "The journal task ticks itself once a completed entry exists for today",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "D9",
+   "name": "Record today’s progress saves habit ticks, mood and note to the right places",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "D10",
+   "name": "Saturday: the weekdays-only habit is not listed as a task",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "D11",
+   "name": "Before the start: the record dialog offers a mood note but no tasks",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E1",
+   "name": "Preview bar is shown on all 12 pages while the preview is on",
+   "pass": true,
+   "detail": "all pages"
+  },
+  {
+   "id": "E2",
+   "name": "The person’s own records are hidden in the preview (none appear on any page)",
+   "pass": true,
+   "detail": "none visible"
+  },
+  {
+   "id": "E3",
+   "name": "Preview shows the demonstration date (Day 12 of 42, 20 Nov) while the real date is before the start",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E4",
+   "name": "Preview shows sample goals marked \"Sample\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E5",
+   "name": "Preview shows sample reasons",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E6",
+   "name": "Preview shows sample phase progress without real reflections",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E7",
+   "name": "Backup, import and restore are unavailable in the preview",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E8",
+   "name": "Creating a goal, journal entry and habits inside the preview works on screen",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E9",
+   "name": "Stored data is byte-for-byte unchanged after all that preview activity",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E10",
+   "name": "A reload in the same tab stays in the preview, with the preview-only items gone (nothing was saved)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E11",
+   "name": "A new tab starts in real mode, not in the preview",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E12",
+   "name": "Returning to my data shows the real programme state (before the start), no sample bar",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E13",
+   "name": "My real goals are back; no sample goals and no preview-only goal",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E14",
+   "name": "My real journal entry is back; the preview-only entry is not",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E15",
+   "name": "Stored data still byte-for-byte identical after leaving the preview",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E16",
+   "name": "Switching on and off three more times changes nothing in the saved data",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E17",
+   "name": "After a real change every other record is exactly as before, and the new reason is saved",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "E18",
+   "name": "No sample or preview content ended up in the saved records",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "F1",
+   "name": "Opening the app with old saved data (sample:true) does not write or overwrite storage",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "F2",
+   "name": "It opens in real-date mode with a one-time notice, not in the preview",
+   "pass": true,
+   "detail": "{\"sample\":false,\"preview\":false,\"notice\":1}"
+  },
+  {
+   "id": "F3",
+   "name": "The notice explains that nothing was changed or removed",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "F4",
+   "name": "All records (goals, reasons, habits, check-ins, reading, notes, journal, reviews, reminders, alerts) loaded exactly as saved",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "F5",
+   "name": "The old records are visible in the app (goals, journal, habits, reading progress)",
+   "pass": true,
+   "detail": "all visible"
+  },
+  {
+   "id": "F6",
+   "name": "After the first save every data record is still identical to the old data; only the mode flag changed",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "F7",
+   "name": "The notice does not come back after it is dismissed",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "F8",
+   "name": "Old first-run state (sample:true, no records) opens in real mode with no notice",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "F9",
+   "name": "Importing an old backup file shows a preview comparison first",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "F10",
+   "name": "The import restores every record and forces real mode (sample:false)",
+   "pass": true,
+   "detail": "goals 2, journal 1"
+  },
+  {
+   "id": "F11",
+   "name": "With reminders on, the only keys that change at load are the mode flags, the reminder bookkeeping and one new \"missed\" alert; the old alert is kept",
+   "pass": true,
+   "detail": "lastSaved,modeNotice,nc,rmF,sample"
+  },
+  {
+   "id": "G1",
+   "name": "Dashboard moves from Day 12 to Day 13 by itself after midnight in South Africa",
+   "pass": true,
+   "detail": "Day 12 -> Day 13"
+  },
+  {
+   "id": "Z1",
+   "name": "No page errors or console errors in the whole run (failed resource loads excluded)",
+   "pass": true,
+   "detail": ""
+  }
+ ]
+}

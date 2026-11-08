@@ -1,0 +1,4 @@
+Inter (c) The Inter Project Authors, and Fraunces (c) The Fraunces Project Authors,
+are licensed under the SIL Open Font License 1.1 (https://openfontlicense.org).
+The font files here come from the @fontsource/inter and @fontsource/fraunces npm packages
+and are served from this site so the app never needs Google Fonts.

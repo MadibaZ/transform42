@@ -1,0 +1,368 @@
+{
+ "ran": "2026-11-08T03:51:39.176Z",
+ "chromium": "153",
+ "passed": 60,
+ "failed": 0,
+ "results": [
+  {
+   "id": "0.1",
+   "name": "Each release gets a different build id (cache name)",
+   "pass": true,
+   "detail": "8f2b3a07eb1b bf122efbcb54 d2e94b341f80 284b684c45b4"
+  },
+  {
+   "id": "0.2",
+   "name": "Stamping is deterministic (same files give same id)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "1.1",
+   "name": "Service worker installs and takes control on first visit",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "1.2",
+   "name": "Exactly one TRANSFORM 42 cache exists, named transform42-shell-<build>",
+   "pass": true,
+   "detail": "other-app-cache | my-blog-v1 | transform42x-lookalike | TRANSFORM42-other | transform42-shell-8f2b3a07eb1b"
+  },
+  {
+   "id": "1.3",
+   "name": "Outdated TRANSFORM 42 caches (transform42-v1, -v2, old shell) were removed",
+   "pass": true,
+   "detail": "all three removed"
+  },
+  {
+   "id": "1.4",
+   "name": "Unrelated caches (other-app-cache, my-blog-v1, transform42x-lookalike, TRANSFORM42-other) still exist with their data",
+   "pass": true,
+   "detail": "contents verified: true,true,true,true"
+  },
+  {
+   "id": "1.5",
+   "name": "App shell cached completely during install (12 files)",
+   "pass": true,
+   "detail": "12 of 12"
+  },
+  {
+   "id": "1.6",
+   "name": "App renders after first install",
+   "pass": true,
+   "detail": "Welcome back, Champion"
+  },
+  {
+   "id": "1.7",
+   "name": "No third-party requests (Google Fonts etc.)",
+   "pass": true,
+   "detail": "none"
+  },
+  {
+   "id": "1.8",
+   "name": "Fonts load from this site",
+   "pass": true,
+   "detail": "Inter 400, Inter 500, Inter 600, Fraunces 600"
+  },
+  {
+   "id": "1.9",
+   "name": "No console errors, page errors or CSP violations on first load",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "2.1",
+   "name": "Refresh is served from the cache (server not asked for /index.html)",
+   "pass": true,
+   "detail": "no requests"
+  },
+  {
+   "id": "2.2",
+   "name": "Refresh keeps the current page (hash route)",
+   "pass": true,
+   "detail": "Your Transformation Journal"
+  },
+  {
+   "id": "2.3",
+   "name": "No errors after refresh",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "3.1",
+   "name": "App opens offline (dashboard renders)",
+   "pass": true,
+   "detail": "Welcome back, Champion"
+  },
+  {
+   "id": "3.2",
+   "name": "Offline status indicator appears",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "3.3",
+   "name": "Every sidebar page opens offline (12 pages)",
+   "pass": true,
+   "detail": "dashboard goals phases reading habits exercises journal reviews analytics notifications backup settings"
+  },
+  {
+   "id": "3.4",
+   "name": "Unknown page offline shows the clear offline page",
+   "pass": true,
+   "detail": "You’re offline"
+  },
+  {
+   "id": "3.5",
+   "name": "Missing file offline gives a clean 503 (no thrown error)",
+   "pass": true,
+   "detail": "503 static"
+  },
+  {
+   "id": "3.6",
+   "name": "Update check while offline fails quietly and app keeps working",
+   "pass": true,
+   "detail": "rejected TypeError"
+  },
+  {
+   "id": "3.7",
+   "name": "Repeated network failures (25 probes) do not break the UI",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "3.8",
+   "name": "Feature that needs internet (Add to Google Calendar) explains itself offline and does not navigate",
+   "pass": true,
+   "detail": "Add to Google Calendar needs an internet connection. Try again when you’re back online. “Download calendar file” works offline."
+  },
+  {
+   "id": "3.9",
+   "name": "Backup download works offline (CSP allows it)",
+   "pass": true,
+   "detail": "transform42-backup-2026-11-08.json"
+  },
+  {
+   "id": "4.1",
+   "name": "Habits created and ticked offline are saved",
+   "pass": true,
+   "detail": "7 habit cards; {\"2026-11-08\":1}"
+  },
+  {
+   "id": "4.2",
+   "name": "Daily progress recorded offline (mood and note) is saved",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "4.3",
+   "name": "Journal entry written offline is saved",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "4.4",
+   "name": "Reading progress entered offline is saved (80 of 320 pages = 25%)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "4.5",
+   "name": "After closing and reopening the browser (still no server) the app opens",
+   "pass": true,
+   "detail": "Welcome back, Champion"
+  },
+  {
+   "id": "4.6",
+   "name": "Offline indicator shown even though the device reports a network (server unreachable)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "4.7",
+   "name": "All offline changes survived the restart",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "4.8",
+   "name": "Previously saved journal entry is listed and readable offline",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "4.9",
+   "name": "Entry text opens offline",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "4.10",
+   "name": "Habit tick persisted and is shown",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "4.11",
+   "name": "Reading progress shows 25% offline",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "4.12",
+   "name": "No application errors during restart session",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "5.0",
+   "name": "Back online: indicator clears",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "5.1",
+   "name": "Still running release 1 before updating",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "5.2",
+   "name": "New version is detected and the person is asked before it is applied",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "5.3",
+   "name": "Old cache is kept while the new version waits (new cache installed beside it)",
+   "pass": true,
+   "detail": "transform42-shell-8f2b3a07eb1b transform42-shell-bf122efbcb54"
+  },
+  {
+   "id": "5.4",
+   "name": "Page keeps running release 1 until the update is accepted",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "5.5",
+   "name": "Accepting the update reloads into release 2",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "5.6",
+   "name": "After activation only the new TRANSFORM 42 cache remains",
+   "pass": true,
+   "detail": "other-app-cache | my-blog-v1 | transform42x-lookalike | TRANSFORM42-other | transform42-shell-bf122efbcb54"
+  },
+  {
+   "id": "5.7",
+   "name": "Unrelated caches still untouched after the update",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "5.8",
+   "name": "Saved data (journal, habits, reading, progress) is intact after the update",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "5.9",
+   "name": "\"Later\" keeps release 2 running and keeps its cache",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "5.10",
+   "name": "Update is offered again on the next visit",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "6.1",
+   "name": "Update with a missing file really fails to install (server was asked for the missing file) and the working version stays active",
+   "pass": true,
+   "detail": "missing file requested: true; {\"waiting\":\"http://127.0.0.1:8140/sw.js\",\"installing\":false,\"active\":true}"
+  },
+  {
+   "id": "6.2",
+   "name": "Working version’s cache is not damaged by the failed install",
+   "pass": true,
+   "detail": "orphan from failed install: transform42-shell-brokenbuild00 (cleaned at next activation)"
+  },
+  {
+   "id": "6.3",
+   "name": "App still works normally after the failed update attempt",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "6.4",
+   "name": "Next good release activates and removes every superseded TRANSFORM 42 cache, including the orphan",
+   "pass": true,
+   "detail": "other-app-cache | my-blog-v1 | transform42x-lookalike | TRANSFORM42-other | transform42-shell-284b684c45b4"
+  },
+  {
+   "id": "6.5",
+   "name": "Unrelated caches still untouched after several updates",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "7.1",
+   "name": "Missing file online returns 404 and is not cached",
+   "pass": true,
+   "detail": "status 404"
+  },
+  {
+   "id": "7.0a",
+   "name": "A request is never answered from another app’s cache (this was the original defect)",
+   "pass": true,
+   "detail": "404 not found"
+  },
+  {
+   "id": "7.0b",
+   "name": "Cache lookups stay inside TRANSFORM 42’s own cache (a decoy icon in another cache is not served)",
+   "pass": true,
+   "detail": "image/png 42065"
+  },
+  {
+   "id": "7.2",
+   "name": "A shell file missing from the cache is fetched and restored (self-heal)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "7.3",
+   "name": "A response marked Cache-Control: no-store is served but never cached",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "7.4",
+   "name": "Third-party (other-origin) request passes through and is never cached",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "7.5",
+   "name": "A POST request goes straight to the server (never answered from a cache)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "7.6",
+   "name": "No third-party hosts contacted by the app during the whole run",
+   "pass": true,
+   "detail": "none"
+  },
+  {
+   "id": "7.7",
+   "name": "No Content-Security-Policy violations",
+   "pass": true,
+   "detail": ""
+  }
+ ]
+}

@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TRANSFORM 42</title>
+<style>
+:root{--bg:#F3F5F8;--panel:#fff;--ink:#0B1A33;--mut:#5B6880;--line:#E1E6EE;--navy:#0B1A33;--navy2:#13264A;--g:#3FBF8A;--gd:#1F8F62;--gsoft:#E4F6EE;--amber:#C98A1B;--side:#0B1A33;--sideink:#C9D3E6;
+--serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#081224;--panel:#0F1F3B;--ink:#EAF0FA;--mut:#93A2BD;--line:#1E3157;--gsoft:#12352F;--gd:#5ED6A3;--side:#060E1D}}
+*{box-sizing:border-box}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--g);outline-offset:2px}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+aside{background:var(--side);color:var(--sideink);padding:22px 14px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{font:600 22px var(--serif);color:#fff;padding:0 10px 4px;letter-spacing:.3px}
+.brand span{color:var(--g)}
+.tag{padding:0 10px 18px;font-size:12.5px;color:#8FA0BF}
+nav a{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;text-decoration:none;font-weight:500;margin-bottom:2px;color:var(--sideink)}
+nav a:hover{background:#ffffff14}
+nav a[aria-current=page]{background:var(--g);color:#06251a}
+nav a i{font-style:normal;width:18px;text-align:center}
+.top{display:none}
+main{padding:28px clamp(16px,3vw,40px) 60px;max-width:1180px;width:100%}
+.sample{background:#FFF4D6;color:#6B4A00;border:1px solid #F0D58A;border-radius:10px;padding:9px 14px;font-size:13.5px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.sample a{font-weight:600}
+h1{font:600 clamp(26px,4vw,36px)/1.15 var(--serif);margin:0 0 4px}
+h2{font:600 17px var(--sans);margin:0 0 12px}
+.sub{color:var(--mut);margin:0}
+.head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:20px}
+.btn{background:var(--g);color:#06251a;border:0;border-radius:11px;padding:12px 18px;font:600 15px var(--sans);cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{filter:brightness(1.07)}
+.btn.alt{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.hero{background:var(--navy);color:#fff;border-radius:18px;padding:24px clamp(18px,3vw,30px);margin-bottom:18px}
+.hero .big{font:600 clamp(40px,7vw,64px)/1 var(--serif)}
+.hero .big small{font-size:.4em;color:#9FB0CE;font-weight:600}
+.herotop{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-end}
+.ribbon{display:grid;grid-template-columns:repeat(42,1fr);gap:3px;margin-top:20px}
+.ribbon b{height:26px;border-radius:3px;background:#ffffff1f}
+.ribbon b.p1.done{background:#7FA8E8}.ribbon b.p2.done{background:#5ED6A3}.ribbon b.p3.done{background:#3FBF8A}
+.ribbon b.done{opacity:1}
+.ribbon b.now{background:#fff;box-shadow:0 0 0 2px var(--g)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:#9FB0CE;margin-top:10px}
+.legend span:before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:var(--c)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+.stat .n{font:600 34px/1.1 var(--serif)}
+.grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+.col{display:grid;gap:18px;align-content:start}
+.area{margin-bottom:14px}.area:last-child{margin-bottom:0}
+.area div.r{display:flex;justify-content:space-between;font-weight:500;margin-bottom:6px}
+.area small{color:var(--mut);font-weight:400;display:block}
+.bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--g);border-radius:6px;transition:width .4s}
+.task{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--line)}
+.task:first-of-type{border-top:0}
+.task input{width:22px;height:22px;accent-color:var(--gd);margin-top:1px;flex:none}
+.task label{flex:1;cursor:pointer}
+.task small{display:block;color:var(--mut)}
+.task input:checked+label{color:var(--mut);text-decoration:line-through}
+.chip{font-size:12px;border-radius:20px;padding:2px 9px;background:var(--gsoft);color:var(--gd);font-weight:600}
+ul.plain{list-style:none;margin:0;padding:0}
+ul.plain li{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+ul.plain li:first-child{border-top:0}
+.time{font-weight:600;color:var(--gd);white-space:nowrap}
+.obj li{padding:8px 0}
+.empty{text-align:center;padding:36px 20px}
+.empty p{max-width:52ch;margin:8px auto 18px;color:var(--mut)}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.ov{position:fixed;inset:0;background:#040B18b3;display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.ov.on{display:flex}
+.dlg{background:var(--panel);border-radius:16px;padding:22px;width:min(520px,100%);max-height:90vh;overflow:auto}
+.dlg textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;background:var(--bg);color:var(--ink);min-height:70px}
+.moods{display:flex;gap:8px;margin:6px 0 14px}
+.moods label{flex:1;text-align:center;border:1px solid var(--line);border-radius:10px;padding:8px 0;cursor:pointer}
+.moods input{position:absolute;opacity:0}
+.moods input:checked+span{font-weight:700;color:var(--gd)}
+.moods label:has(input:checked){background:var(--gsoft);border-color:var(--g)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:#fff;padding:11px 18px;border-radius:10px;display:none;z-index:60}
+.toast.on{display:block}
+.set{display:grid;gap:14px;max-width:560px}
+.fab{display:none}
+.dlg.wide{width:min(640px,100%)}
+.f{margin-bottom:12px}.f label{display:block;font-weight:500;margin-bottom:4px}.f input,.f select,.f textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;background:var(--bg);color:var(--ink)}.f textarea{min-height:64px}.f small{color:var(--mut);display:block;margin-top:4px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.seg{display:flex;gap:8px}.seg label{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center;cursor:pointer;margin:0}.seg input{position:absolute;opacity:0;width:auto}.seg label:has(input:checked){background:var(--gsoft);border-color:var(--g);font-weight:600}.seg label:has(input:focus-visible){outline:3px solid var(--g)}
+details summary{cursor:pointer;font-weight:500;margin:6px 0 12px}
+.smart{background:var(--bg);border-radius:10px;padding:12px;display:grid;gap:4px;font-size:13.5px;margin:6px 0}.smart .ok{color:var(--gd)}
+.err{color:#B42318;min-height:20px;margin:6px 0}
+.goal h3{font:600 18px var(--sans);margin:0}.gh{display:flex;justify-content:space-between;gap:12px;margin-bottom:12px}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.gdue{text-align:right;white-space:nowrap}
+.chip.bad{background:#FDE7E7;color:#B42318}.chip.warn{background:#FFF1D0;color:#8A5A00}.chip.n{background:var(--bg);color:var(--mut)}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:16px;padding-bottom:4px}.tabs button,.filters button{white-space:nowrap;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:20px;padding:8px 14px;font:500 14px var(--sans);cursor:pointer}.tabs button[aria-pressed=true],.filters button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px}.filters select{border:1px solid var(--line);border-radius:20px;padding:8px 12px;font:500 14px var(--sans);background:var(--panel);color:var(--ink)}
+.btn.sm{padding:7px 12px;font-size:14px}.btn.danger{background:#C0392B;color:#fff}
+.prow{display:flex;gap:12px;align-items:center;margin:10px 0}.prow input{flex:1;accent-color:var(--gd)}.prow strong{min-width:42px;text-align:right}
+.tbl{overflow-x:auto}.tbl table{border-collapse:collapse;width:100%;min-width:560px}.tbl th,.tbl td{text-align:left;padding:10px;border-top:1px solid var(--line);vertical-align:top}
+.warnt{color:var(--amber);margin:8px 0 0}.quote{border-left:3px solid var(--g);padding-left:14px;margin:0}
+.gdet ul{margin:6px 0 12px;padding-left:20px}.gdet h4{margin:12px 0 2px;font-size:14px}.gdet p{margin:0}
+@media (max-width:560px){.row2{grid-template-columns:1fr}.gh{flex-direction:column}.gdue{text-align:left}}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-bottom:18px}.pbig{font:600 40px/1 var(--serif);margin-bottom:10px}
+.task.now{background:var(--gsoft);border-radius:8px;padding-left:8px;padding-right:8px}
+.tbl input[type=checkbox]{accent-color:var(--gd);width:18px;height:18px;vertical-align:-3px;margin-right:6px}
+.info{background:var(--gsoft);border-radius:10px;padding:10px 14px;font-size:13.5px;margin-bottom:18px}
+.ch{display:flex;gap:2px;margin:10px 0}.ch i{flex:1;height:8px;border-radius:2px;background:var(--line)}.ch i.on{background:var(--g)}
+.mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:12px 0}.mini div{background:var(--bg);border-radius:10px;padding:9px 11px;font-weight:600}.mini small{color:var(--mut);display:block;font-weight:400}
+.qrow{display:flex;gap:14px;flex-wrap:wrap;align-items:end;margin:10px 0}.qrow label{font-size:13.5px;color:var(--mut)}.qrow input{display:block;width:110px;margin-top:3px;border:1px solid var(--line);border-radius:10px;padding:8px;font:inherit;background:var(--bg);color:var(--ink)}
+.rsum{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center}.ring text{font:600 22px var(--serif);fill:var(--ink)}
+.note{border-top:1px solid var(--line);padding:12px 0}.note:first-child{border-top:0}.note p{margin:6px 0 0;white-space:pre-wrap}
+@media (max-width:560px){.rsum{grid-template-columns:1fr;justify-items:center}}
+.strip{display:flex;gap:6px;margin:12px 0}.cell{flex:1;text-align:center}.cell small{display:block;color:var(--mut);font-size:12px}
+.cell button{width:100%;height:36px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;font-weight:700}
+.cell button.done{background:var(--g);border-color:var(--g);color:#06251a}.cell button.miss{border-color:#E7B75C;color:#8A5A00;background:#FFF8E6}.cell button.today{box-shadow:0 0 0 2px var(--navy)}.cell button.rest{opacity:.55}.cell button:disabled{opacity:.35;cursor:default}
+.chk{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:11px;padding:10px 16px;font:600 15px var(--sans);cursor:pointer}.chk.on{background:var(--g);border-color:var(--g);color:#06251a}
+.badge{margin-left:auto;background:var(--g);color:#06251a;border-radius:20px;padding:0 8px;font-size:12px;font-weight:700}nav a[aria-current=page] .badge{background:#06251a;color:#fff}
+.alertbar{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(560px,calc(100% - 24px));background:var(--navy);color:#fff;border:1px solid var(--g);border-radius:14px;padding:14px 16px;display:none;gap:12px;align-items:center;justify-content:space-between;z-index:70;box-shadow:0 10px 30px #0008}.alertbar.on{display:flex}.alertbar .btn.alt{color:#fff;border-color:#ffffff66}.alertbar .actions{flex:none}
+.sw{display:flex;gap:8px;align-items:center;cursor:pointer;font-weight:500}.sw input{width:20px;height:20px;accent-color:var(--gd)}
+.ok2{color:var(--gd);font-weight:600}.no2{color:var(--mut)}
+.qh{font-size:13px;color:var(--mut);margin:0 0 6px}
+.lg2{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--mut);margin-top:8px}.lg2 span:before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:var(--c)}
+.chart{display:block;width:100%;height:auto}
+.pre{width:100%;min-height:140px;font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--bg);color:var(--ink)}
+.cmp td,.cmp th{padding:6px 10px}
+.jcal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.jwd{font-size:12px;color:var(--mut);text-align:center}
+.jc{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;min-height:62px;padding:5px 3px;cursor:pointer;font:500 15px/1.1 var(--sans);display:flex;flex-direction:column;align-items:center;gap:2px}
+.jc small{font-size:10.5px;color:var(--mut);line-height:1}.jc em{font-style:normal;font-size:10.5px;color:var(--mut)}.jc .jm{font-size:13px;color:var(--gd)}
+.jc.has{background:var(--gsoft);border-color:var(--g)}.jc.dr .jm{color:var(--amber)}.jc.fut{opacity:.65}.jc.today{box-shadow:0 0 0 2px var(--navy)}.jc.sel{outline:3px solid var(--g);outline-offset:1px}
+.f input.jtitle{font:600 22px var(--serif)}.f textarea.jtext{min-height:52vh;font:17px/1.7 var(--sans);resize:vertical}
+.jtool{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.jbody{font-size:17px;line-height:1.75;max-width:70ch}.jbody p{margin:0 0 .8em}.jbody h3{font:600 22px var(--serif);margin:1em 0 .4em}.jbody h4{font:600 18px var(--sans);margin:1em 0 .3em}.jbody h5{font:600 16px var(--sans);margin:1em 0 .3em}.jbody ul{padding-left:22px;margin:0 0 .8em}
+.jwrap{max-width:820px}
+@media (max-width:560px){.jc em{display:none}.jc{min-height:50px}}
+@media (max-width:900px){
+.app{grid-template-columns:1fr}
+aside{position:fixed;inset:0 auto 0 0;width:270px;height:100%;z-index:40;transform:translateX(-105%);transition:transform .25s;padding-top:calc(22px + env(safe-area-inset-top,0px))}
+aside.open{transform:none}
+.scrim{position:fixed;inset:0;background:#040B18a0;z-index:30;display:none}.scrim.on{display:block}
+.top{display:flex;align-items:center;gap:12px;background:var(--navy);color:#fff;padding:10px 14px;position:sticky;top:0;z-index:20}
+.top button{background:#ffffff1a;color:#fff;border:0;border-radius:9px;font-size:20px;width:42px;height:42px;cursor:pointer}
+.top .brand{padding:0}
+.grid{grid-template-columns:1fr}
+.fab{display:block;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 6px 20px #0006;z-index:25}
+.hbtn{display:none}
+}
+@media (max-width:560px){.stats{grid-template-columns:1fr 1fr}.stats .card:last-child{grid-column:1/-1}.ribbon{gap:2px}.ribbon b{height:22px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0B1A33">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="TRANSFORM 42">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/inter-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/inter-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/inter-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/fraunces-latin-600-normal.woff2) format('woff2')}
+</style>
+</head>
+<body>
+<div class="top"><button id="menu" aria-label="Open menu" aria-expanded="false">☰</button><div class="brand">TRANSFORM <span>42</span></div></div>
+<div class="scrim" id="scrim"></div>
+<div class="app">
+<aside id="side">
+<div class="brand">TRANSFORM <span>42</span></div>
+<div class="tag">9 Nov – 20 Dec 2026</div>
+<nav id="nav" aria-label="Main"></nav>
+</aside>
+<main id="view" tabindex="-1"></main>
+</div>
+<div class="ov" id="ov" role="dialog" aria-modal="true" aria-labelledby="dt"><div class="dlg" id="dlg"></div></div>
+<div class="toast" id="toast" role="status"></div>
+<button class="btn fab" id="fab">Record today’s progress</button>
+
+<script>
+const START='2026-11-09',TOTAL=42,SAMPLE_DAY='2026-11-20';
+const PAGES=[
+['dashboard','Dashboard','◉','Your day at a glance.',0],
+['goals','My Goals','◎','Set goals with a clear reason, milestones and a status, then track how far each one has come.',3],
+['phases','Transformation Phases','◧','The three phases, their themes, the weekly focus and how complete each one is.',3],
+['reading','Reading Tracker','▤','Log pages read each day against a target, and capture one takeaway per session.',3],
+['habits','Habit Tracker','✓','Tick daily habits, see streaks and a calendar heatmap, with a minimum version of each habit for hard days.',2],
+['exercises','Practical Exercises','✎','The exercise for each day of each phase, with a completion log and your reflection.',3],
+['journal','Journal','✍','A morning intention, an evening reflection, mood and energy, and a searchable history.',2],
+['reviews','Weekly Reviews','☰','A guided Sunday review: wins, misses, lessons, a score and next week’s focus.',4],
+['analytics','Analytics','▥','Completion rates, streaks and consistency trends across habits, reading and mood.',4],
+['notifications','Notifications','◔','Reminders, alerts and the notification centre.',0],
+['backup','Backup and Restore','↧','Back up, restore and move your data.',0],
+['settings','Settings','⚙','Programme options and data controls.',1]];
+const PH=[[1,'Mental reprogramming','Phase 1'],[2,'Identity development','Phase 2'],[3,'Behavioural transformation','Phase 3']];
+const AREAS=[['Mental reprogramming',62,'Lead focus in days 1–14'],['Identity development',48,'Lead focus in days 15–28'],['Behavioural transformation',35,'Lead focus in days 29–42']];
+const TASKS=[['t1','Morning intention','2 minutes, before your phone','Mental'],['t2','Read 15 pages','Current book: sample title','Mental'],['t3','Identity statement, read aloud','Say it once, slowly','Identity'],['t4','Practical exercise of the day','Reframe one limiting belief in writing','Mental'],['t5','Finish one task you started','Pick the smallest unfinished item','Behaviour'],['t6','Evening reflection','Three lines is enough','Identity']];
+const REMS=[['07:00','Morning intention'],['12:30','Reading block'],['20:30','Evening reflection'],['Sun 18:00','Weekly review']];
+const WEEKOBJ={1:'Interrupt the old story: notice and name automatic thoughts.',2:'Replace one limiting belief with a tested alternative.',3:'Write and rehearse your identity statement daily.',4:'Act in line with the identity you’re building.',5:'Turn repeated actions into routines that need no willpower.',6:'Finish strong: close open loops and plan what comes after.'};
+const WEEKSTEPS={1:['Write down 3 automatic thoughts a day','Finish the first book chapter','Complete every Sunday review question'],2:['Choose one belief to challenge','Collect one piece of evidence a day','Read the chapter on self-talk'],3:['Draft your identity statement','Read it aloud each morning','Share it with one person'],4:['Do one identity-led action daily','Review your habits for fit','Journal on what felt different'],5:['Cut habits to the core three','Use the minimum version on hard days','Track streaks without perfection'],6:['List what is still unfinished','Finish one open project','Write your plan for 21 Dec onwards']};
+let mem={sample:false,modeNotice:0,done:{},logs:{},goals:[],reasons:[],ph:{},rd:{},rn:[],hb:[],hl:{},xs:[],xc:{},xr:{},rm:null,rmOn:false,rmTz:'Africa/Johannesburg',rmBrowser:false,rmSince:'',rmF:{},nc:[],wr:{},jn:[],jbuf:null};
+var STORE={ok:true,err:'',last:'',corrupt:false};
+var REAL=null; // while the sample preview is open this holds the person's real data, untouched
+function load(){try{localStorage.setItem('t42_test','1');localStorage.removeItem('t42_test');const s=localStorage.getItem('t42');if(s){try{mem=Object.assign(mem,JSON.parse(s))}catch(e){try{localStorage.setItem('t42_corrupt',s)}catch(e2){}STORE.corrupt=true}}}catch(e){STORE.ok=false;STORE.err='Browser storage is unavailable here'}}
+function save(){if(REAL)return;try{mem.lastSaved=new Date().toISOString();localStorage.setItem('t42',JSON.stringify(mem));STORE.ok=true;STORE.err='';STORE.last=mem.lastSaved;const day=realToday();if(localStorage.getItem('t42_snapday')!==day&&hasData()){localStorage.setItem('t42_snapday',day);snap('Automatic daily copy')}}catch(e){STORE.ok=false;STORE.err=e&&e.name==='QuotaExceededError'?'Browser storage is full':'Browser storage is unavailable here'}}
+load();
+const $=id=>document.getElementById(id);
+const pd=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
+const fmt=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const PROG_TZ='Africa/Johannesburg';
+const saFmt=(()=>{try{return new Intl.DateTimeFormat('en-GB',{timeZone:PROG_TZ,year:'numeric',month:'2-digit',day:'2-digit'})}catch(e){return null}})();
+function realToday(){try{const p=Object.fromEntries(saFmt.formatToParts(new Date()).map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day}catch(e){return fmt(new Date())}}
+function ctx(){
+ const todayStr=mem.sample?SAMPLE_DAY:realToday();
+ const t=pd(todayStr),diff=Math.round((t-pd(START))/864e5);
+ const day=diff+1,before=day<1,after=day>TOTAL;
+ const completed=before?0:Math.min(diff,TOTAL);
+ const remaining=TOTAL-completed;
+ const cd=Math.min(Math.max(day,1),TOTAL);
+ const phase=cd<=14?1:cd<=28?2:3,week=Math.ceil(cd/7);
+ const prog=[1,2,3].map(phPct);
+ return{todayStr,t,day,before,after,completed,remaining,cd,phase,week,prog,overall:Math.round(prog.reduce((a,b)=>a+b,0)/3)};
+}
+function nav(){
+ const cur=location.hash.slice(1)||'dashboard';
+ $('nav').innerHTML=PAGES.map(p=>`<a href="#${p[0]}" ${p[0]===cur?'aria-current="page"':''}><i>${p[2]}</i>${p[1]}${p[0]==='reviews'&&revDue()?'<span class="badge">1</span>':''}${p[0]==='notifications'&&unread()?`<span class="badge">${unread()}</span>`:''}</a>`).join('');
+}
+function sampleBanner(){return ''} // the preview bar is added to every page by render()
+function dash(){
+ const c=ctx(),d=c.t.toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+ const status=c.before?`Starts in ${-c.day+1} day${-c.day+1===1?'':'s'}, on Monday 9 November`:c.after?'Programme complete':`Day ${c.day} of ${TOTAL}`;
+ const rib=Array.from({length:TOTAL},(_,i)=>{const n=i+1,p=n<=14?1:n<=28?2:3;return `<b class="p${p} ${n<=c.completed?'done':''} ${n===c.day?'now':''}" title="Day ${n}"></b>`}).join('');
+ return `${sampleBanner()}
+ <div class="head"><div><h1>Welcome back, Champion</h1><p class="sub">${d}</p></div><button class="btn hbtn" data-rec>Record today’s progress</button></div>
+ ${modeNotice()}${sundayCard()}${alertStrip()}${backupNudge()}<section class="hero" aria-label="Programme progress">
+  <div class="herotop"><div><div style="color:#9FB0CE;margin-bottom:6px">${c.before?'Starts with ':c.after?'Completed: ':''}${PH[c.phase-1][2]}: ${PH[c.phase-1][1]}</div><div class="big">${c.before?'Day 0':c.after?'Done':`Day ${c.day}`} <small>${c.before?'':'of 42'}</small></div></div><div style="color:#C9D3E6;max-width:30ch">${status}</div></div>
+  <div class="ribbon" role="img" aria-label="${c.completed} of 42 days completed">${rib}</div>
+  <div class="legend"><span style="--c:#7FA8E8">Phase 1</span><span style="--c:#5ED6A3">Phase 2</span><span style="--c:#3FBF8A">Phase 3</span><span style="--c:#fff">Today</span></div>
+ </section>
+ <div class="stats">
+  <div class="card stat"><div class="n">${c.completed}</div><div class="sub">Days completed</div></div>
+  <div class="card stat"><div class="n">${c.remaining}</div><div class="sub">Days remaining</div></div>
+  <div class="card stat"><div class="n">${c.overall}%</div><div class="sub">Overall transformation</div></div>
+ </div>
+ <div class="grid">
+  <div class="col">
+   ${tasksCard(c)}
+   <section class="card"><h2>Transformation progress</h2>
+    ${AREAS.map((a,i)=>`<div class="area"><div class="r"><span>${a[0]}<small>${a[2]}</small></div><strong>${c.prog[i]}%</strong></div><div class="bar" role="progressbar" aria-valuenow="${c.prog[i]}" aria-valuemin="0" aria-valuemax="100" aria-label="${a[0]}"><i style="width:${c.prog[i]}%"></i></div></div>`).join('')}
+   </section>
+  </div>
+  <div class="col">
+   <section class="card"><h2>${c.before?'Week 1 objective (from 9 November)':c.after?'Week 6 objective (programme finished)':'Week '+c.week+' objective'}</h2><p style="margin:0 0 8px;font-weight:500">${WEEKOBJ[c.week]}</p>
+    <ul class="plain obj">${WEEKSTEPS[c.week].map(s=>`<li>${s}</li>`).join('')}</ul></section>
+   ${journalCard()}<section class="card"><h2>Upcoming reminders</h2><ul class="plain">${upcomingHtml()}</ul>
+    <p class="sub" style="font-size:13px;margin:10px 0 0"><a href="#notifications">Manage reminders</a></p></section>
+  </div>
+ </div>`;
+}
+function stub(p){
+ return `${mem.sample?'':''}<div class="head"><div><h1>${p[1]}</h1><p class="sub">Not built yet</p></div></div>
+ <div class="card empty"><h2>${p[1]} is coming in build stage ${p[4]}</h2><p>${p[3]}</p><div class="actions"><a class="btn" href="#dashboard">Back to dashboard</a><a class="btn alt" href="#settings">Open settings</a></div></div>`;
+}
+function settings(){
+ return `<div class="head"><div><h1>Settings</h1><p class="sub">Programme options and data controls</p></div></div>
+ <div class="set"><section class="card"><h2>Data mode</h2>
+  ${REAL?'<p class="sub" style="margin:0 0 12px">Sample preview is on. You are seeing demonstration data, as if today were Day 12 (20 Nov 2026). Your own data is hidden and untouched, and nothing you do here is saved.</p><button class="btn" id="mode">Return to my data</button>':`<p style="margin:0 0 8px">You are using real dates (South Africa time). Today is ${fd(realToday())}: ${dayLabel(realToday())}.</p><p class="sub" style="margin:0 0 12px">The sample preview shows demonstration data on a separate screen. It never reads, changes or mixes with your own records.</p><button class="btn alt" id="mode">Preview sample data</button>`}</section>
+ <section class="card"><h2>Clear daily notes</h2><p class="sub" style="margin:0 0 12px">Removes the daily mood notes and earlier dashboard ticks saved in this browser. Habit check-ins, exercises, reading and journal entries are not affected.</p><button class="btn alt" id="clr">Clear daily notes</button></section>
+ <section class="card"><h2>Your data</h2><p class="sub" style="margin:0 0 12px">Saved in this browser only. Back it up, restore it or move it to another device.</p><a class="btn alt" href="#backup">Backup and restore</a></section>
+ <section class="card"><h2>Programme dates</h2><p style="margin:0">9 November 2026 to 20 December 2026 (42 days)</p></section></div>`;
+}
+function render(keep){
+ const id=location.hash.slice(1)||'dashboard',p=PAGES.find(x=>x[0]===id)||PAGES[0];
+ nav();closeMenu();
+ $('view').innerHTML=p[0]==='dashboard'?dash():p[0]==='settings'?settings():p[0]==='goals'?goalsPage():p[0]==='phases'?phasesPage():p[0]==='reading'?readingPage():p[0]==='habits'?habitsPage():p[0]==='exercises'?exercisesPage():p[0]==='notifications'?notificationsPage():p[0]==='reviews'?reviewsPage():p[0]==='analytics'?analyticsPage():p[0]==='backup'?backupPage():p[0]==='journal'?journalPage():stub(p);
+ if(REAL)$('view').insertAdjacentHTML('afterbegin',prevBarHtml());
+ document.title=(unread()?'('+unread()+') ':'')+p[1]+' | TRANSFORM 42';
+ $('fab').style.display=p[0]==='dashboard'?'':'none';
+ if(!keep)window.scrollTo(0,0);
+}
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200)}
+function openRec(){
+ const c=ctx(),k=c.todayStr,tasks=dayTasks(c),lg=mem.logs[k]||{};
+ $('dlg').innerHTML=`<h2 id="dt" style="font:600 22px var(--serif)">Record today’s progress</h2><p class="sub" style="margin-bottom:10px">${c.before?'Your 42 days start on 9 November, so there are no tasks yet. You can still note how today felt.':c.after?'The programme has finished. You can still note how today felt.':'Tick what you’ve done and add how the day felt.'}</p>
+ ${tasks.map((t,i)=>`<div class="task"><input type="checkbox" id="r${i}" data-r="${esc(t.id)}" ${t.done?'checked':''} ${t.kind==='journal'?'disabled':''}><label for="r${i}">${esc(t.label)}</label></div>`).join('')}
+ <p style="margin:14px 0 0;font-weight:500">Mood today</p><div class="moods">${[1,2,3,4,5].map(n=>`<label><input type="radio" name="mood" value="${n}" ${lg.mood==n?'checked':''}><span>${n}</span></label>`).join('')}</div>
+ <label for="note" style="font-weight:500">One line about today</label><textarea id="note">${esc(lg.note)}</textarea>
+ <div class="actions" style="justify-content:flex-end;margin-top:16px"><button class="btn alt" id="cx">Cancel</button><button class="btn" id="sv">Save progress</button></div>`;
+ $('ov').classList.add('on');$('dlg').querySelector('input').focus();
+ $('cx').onclick=closeRec;
+ $('sv').onclick=()=>{document.querySelectorAll('[data-r]').forEach(i=>{if(!i.disabled)setTask(i.dataset.r,i.checked,c)});
+  const m=document.querySelector('input[name=mood]:checked');mem.logs[k]={mood:m?+m.value:null,note:$('note').value};
+  save();closeRec();render();toast('Progress saved')};
+}
+function closeRec(){$('ov').classList.remove('on');$('dlg').className='dlg'}
+function closeMenu(){$('side').classList.remove('open');$('scrim').classList.remove('on');$('menu').setAttribute('aria-expanded','false')}
+document.addEventListener('click',e=>{
+ if(e.target.closest('[data-rec]')||e.target.id==='fab')openRec();
+ if(e.target.id==='ov')closeRec();
+ if(e.target.id==='mode')togglePreview();
+ if(e.target.id==='clr')askDel('Clear daily notes?','Daily mood notes and earlier dashboard ticks will be removed. Habit check-ins, exercises, reading and journal entries stay. A restore point is saved first.',()=>{snap('Before clearing ticks');mem.done={};mem.logs={}})
+});
+document.addEventListener('change',e=>{const t=e.target.dataset&&e.target.dataset.t;if(t){setTask(t,e.target.checked,ctx());save();render(1)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeRec();closeMenu()}});
+$('menu').onclick=()=>{const o=$('side').classList.toggle('open');$('scrim').classList.toggle('on',o);$('menu').setAttribute('aria-expanded',o)};
+$('scrim').onclick=closeMenu;
+/* ---------- My Goals ---------- */
+const END='2026-12-20';
+const CATS=[['identity','Personal identity'],['mental','Mental and emotional development'],['behaviour','Behaviour and discipline'],['learning','Reading and learning'],['focus','Productivity and concentration'],['life','Long-term life']];
+const catName=k=>(CATS.find(c=>c[0]===k)||[0,k])[1];
+const PRI={high:'High',med:'Medium',low:'Low'};
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fd=s=>pd(s).toLocaleDateString('en-ZA',{day:'numeric',month:'short',year:'numeric'});
+const gid=()=>'g'+Date.now().toString(36)+Math.floor(Math.random()*99);
+const G={view:'active',scope:'all',cat:'all',open:new Set()};
+const SG=o=>Object.assign({sample:true,desc:'',why:'',from:'',start:'2026-11-09',miles:[],acts:[],p0:0,wk:{},done:false},o);
+const SAMPLE_GOALS=[
+SG({id:'s1',title:'Become someone who finishes what I start',scope:'sprint',cat:'identity',pri:'high',due:'2026-12-20',outcome:'Finish every project I begin during the programme',ind:'Zero abandoned tasks in any 14-day stretch',from:'Six unfinished projects',why:'I’m tired of quitting at the halfway point.',prog:40,wk:{1:15,2:40},miles:[{t:'Finish one small task a day',done:true},{t:'Finish one medium task',done:false},{t:'Close every open loop',done:false}],acts:['Pick one task each morning','Work 25 minutes before checking messages']}),
+SG({id:'s2',title:'Finish one started task every day',scope:'sprint',cat:'behaviour',pri:'high',due:'2026-12-06',outcome:'A daily finishing habit',ind:'Finished-task count of 5 or more per week',prog:20,wk:{1:10,2:20},miles:[{t:'3 finished tasks',done:true},{t:'5 finished tasks',done:false}],acts:['Choose the smallest unfinished item','Finish it before lunch']}),
+SG({id:'s3',title:'Read the first sample book',scope:'sprint',cat:'learning',pri:'med',due:'2026-11-15',outcome:'Complete the book and note 10 takeaways',ind:'Pages read out of 240',prog:70,wk:{1:70},miles:[{t:'Read 120 pages',done:true}],acts:['Read 15 pages a day']}),
+SG({id:'s4',title:'Use a morning intention for 7 days',scope:'sprint',cat:'mental',pri:'low',due:'2026-11-15',outcome:'A steady morning routine',ind:'7 of 7 mornings',prog:100,done:true,completedOn:'2026-11-14',wk:{1:100}}),
+SG({id:'s5',title:'Launch my own business',scope:'life',cat:'life',pri:'high',due:'2028-06-30',outcome:'A paying customer base and a registered company',ind:'Monthly revenue of R20,000',from:'An idea and no plan',why:'I want independence and work that matters.',prog:10,wk:{1:8,2:10},miles:[{t:'Write a one-page plan',done:false}],acts:['One hour on the plan, 5 days a week']})];
+const SAMPLE_REASONS=['I want to be someone who keeps promises to myself.','I want my work to reflect what I’m capable of.','I don’t want another year of starting and stopping.'];
+const allGoals=()=>(mem.sample?SAMPLE_GOALS:[]).concat(mem.goals);
+function gx(g,c){const left=Math.round((pd(g.due)-c.t)/864e5);if(g.done)return{st:'done',left};if(left<0)return{st:'overdue',left};const s=pd(g.start),span=Math.max(1,(pd(g.due)-s)/864e5),exp=Math.round(Math.min(1,Math.max(0,(c.t-s)/864e5/span))*100);return{st:g.prog<exp-15?'risk':'ok',left,exp}}
+function gcard(g,c){
+ const x=gx(g,c),ro=g.sample,open=G.open.has(g.id);
+ const chip=x.st==='overdue'?`<span class="chip bad">Overdue by ${-x.left} day${-x.left===1?'':'s'}</span>`:x.st==='risk'?'<span class="chip warn">At risk</span>':x.st==='done'?'<span class="chip">Completed</span>':'';
+ const due=x.st==='done'?`Completed${g.completedOn?'<br><small>'+fd(g.completedOn)+'</small>':''}`:x.left<0?`Was due<br><small>${fd(g.due)}</small>`:`Due ${fd(g.due)}<br><small>${x.left===0?'today':x.left+' days left'}</small>`;
+ const li=a=>a.length?`<ul>${a.join('')}</ul>`:'<p class="sub">None added</p>';
+ const det=`<div class="gdet">${g.desc?`<h4>Description</h4><p>${esc(g.desc)}</p>`:''}<h4>Why it matters</h4><p>${esc(g.why)||'<span class="sub">Not written yet</span>'}</p><h4>Starting position</h4><p>${esc(g.from)||'-'}</p><h4>Desired outcome</h4><p>${esc(g.outcome)||'-'}</p><h4>Success indicator</h4><p>${esc(g.ind)||'-'}</p><h4>Weekly milestones</h4>${li(g.miles.map((m,i)=>`<li style="list-style:none;margin-left:-20px"><label><input type="checkbox" data-gm="${g.id}:${i}" ${m.done?'checked':''} ${ro?'disabled':''}> <b>Week ${i+1}:</b> ${esc(m.t)}</label></li>`))}<h4>Daily actions</h4>${li(g.acts.map(a=>`<li>${esc(a)}</li>`))}</div>`;
+ const acts=ro?'<p class="sub" style="margin:10px 0 0;font-size:13px">Sample goal, read-only. Create your own with New goal.</p>':`<div class="actions" style="justify-content:flex-start;margin-top:12px"><button class="btn alt sm" data-gedit="${g.id}">Edit</button><button class="btn alt sm" data-gdone="${g.id}">${g.done?'Reopen':'Mark complete'}</button><button class="btn alt sm" data-gdel="${g.id}">Delete</button></div>`;
+ return `<article class="card goal"><div class="gh"><div><h3>${esc(g.title)}</h3><div class="chips"><span class="chip n">${esc(catName(g.cat))}</span><span class="chip n">${PRI[g.pri]} priority</span>${ro?'<span class="chip warn">Sample</span>':''}${chip}</div></div><div class="gdue">${due}</div></div>
+ <div class="bar"><i style="width:${g.prog}%"></i></div>
+ <div class="prow"><input type="range" min="0" max="100" step="5" value="${g.prog}" data-gp="${g.id}" aria-label="Progress for ${esc(g.title)}" ${ro||g.done?'disabled':''} oninput="this.nextElementSibling.textContent=this.value+'%'"><strong>${g.prog}%</strong></div>
+ ${x.st==='risk'?`<p class="warnt">Behind pace: ${g.prog}% done, about ${x.exp}% expected by now.</p>`:''}
+ <details ${open?'open':''} ontoggle="gTog('${g.id}',this.open)" style="margin-top:10px"><summary>Details</summary>${det}</details>${acts}</article>`;
+}
+function gTog(id,o){o?G.open.add(id):G.open.delete(id)}
+function goalsPage(){
+ const c=ctx(),info=allGoals().map(g=>[g,gx(g,c)]);
+ const n=k=>info.filter(([g,x])=>k==='active'?x.st!=='done':k==='done'?x.st==='done':x.st===k).length;
+ const T=[['active','Active',1],['risk','At risk',1],['overdue','Overdue',1],['done','Completed',1],['week','Weekly progress'],['why','My reasons why']];
+ let body;
+ if(G.view==='week')body=weekView(c,info);else if(G.view==='why')body=whyView();
+ else{
+  const list=info.filter(([g,x])=>(G.view==='active'?x.st!=='done':x.st===G.view)&&(G.scope==='all'||g.scope===G.scope)&&(G.cat==='all'||g.cat===G.cat));
+  const pw={high:0,med:1,low:2};
+  const sec=(sc,t,s)=>{const l=list.filter(([g])=>g.scope===sc).sort((a,b)=>pw[a[0].pri]-pw[b[0].pri]||a[0].due.localeCompare(b[0].due));return l.length?`<h2>${t} <span class="chip n">${l.length}</span></h2><p class="sub" style="margin:-6px 0 12px;font-size:13.5px">${s}</p><div class="col" style="margin-bottom:24px">${l.map(([g])=>gcard(g,c)).join('')}</div>`:''};
+  const msg={active:'No goals here yet.',risk:'No goals are at risk. Keep the pace.',overdue:'Nothing is overdue.',done:'No completed goals yet.'}[G.view];
+  const html=sec('sprint','42-day transformation goals','Smaller outcomes to finish by 20 December 2026.')+sec('life','Overall life goals','The bigger direction your 42 days should serve.');
+  body=`<div class="filters">${[['all','All goals'],['sprint','42-day goals'],['life','Life goals']].map(s=>`<button data-gs="${s[0]}" aria-pressed="${G.scope===s[0]}">${s[1]}</button>`).join('')}<select data-gcat aria-label="Filter by category"><option value="all">All categories</option>${CATS.map(k=>`<option value="${k[0]}" ${G.cat===k[0]?'selected':''}>${k[1]}</option>`).join('')}</select></div>`+(html||`<div class="card empty"><h2>${msg}</h2><p>${G.view==='active'?'Create your first goal. It takes about a minute.':'Goals will appear here when they match.'}</p><button class="btn" data-gnew>New goal</button></div>`);
+ }
+ return `${sampleBanner()}<div class="head"><div><h1>My Goals</h1><p class="sub">42-day goals for the programme, life goals for the long run.</p></div><button class="btn" data-gnew>New goal</button></div>
+ <div class="tabs" role="group" aria-label="Goal views">${T.map(t=>`<button data-gv="${t[0]}" aria-pressed="${G.view===t[0]}">${t[1]}${t[2]?' ('+n(t[0])+')':''}</button>`).join('')}</div>${body}`;
+}
+function weekView(c,info){
+ const s=pd(START);s.setDate(s.getDate()+(c.week-1)*7);const e=new Date(s);e.setDate(e.getDate()+6);
+ const f=d=>d.toLocaleDateString('en-ZA',{day:'numeric',month:'short'});
+ const rows=info.filter(([g,x])=>x.st!=='done').map(([g,x])=>{const ks=Object.keys(g.wk||{}).map(Number).filter(k=>k<c.week).sort((a,b)=>b-a);const prev=ks.length?g.wk[ks[0]]:(g.p0||0);return{g,prev,ch:g.prog-prev,m:g.miles[c.week-1]}});
+ if(!rows.length)return `<div class="card empty"><h2>No active goals to review</h2><p>Create a goal and your weekly progress will appear here.</p><button class="btn" data-gnew>New goal</button></div>`;
+ const moved=rows.filter(r=>r.ch>0).length,st=rows.filter(r=>r.ch<=0);
+ return `<section class="card" style="margin-bottom:18px"><h2>Week ${c.week} (${f(s)} to ${f(e)})</h2><p style="margin:0"><strong>${moved} of ${rows.length}</strong> active goals moved forward this week.</p>${st.length?`<p class="warnt">Stalled: ${st.map(r=>esc(r.g.title)).join('; ')}. Choose the smallest next action for each.</p>`:''}</section>
+ <section class="card tbl"><table><thead><tr><th>Goal</th><th>Last week</th><th>Now</th><th>Change</th><th>This week’s milestone</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r.g.title)}<br><small class="sub">${r.g.scope==='sprint'?'42-day goal':'Life goal'}${r.g.sample?' (sample)':''}</small></td><td>${r.prev}%</td><td>${r.g.prog}%</td><td><strong>${r.ch>0?'+':''}${r.ch}%</strong></td><td>${r.m?(r.m.done?'✓ ':'○ ')+esc(r.m.t):'None set'}</td></tr>`).join('')}</tbody></table></section>
+ <p class="sub" style="font-size:13.5px">Progress is saved per week each time you move a goal’s slider. This feeds the Sunday review once it’s built.</p>`;
+}
+function whyView(){
+ const l=(mem.sample?SAMPLE_REASONS.map(t=>({t,sample:1})):[]).concat(mem.reasons);
+ return `<section class="card f" style="margin-bottom:18px"><h2>My reasons why</h2><p class="sub" style="margin:0 0 12px">Write why you want to change. Read these on the days you don’t feel like it.</p><label for="rtext">A reason</label><textarea id="rtext" placeholder="I want to change because…"></textarea><div style="margin-top:12px"><button class="btn" id="radd">Save reason</button></div></section>
+ <div class="col">${l.length?l.map(r=>`<div class="card"><p class="quote" style="font:600 18px/1.4 var(--serif)">${esc(r.t)}</p><div class="actions" style="justify-content:space-between;margin-top:12px"><span class="sub" style="font-size:13px">${r.sample?'Sample reason':'Added '+fd(r.d)}</span>${r.sample?'':`<button class="btn alt sm" data-rdel="${r.id}">Delete</button>`}</div></div>`).join(''):'<div class="card empty"><h2>No reasons yet</h2><p>Add your first reason above. Start with the one that hurts most to ignore.</p></div>'}</div>`;
+}
+function smart(){
+ if(!$('smart'))return;
+ const v=i=>($(i)||{value:''}).value.trim(),sc=(document.querySelector('[name=gf_s]:checked')||{}).value;
+ $('gf_d').max=sc==='sprint'?END:'';
+ const na=v('gf_a').split('\n').filter(x=>x.trim()).length;
+ const it=[['Specific','title and desired outcome stated',v('gf_t')&&v('gf_o')],['Measurable','success indicator added',v('gf_i')],['Achievable','1 to 5 small daily actions',na>=1&&na<=5],['Relevant','reason why written',v('gf_w')],['Time-bound','target date set',v('gf_d')]];
+ $('smart').innerHTML=`<b>SMART check: ${it.filter(i=>i[2]).length} of 5</b>`+it.map(i=>`<span class="${i[2]?'ok':''}">${i[2]?'✓':'○'} ${i[0]}: ${i[1]}</span>`).join('');
+}
+function openGoal(id){
+ const c=ctx(),g=id?mem.goals.find(x=>x.id===id):null,v=g||{scope:'sprint',cat:'identity',pri:'med',prog:0,miles:[],acts:[],due:END};
+ const o=(a,s)=>a.map(x=>`<option value="${x[0]}" ${x[0]===s?'selected':''}>${x[1]}</option>`).join('');
+ $('dlg').className='dlg wide';
+ $('dlg').innerHTML=`<h2 id="dt" style="font:600 22px var(--serif);margin-bottom:12px">${g?'Edit goal':'New goal'}</h2>
+ <div class="f"><label for="gf_t">Goal title</label><input id="gf_t" value="${esc(v.title)}" placeholder="e.g. Finish what I start"></div>
+ <div class="f"><label>Type of goal</label><div class="seg"><label><input type="radio" name="gf_s" value="sprint" ${v.scope==='sprint'?'checked':''}><span>42-day goal</span></label><label><input type="radio" name="gf_s" value="life" ${v.scope==='life'?'checked':''}><span>Life goal</span></label></div><small>42-day goals finish by 20 December 2026. Life goals can run longer.</small></div>
+ <div class="row2"><div class="f"><label for="gf_c">Category</label><select id="gf_c">${o(CATS,v.cat)}</select></div><div class="f"><label for="gf_pr">Priority</label><select id="gf_pr">${o(Object.entries(PRI),v.pri)}</select></div></div>
+ <div class="f"><label for="gf_d">Target completion date</label><input type="date" id="gf_d" value="${v.due}"></div>
+ <div class="f"><label for="gf_o">Desired outcome</label><input id="gf_o" value="${esc(v.outcome)}" placeholder="What will be true when you’re done?"></div>
+ <div class="f"><label for="gf_i">Measurable success indicator</label><input id="gf_i" value="${esc(v.ind)}" placeholder="A number or yes/no check, e.g. 5 finished tasks a week"></div>
+ <details ${g?'open':''}><summary>More detail (optional)</summary>
+ <div class="f"><label for="gf_de">Description</label><textarea id="gf_de">${esc(v.desc)}</textarea></div>
+ <div class="f"><label for="gf_w">Why this goal matters to me</label><textarea id="gf_w">${esc(v.why)}</textarea></div>
+ <div class="f"><label for="gf_f">Starting position</label><input id="gf_f" value="${esc(v.from)}" placeholder="Where are you today?"></div>
+ <div class="f"><label for="gf_m">Weekly milestones</label><textarea id="gf_m" placeholder="One per line. The first line is Week 1.">${esc(v.miles.map(m=>m.t).join('\n'))}</textarea></div>
+ <div class="f"><label for="gf_a">Daily actions</label><textarea id="gf_a" placeholder="One per line. Keep each small.">${esc(v.acts.join('\n'))}</textarea></div>
+ <div class="f"><label for="gf_p">Current progress (%)</label><input type="number" id="gf_p" min="0" max="100" value="${v.prog}"></div></details>
+ <div class="smart" id="smart"></div><p class="err" id="gerr" role="alert"></p>
+ <div class="actions" style="justify-content:flex-end"><button class="btn alt" id="cx">Cancel</button><button class="btn" id="gsv">Save goal</button></div>`;
+ $('ov').classList.add('on');$('gf_t').focus();smart();$('dlg').oninput=smart;$('cx').onclick=closeRec;
+ $('gsv').onclick=()=>{
+  const val=i=>$(i).value.trim(),lines=s=>s.split('\n').map(x=>x.trim()).filter(Boolean),err=m=>{$('gerr').textContent=m};
+  const sc=document.querySelector('[name=gf_s]:checked').value,due=$('gf_d').value,t=val('gf_t');
+  if(!t)return err('Give your goal a title.');
+  if(!due)return err('Choose a target date.');
+  if((!g||g.due!==due)&&due<c.todayStr)return err('Choose a target date from today onwards.');
+  if(sc==='sprint'&&due>END)return err('A 42-day goal must finish by 20 December 2026. Pick an earlier date or choose Life goal.');
+  const old=g?g.miles:[],prog=Math.min(100,Math.max(0,+$('gf_p').value||0));
+  const n={title:t,scope:sc,cat:$('gf_c').value,pri:$('gf_pr').value,due,outcome:val('gf_o'),ind:val('gf_i'),desc:val('gf_de'),why:val('gf_w'),from:val('gf_f'),acts:lines($('gf_a').value),prog,miles:lines($('gf_m').value).map((x,i)=>({t:x,done:old[i]?old[i].done:false}))};
+  if(g){const ch=g.prog!==prog;Object.assign(g,n);if(ch){g.wk=g.wk||{};g.wk[c.week]=prog}}
+  else mem.goals.push(Object.assign({id:gid(),start:c.todayStr,p0:prog,wk:{},done:false},n));
+  save();closeRec();G.view='active';render(1);toast(g?'Goal updated':'Goal created');
+ };
+}
+function confirmDel(id,type){
+ const l=type==='goal'?mem.goals:mem.reasons,x=l.find(i=>i.id===id);if(!x)return;
+ $('dlg').className='dlg';
+ $('dlg').innerHTML=`<h2 id="dt" style="font:600 22px var(--serif)">Delete this ${type}?</h2><p>“${esc(x.title||x.t)}” will be removed permanently. This can’t be undone.</p><div class="actions" style="justify-content:flex-end"><button class="btn alt" id="cx">Keep ${type}</button><button class="btn danger" id="cdel">Delete ${type}</button></div>`;
+ $('ov').classList.add('on');$('cx').focus();$('cx').onclick=closeRec;
+ $('cdel').onclick=()=>{if(type==='goal')mem.goals=mem.goals.filter(i=>i.id!==id);else mem.reasons=mem.reasons.filter(i=>i.id!==id);save();closeRec();render(1);toast(type==='goal'?'Goal deleted':'Reason deleted')};
+}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+ if(d.gv){G.view=d.gv;render(1)}
+ else if(d.gs){G.scope=d.gs;render(1)}
+ else if(d.gnew!==undefined)openGoal();
+ else if(d.gedit)openGoal(d.gedit);
+ else if(d.gdel)confirmDel(d.gdel,'goal');
+ else if(d.rdel)confirmDel(d.rdel,'reason');
+ else if(d.gdone){const g=mem.goals.find(x=>x.id===d.gdone),c=ctx();if(g){if(g.done){g.done=false;delete g.completedOn}else{g.done=true;g.prog=100;g.completedOn=c.todayStr;g.wk=g.wk||{};g.wk[c.week]=100}save();render(1);toast(g.done?'Goal marked complete':'Goal reopened')}}
+ else if(b.id==='radd'){const t=$('rtext').value.trim();if(!t){toast('Write a reason first');return}mem.reasons.push({id:gid(),t,d:ctx().todayStr});save();render(1);toast('Reason saved')}
+});
+document.addEventListener('change',e=>{
+ const d=e.target.dataset,c=ctx();
+ if(d.gp){const g=mem.goals.find(x=>x.id===d.gp);if(g){g.prog=+e.target.value;g.wk=g.wk||{};g.wk[c.week]=g.prog;save();render(1)}}
+ else if(d.gm){const[i,k]=d.gm.split(':'),g=mem.goals.find(x=>x.id===i);if(g){g.miles[+k].done=e.target.checked;save();render(1)}}
+ else if(d.gcat!==undefined){G.cat=e.target.value;render(1)}
+});
+/* ---------- Transformation Phases ---------- */
+const PS={view:'all'};
+const PHASES=[
+{id:1,n:'Mental reprogramming',c:'#7FA8E8',days:'Days 1–14',lead:'9–22 Nov',books:[['Psycho-Cybernetics','Maxwell Maltz','Core'],['Mindset','Carol Dweck','Core']],
+ objs:['Identify limiting beliefs','Challenge negative self-perceptions','Develop a realistic and constructive self-image','Improve resilience','Practise visualisation'],
+ w:[['Notice and name your limiting beliefs.','Psycho-Cybernetics|Chapters 1–4','Belief audit: write down 5 beliefs that hold you back and mark each as a fact or a story.','Which belief shows up most often, and where did it come from?'],
+['Challenge and reframe those beliefs.','Mindset|Chapters 1–2','Reframe three: rewrite each limiting belief as a “not yet” statement and act on one today.','What would I do this week if that belief were not true?'],
+['Build a realistic, constructive self-image.','Psycho-Cybernetics|Chapters 5–9','Self-image portrait: describe yourself in 10 honest, constructive lines.','How would a fair, kind friend describe me?'],
+['Practise bouncing back from setbacks.','Mindset|Chapters 3–5','Setback log: write about one setback, what it taught you and what you would try next.','What did my last setback make possible?'],
+['Make visualisation a daily practice.','Psycho-Cybernetics|Chapters 10–13','Visualisation: 10 quiet minutes a day picturing yourself finishing a task, step by step.','What did I notice when I pictured success in detail?'],
+['Consolidate: review the evidence and keep what works.','Mindset|Chapters 6–7','Evidence file: collect 10 pieces of proof that your new self-image is true.','Which belief has changed most, and what is my evidence?']]},
+{id:2,n:'Identity development',c:'#5ED6A3',days:'Days 15–28',lead:'23 Nov–6 Dec',books:[['Man’s Search for Meaning','Viktor Frankl','Core'],['Meditations','Marcus Aurelius','Core']],
+ objs:['Identify personal values','Define my desired identity','Establish personal standards','Develop responsibility','Write a personal mission statement'],
+ w:[['Discover what you truly value.','Man’s Search for Meaning|Part One','Values hunt: list 15 values, then narrow them to your top five.','Which value would I defend even when it costs me?'],
+['Connect your values to real moments.','Meditations|Books 1–3','Proud moments: recall three times you felt proud and name the value behind each.','What do my proudest moments have in common?'],
+['Define the identity you want.','Man’s Search for Meaning|Part Two','Identity draft: finish “I am someone who…” ten times.','Who am I becoming, and what would that person do today?'],
+['Set personal standards.','Meditations|Books 4–7','Standards: write five non-negotiables, each with a rule you can measure.','Which standard is hardest to keep, and why?'],
+['Take responsibility for your results.','Meditations|Books 8–10','Responsibility audit: list where you blame circumstances, then write what is in your control.','Where am I still waiting for someone else to fix things?'],
+['Write and commit to your mission.','Meditations|Books 11–12','Mission statement: draft three sentences, then refine them into one.','Does my mission still feel true when life is hard?']]},
+{id:3,n:'Behavioural transformation',c:'#3FBF8A',days:'Days 29–42',lead:'7–20 Dec',books:[['Atomic Habits','James Clear','Core'],['The Power of Habit','Charles Duhigg','Supporting'],['Deep Work','Cal Newport','Supporting']],
+ objs:['Establish positive habits','Eliminate unhelpful habits','Improve discipline','Develop concentration','Build consistency'],
+ w:[['See your current habits clearly.','Atomic Habits|Introduction and Chapters 1–3','Habit scorecard: list your daily habits and mark each as helpful, harmful or neutral.','What do my habits say about who I am?'],
+['Start one small positive habit.','Atomic Habits|Chapters 4–8','Habit stacking: attach one tiny new habit to something you already do every day.','What made the new habit easy or hard to repeat?'],
+['Understand and interrupt an unhelpful habit.','The Power of Habit|Chapters 1–2','Habit loop map: write the cue, craving, response and reward of one habit you want to drop.','What does this habit give me that I could get another way?'],
+['Shape your environment.','Atomic Habits|Chapters 9–14','Environment redesign: change three things so good habits are easy and bad ones are hard.','What in my surroundings pulls me off course?'],
+['Build your concentration.','Deep Work|Part 1 and Rule 1','Deep work blocks: 90 distraction-free minutes, five days this week.','When was my focus strongest, and why?'],
+['Lock in consistency.','Atomic Habits|Chapters 15–20','Consistency plan: write your plan for after day 42, with a minimum version of each habit.','What will I do the day after day 42 to keep going?']]}];
+const SAMPLE_PH={1:{read:[1,2],ex:[1,2],wk:[1],obj:[0]},2:{read:[1],ex:[1],wk:[1],obj:[]},3:{read:[1],ex:[1],wk:[1],obj:[]}};
+function pst(p){mem.ph=mem.ph||{};return mem.ph[p]=mem.ph[p]||{read:{},ex:{},wk:{},obj:{},refl:{},notes:''}}
+function pv(p,k,i){const v=pst(p)[k][i];return v!==undefined?v:!!(mem.sample&&SAMPLE_PH[p][k].includes(+i))}
+function phStats(p){const s=pst(p),R=[1,2,3,4,5,6],O=[0,1,2,3,4],cnt=(k,a)=>a.filter(i=>pv(p,k,i)).length;
+ const parts=[['Reading assignments',cnt('read',R),6],['Practical exercises',cnt('ex',R),6],['Weekly objectives',cnt('wk',R),6],['Phase objectives achieved',cnt('obj',O),5],['Reflections written',R.filter(i=>(s.refl[i]||'').trim()).length,6]];
+ return{parts,pct:Math.round(parts.reduce((a,x)=>a+x[1],0)/29*100)}}
+const phPct=p=>phStats(p).pct;
+const stt=p=>p>=100?'Complete':p>0?'In progress':'Not started';
+function phasesPage(){
+ const c=ctx(),T=[['all','All three phases']].concat(PHASES.map(p=>[String(p.id),'Phase '+p.id+': '+p.n]));
+ return `${sampleBanner()}<div class="head"><div><h1>Transformation Phases</h1><p class="sub">Three tracks, all open at once. Work on any of them, any day.</p></div></div>
+ <div class="tabs" role="group" aria-label="Phase views">${T.map(t=>`<button data-pv="${t[0]}" aria-pressed="${PS.view===t[0]}">${t[1]}</button>`).join('')}</div>${PS.view==='all'?phAll(c):phOne(PHASES[+PS.view-1],c)}`;
+}
+function phAll(c){
+ const cards=PHASES.map(P=>{const st=phStats(P.id);return `<section class="card" style="border-top:4px solid ${P.c}"><div class="sub" style="font-size:13px">Phase ${P.id} · lead focus ${P.lead}</div><h2 style="margin:4px 0 10px">${P.n}</h2><div class="pbig">${st.pct}%</div><div class="bar" role="progressbar" aria-valuenow="${st.pct}" aria-valuemin="0" aria-valuemax="100" aria-label="${P.n} progress"><i style="width:${st.pct}%"></i></div><div class="chips" style="margin:10px 0"><span class="chip">${stt(st.pct)}</span>${c.phase===P.id?'<span class="chip n">Lead focus now</span>':''}</div><p class="sub" style="font-size:13.5px;margin:0 0 12px">${P.books.map(b=>b[0]).join(', ')}</p><button class="btn alt sm" data-pv="${P.id}">Open phase ${P.id}</button></section>`}).join('');
+ const rows=PHASES.map(P=>{const w=P.w[c.week-1],r=w[1].split('|');return `<tr><td><b>Phase ${P.id}</b><br><small class="sub">${P.n}</small></td><td>${w[0]}</td><td><label><input type="checkbox" data-pk="read:${P.id}:${c.week}" ${pv(P.id,'read',c.week)?'checked':''}>${r[0]}, ${r[1]}</label></td><td><label><input type="checkbox" data-pk="ex:${P.id}:${c.week}" ${pv(P.id,'ex',c.week)?'checked':''}>${w[2]}</label></td></tr>`}).join('');
+ return `<section class="card" style="margin-bottom:14px"><p style="margin:0"><strong>All three phases run at the same time.</strong> Each has a lead focus window, but nothing is locked and no phase depends on another. Tick off work in any phase on any day.</p></section>
+ <div class="g3">${cards}</div>
+ <section class="card tbl"><h2>Week ${c.week} across all three phases</h2><table><thead><tr><th>Phase</th><th>Weekly objective</th><th>Reading</th><th>Exercise</th></tr></thead><tbody>${rows}</tbody></table></section>`;
+}
+function phDash(P){const st=phStats(P.id);
+ return `<div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:14px"><div class="pbig" style="margin:0">${st.pct}%</div><div><span class="chip">${stt(st.pct)}</span><p class="sub" style="margin:6px 0 0;font-size:13.5px">Complete means all 29 items below are done. This phase doesn’t depend on any other.</p></div></div>`+st.parts.map(x=>`<div class="area"><div class="r"><span>${x[0]}</span><strong>${x[1]} of ${x[2]}</strong></div><div class="bar"><i style="width:${x[1]/x[2]*100}%"></i></div></div>`).join('');
+}
+function phOne(P,c){
+ const s=pst(P.id),W=[1,2,3,4,5,6],now=w=>w===c.week;
+ const ck=(k,i,h,nw,sm)=>`<div class="task ${nw?'now':''}"><input type="checkbox" id="${k}${P.id}_${i}" data-pk="${k}:${P.id}:${i}" ${pv(P.id,k,i)?'checked':''}><label for="${k}${P.id}_${i}">${h}${sm?`<small>${sm}</small>`:''}</label>${nw?'<span class="chip">This week</span>':''}</div>`;
+ const rd=w=>{const r=P.w[w-1][1].split('|'),bk=P.books.find(x=>x[0]===r[0]);return ck('read',w,`<b>Week ${w}:</b> ${r[0]}, ${r[1]}`,now(w),`${bk[1]} · ${bk[2].toLowerCase()} book`)};
+ return `<div class="col">
+ <section class="card" style="border-top:4px solid ${P.c}"><div class="sub" style="font-size:13px">Phase ${P.id} · ${P.days} lead focus (${P.lead})${c.phase===P.id?' · lead focus now':''}</div><h2 style="font:600 24px var(--serif);margin:4px 0 12px">${P.n}</h2><div id="phdash">${phDash(P)}</div></section>
+ <section class="card"><h2>Reading assignments</h2><div class="chips" style="margin-bottom:8px">${P.books.map(b=>`<span class="chip">${b[0]}, ${b[1]} (${b[2].toLowerCase()})</span>`).join('')}</div>${W.map(rd).join('')}<p class="sub" style="font-size:13px;margin:10px 0 0">Chapter and part numbers follow common editions. Adjust them to your copy.</p></section>
+ <section class="card"><h2>Practical exercises</h2>${W.map(w=>ck('ex',w,`<b>Week ${w}:</b> ${P.w[w-1][2]}`,now(w))).join('')}</section>
+ <section class="card"><h2>Weekly objectives</h2>${W.map(w=>ck('wk',w,`<b>Week ${w}:</b> ${P.w[w-1][0]}`,now(w))).join('')}</section>
+ <section class="card"><h2>Completion indicators</h2><p class="sub" style="margin:0 0 6px">Tick each objective when you can honestly say you’ve achieved it.</p>${P.objs.map((o,i)=>ck('obj',i,o,false)).join('')}</section>
+ <section class="card f"><h2>Reflection questions</h2><p class="sub" style="margin:0 0 12px">Answers save when you click away.</p>${W.map(w=>`<div class="f"><label for="rf${P.id}_${w}">Week ${w}${now(w)?' (this week)':''}: ${P.w[w-1][3]}</label><textarea id="rf${P.id}_${w}" data-pr="${P.id}:${w}">${esc(s.refl[w])}</textarea></div>`).join('')}</section>
+ ${jPhaseCard(P)}<section class="card f"><h2>Personal notes</h2><label for="pn${P.id}" class="sub">Insights, quotes and breakthroughs. Saves when you click away.</label><textarea id="pn${P.id}" style="min-height:140px" data-pn="${P.id}">${esc(s.notes)}</textarea></section></div>`;
+}
+document.addEventListener('click',e=>{const b=e.target.closest('button[data-pv]');if(b){PS.view=b.dataset.pv;render()}});
+document.addEventListener('change',e=>{const d=e.target.dataset;
+ if(d.pk){const[k,p,i]=d.pk.split(':');pst(+p)[k][i]=e.target.checked;if(k==='ex'){mem.xc=mem.xc||{};const id='p'+p+'w'+i;if(e.target.checked)mem.xc[id]=ctx().todayStr;else delete mem.xc[id]}save();render(1)}
+ else if(d.pr){const[p,w]=d.pr.split(':');pst(+p).refl[w]=e.target.value;save();const el=$('phdash');if(el)el.innerHTML=phDash(PHASES[+p-1]);toast('Reflection saved')}
+ else if(d.pn){pst(+d.pn).notes=e.target.value;save();toast('Notes saved')}});
+/* ---------- Reading Tracker ---------- */
+const RS={view:'books',nb:'all',nt:'all',fb:'b1',ft:'lessons'};
+const BOOKS=[['b1','Psycho-Cybernetics','Maxwell Maltz','Mental reprogramming','main'],['b2','Mindset','Carol Dweck','Mental reprogramming','main'],['b3','Man’s Search for Meaning','Viktor Frankl','Identity development','main'],['b4','Meditations','Marcus Aurelius','Identity development','main'],['b5','Atomic Habits','James Clear','Behavioural transformation','main'],['b6','The Power of Habit','Charles Duhigg','Behavioural transformation','sup'],['b7','Deep Work','Cal Newport','Productivity and focus','sup'],['b8','The 7 Habits of Highly Effective People','Stephen Covey','Personal effectiveness','sup'],['b9','Wherever You Go, There You Are','Jon Kabat-Zinn','Mindfulness','sup'],['b10','The Psychology of Money','Morgan Housel','Money and mindset','sup']];
+const NT=[['lessons','Important lessons'],['quotes','Quotes or key passages'],['ideas','Ideas I want to implement'],['questions','Questions I have'],['apps','Practical applications']];
+const ntName=k=>NT.find(n=>n[0]===k)[1];
+function rb(id){mem.rd=mem.rd||{};const d=mem.rd[id]||{},B=BOOKS.find(b=>b[0]===id);return{id,title:B[1],author:B[2],cat:d.cat||B[3],role:d.role||B[4],total:+d.total||0,sp:+d.sp||1,cur:+d.cur||0,chd:+d.chd||0,cht:+d.cht||0,start:d.start||'',target:d.target||'',status:d.status||''}}
+function setb(id,p){mem.rd=mem.rd||{};mem.rd[id]=Object.assign(mem.rd[id]||{},p);save()}
+function rcalc(b,c){
+ const range=b.total?b.total-b.sp+1:0,read=Math.max(0,(b.total?Math.min(b.cur,b.total):b.cur)-(b.sp-1)),pct=range>0?Math.min(100,Math.round(read/range*100)):null;
+ let st=b.status;if(!st)st=b.total&&b.cur>=b.total?'Completed':read>0?'Reading':b.role==='sup'?'Future reading':'Not started';
+ const dl=b.target?Math.round((pd(b.target)-c.t)/864e5):null,perDay=range&&dl!==null&&dl>0&&st!=='Completed'&&read<range?Math.ceil((range-read)/dl):null;
+ return{range,read,pct,st,dl,perDay,late:dl!==null&&dl<0&&st!=='Completed'};
+}
+function bcard(b,c){
+ const x=rcalc(b,c),nn=(mem.rn||[]).filter(n=>n.b===b.id).length,nc=Math.min(b.cht,60),fc=b.cht?Math.round(b.chd/b.cht*nc):0;
+ const chip=x.st==='Completed'?'<span class="chip">Completed</span>':x.st==='Paused'?'<span class="chip warn">Paused</span>':`<span class="chip n">${x.st}</span>`;
+ return `<article class="card"><div class="gh"><div><h3 style="font:600 18px var(--sans);margin:0">${esc(b.title)}</h3><div class="sub" style="font-size:14px">${esc(b.author)}</div><div class="chips"><span class="chip n">${esc(b.cat)}</span>${chip}${x.late?'<span class="chip bad">Past target date</span>':''}</div></div><div class="gdue"><div class="pbig" style="margin:0">${x.pct===null?'–':x.pct+'%'}</div></div></div>
+ ${x.pct===null?'<p class="sub" style="margin:0 0 6px;font-size:13.5px">Add total pages from your edition to calculate progress.</p><div class="bar"></div>':`<div class="bar" role="progressbar" aria-valuenow="${x.pct}" aria-valuemin="0" aria-valuemax="100" aria-label="${esc(b.title)} reading progress"><i style="width:${x.pct}%"></i></div>`}
+ ${b.cht?`<div class="ch" role="img" aria-label="${b.chd} of ${b.cht} chapters completed">${Array.from({length:nc},(_,i)=>`<i class="${i<fc?'on':''}"></i>`).join('')}</div>`:''}
+ <div class="mini"><div><small>Pages read</small>${x.read}${x.range?' of '+x.range:''}</div><div><small>Chapters</small>${b.chd}${b.cht?' of '+b.cht:''}</div><div><small>Started</small>${b.start?fd(b.start):'Not set'}</div><div><small>Target</small>${b.target?fd(b.target):'Not set'}</div>${x.perDay?`<div><small>To finish on time</small>${x.perDay} pages/day</div>`:''}</div>
+ <div class="qrow"><label>Current page<input type="number" min="0" data-rc="${b.id}" value="${b.cur||''}" placeholder="0"></label><label>Chapters done<input type="number" min="0" data-rch="${b.id}" value="${b.chd||''}" placeholder="0"></label><button class="btn alt sm" data-eb="${b.id}">Edit details</button><button class="btn alt sm" data-bn="${b.id}">Notes (${nn})</button></div></article>`;
+}
+function readingPage(){
+ const c=ctx(),all=BOOKS.map(b=>rb(b[0])),main=all.filter(b=>b.role==='main'),sup=all.filter(b=>b.role!=='main');
+ const mx=main.map(b=>rcalc(b,c)),avg=main.length?Math.round(mx.reduce((a,x)=>a+(x.pct||0),0)/main.length):0;
+ const withT=main.filter(b=>b.total).length,allx=all.map(b=>rcalc(b,c)),nn=(mem.rn||[]).length,circ=263.9;
+ const sum=`<section class="card rsum" style="margin-bottom:22px"><svg class="ring" width="120" height="120" viewBox="0 0 100 100" role="img" aria-label="Main programme ${avg}% read"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--line)" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="var(--g)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${(avg/100*circ).toFixed(1)} ${circ}" transform="rotate(-90 50 50)"/><text x="50" y="57" text-anchor="middle">${avg}%</text></svg>
+ <div style="width:100%"><h2 style="margin-bottom:4px">Main reading programme</h2><p class="sub" style="margin:0 0 12px;font-size:13.5px">Average of ${main.length} books, by pages. ${withT} of ${main.length} have total pages entered.</p>${main.map((b,i)=>`<div class="area" style="margin-bottom:9px"><div class="r" style="font-size:14px"><span>${esc(b.title)}</span><strong>${mx[i].pct===null?'–':mx[i].pct+'%'}</strong></div><div class="bar" style="height:7px"><i style="width:${mx[i].pct||0}%"></i></div></div>`).join('')}
+ <div class="mini"><div><small>Books completed</small>${allx.filter(x=>x.st==='Completed').length} of ${all.length}</div><div><small>Currently reading</small>${allx.filter(x=>x.st==='Reading').length}</div><div><small>Pages read</small>${allx.reduce((a,x)=>a+x.read,0)}</div><div><small>Notes saved</small>${nn}</div></div></div></section>`;
+ const T=[['books','Books'],['notes','Reading notes ('+nn+')']];
+ const books=sum+`<h2>Main reading programme</h2><div class="col" style="margin-bottom:24px">${main.map(b=>bcard(b,c)).join('')||'<p class="sub">No books in this list.</p>'}</div><h2>Supporting and future reading</h2><div class="col">${sup.map(b=>bcard(b,c)).join('')||'<p class="sub">No books in this list.</p>'}</div>`;
+ return `<div class="head"><div><h1>Reading Tracker</h1><p class="sub">Ten books: five in the main programme, five supporting or future.</p></div></div>
+ <div class="info">Nothing is pre-filled. Enter total pages and chapters from your own editions. Current page means the last page you finished.</div>
+ <div class="tabs" role="group" aria-label="Reading views">${T.map(t=>`<button data-rv="${t[0]}" aria-pressed="${RS.view===t[0]}">${t[1]}</button>`).join('')}</div>${RS.view==='books'?books:notesView()}`;
+}
+function notesView(){
+ const bo=(s)=>BOOKS.map(b=>`<option value="${b[0]}" ${b[0]===s?'selected':''}>${esc(b[1])}</option>`).join('');
+ const list=(mem.rn||[]).filter(n=>(RS.nb==='all'||n.b===RS.nb)&&(RS.nt==='all'||n.t===RS.nt)).slice().reverse();
+ return `<section class="card f" style="margin-bottom:18px"><h2>Add a note</h2><div class="row2"><div class="f"><label for="rn_b">Book</label><select id="rn_b">${bo(RS.fb)}</select></div><div class="f"><label for="rn_t">Type of note</label><select id="rn_t">${NT.map(n=>`<option value="${n[0]}" ${n[0]===RS.ft?'selected':''}>${n[1]}</option>`).join('')}</select></div></div><div class="f"><label for="rn_r">Page or chapter (optional)</label><input id="rn_r" placeholder="e.g. p. 42"></div><div class="f"><label for="rn_x">Your note</label><textarea id="rn_x" style="min-height:100px"></textarea></div><button class="btn" id="rnadd">Save note</button></section>
+ <div class="filters">${[['all','All types']].concat(NT).map(n=>`<button data-nt="${n[0]}" aria-pressed="${RS.nt===n[0]}">${n[1]}</button>`).join('')}<select data-nbf aria-label="Filter by book"><option value="all">All books</option>${bo(RS.nb)}</select></div>
+ <section class="card">${list.length?list.map(n=>`<div class="note"><div class="chips"><span class="chip">${ntName(n.t)}</span><span class="chip n">${esc(BOOKS.find(b=>b[0]===n.b)[1])}</span>${n.r?`<span class="chip n">${esc(n.r)}</span>`:''}<span class="sub" style="font-size:12.5px">${fd(n.d)}</span></div><p>${esc(n.x)}</p><button class="btn alt sm" style="margin-top:8px" data-nd="${n.id}">Delete</button></div>`).join(''):'<div class="empty"><h2>No notes yet</h2><p>Use the form above to save a lesson, quote, idea, question or practical application.</p></div>'}</section>`;
+}
+function openBook(id){
+ const b=rb(id),v=x=>x?x:'',o=(a,s)=>a.map(x=>`<option value="${x[0]}" ${x[0]===s?'selected':''}>${x[1]}</option>`).join('');
+ $('dlg').className='dlg wide';
+ $('dlg').innerHTML=`<h2 id="dt" style="font:600 22px var(--serif);margin-bottom:2px">${esc(b.title)}</h2><p class="sub" style="margin:0 0 14px">${esc(b.author)}. Enter details from your own edition.</p>
+ <div class="row2"><div class="f"><label for="bf_c">Category</label><input id="bf_c" value="${esc(b.cat)}"></div><div class="f"><label for="bf_r">Reading list</label><select id="bf_r">${o([['main','Main programme'],['sup','Supporting or future']],b.role)}</select></div></div>
+ <div class="row2"><div class="f"><label for="bf_t">Total pages</label><input type="number" min="1" id="bf_t" value="${v(b.total)}" placeholder="From your edition"></div><div class="f"><label for="bf_sp">Starting page</label><input type="number" min="1" id="bf_sp" value="${b.sp}"><small>Page 1, or the first page you’ll read</small></div></div>
+ <div class="row2"><div class="f"><label for="bf_cur">Current page</label><input type="number" min="0" id="bf_cur" value="${v(b.cur)}"><small>The last page you finished</small></div><div class="f"><label for="bf_st">Reading status</label><select id="bf_st">${o([['','Automatic (from pages)'],['Not started','Not started'],['Reading','Reading'],['Paused','Paused'],['Completed','Completed'],['Future reading','Future reading']],b.status)}</select></div></div>
+ <div class="row2"><div class="f"><label for="bf_chd">Chapters completed</label><input type="number" min="0" id="bf_chd" value="${v(b.chd)}"></div><div class="f"><label for="bf_cht">Total chapters</label><input type="number" min="0" id="bf_cht" value="${v(b.cht)}" placeholder="From your edition"></div></div>
+ <div class="row2"><div class="f"><label for="bf_s">Start date</label><input type="date" id="bf_s" value="${b.start}"></div><div class="f"><label for="bf_g">Target completion date</label><input type="date" id="bf_g" value="${b.target}"></div></div>
+ <p class="err" id="gerr" role="alert"></p><div class="actions" style="justify-content:flex-end"><button class="btn alt" id="cx">Cancel</button><button class="btn" id="bsv">Save details</button></div>`;
+ $('ov').classList.add('on');$('bf_t').focus();$('cx').onclick=closeRec;
+ $('bsv').onclick=()=>{
+  const num=i=>$(i).value.trim()===''?0:Number($(i).value),err=m=>{$('gerr').textContent=m};
+  const t=num('bf_t'),sp=num('bf_sp')||1,cur=num('bf_cur'),chd=num('bf_chd'),cht=num('bf_cht'),s=$('bf_s').value,g=$('bf_g').value;
+  if([t,sp,cur,chd,cht].some(n=>n<0||!Number.isInteger(n)))return err('Use whole numbers, zero or above.');
+  if(t&&sp>t)return err('The starting page can’t be after the last page.');
+  if(t&&cur>t)return err('Current page can’t be higher than total pages.');
+  if(cht&&chd>cht)return err('Chapters completed can’t exceed total chapters.');
+  if(s&&g&&g<s)return err('The target date must be on or after the start date.');
+  setb(id,{cat:$('bf_c').value.trim(),role:$('bf_r').value,total:t,sp,cur,chd,cht,start:s,target:g,status:$('bf_st').value});
+  closeRec();render(1);toast('Book details saved');
+ };
+}
+function confirmNote(id){
+ const n=(mem.rn||[]).find(x=>x.id===id);if(!n)return;
+ $('dlg').className='dlg';
+ $('dlg').innerHTML=`<h2 id="dt" style="font:600 22px var(--serif)">Delete this note?</h2><p>It will be removed permanently. This can’t be undone.</p><div class="actions" style="justify-content:flex-end"><button class="btn alt" id="cx">Keep note</button><button class="btn danger" id="cdel">Delete note</button></div>`;
+ $('ov').classList.add('on');$('cx').focus();$('cx').onclick=closeRec;
+ $('cdel').onclick=()=>{mem.rn=mem.rn.filter(x=>x.id!==id);save();closeRec();render(1);toast('Note deleted')};
+}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+ if(d.rv){RS.view=d.rv;render()}
+ else if(d.nt){RS.nt=d.nt;render(1)}
+ else if(d.eb)openBook(d.eb);
+ else if(d.bn){RS.view='notes';RS.nb=d.bn;RS.fb=d.bn;RS.nt='all';render()}
+ else if(d.nd)confirmNote(d.nd);
+ else if(b.id==='rnadd'){const x=$('rn_x').value.trim();if(!x){toast('Write a note first');return}RS.fb=$('rn_b').value;RS.ft=$('rn_t').value;mem.rn=mem.rn||[];mem.rn.push({id:gid(),b:RS.fb,t:RS.ft,x,r:$('rn_r').value.trim(),d:realToday()});save();render(1);toast('Note saved')}
+});
+document.addEventListener('change',e=>{const d=e.target.dataset;
+ if(d.rc!==undefined){const b=rb(d.rc);let v=Math.floor(Number(e.target.value)||0);if(v<0)v=0;if(b.total&&v>b.total){toast('Current page can’t be higher than total pages');render(1);return}setb(d.rc,{cur:v});render(1)}
+ else if(d.rch!==undefined){const b=rb(d.rch);let v=Math.floor(Number(e.target.value)||0);if(v<0)v=0;if(b.cht&&v>b.cht){toast('Chapters completed can’t exceed total chapters');render(1);return}setb(d.rch,{chd:v});render(1)}
+ else if(d.nbf!==undefined){RS.nb=e.target.value;render(1)}});
+/* ---------- Habit Tracker ---------- */
+const HC=['Mental and emotional','Identity','Behaviour and discipline','Reading and learning','Focus and productivity','Health and body'];
+const FREQ={daily:['Every day',7],weekdays:['Weekdays (Mon–Fri)',5],w5:['5 times a week',5],w3:['3 times a week',3],w1:['Once a week',1]};
+const HEX=[['Reading','Read from my current book each day.','Steady reading is how the books change me.','Reading and learning','daily',20],['Morning reflection','Set an intention for the day before opening my phone.','Starting with intention stops me drifting.','Mental and emotional','daily',5],['Visualisation','Picture the person I’m becoming and the work finished.','Rehearsing success makes it feel possible.','Mental and emotional','daily',10],['Journaling','Write in my journal.','Writing shows me my patterns.','Identity','daily',10],['Focused work','One distraction-free block on something important.','Deep focus is how projects get finished.','Focus and productivity','weekdays',90],['Exercise','Move my body.','Energy and discipline start in the body.','Health and body','w5',30],['Evening review','Review the day: wins, misses and tomorrow’s first step.','An honest review makes it easier to resume after a miss.','Behaviour and discipline','daily',5]];
+const hh=()=>mem.hb||(mem.hb=[]),hlog=id=>(mem.hl||{})[id]||{};
+const hstart=h=>h.created>START?h.created:START;
+const dowOf=d=>(pd(d).getDay()+6)%7;
+const addDays=(s,n)=>{const d=pd(s);d.setDate(d.getDate()+n);return fmt(d)};
+function weekDates(c){const m=addDays(c.todayStr,-dowOf(c.todayStr));return Array.from({length:7},(_,i)=>addDays(m,i))}
+function streakOf(u){let s=0,b=0,m=0;for(const x of u){if(x===1){s++;m=0;b=Math.max(b,s)}else if(x===0){m++;if(m>=2)s=0}}return{cur:s,best:b}}
+function hstats(h,c){
+ const L=hlog(h.id),wd=weekDates(c),hs=hstart(h),n=FREQ[h.freq][1],db=h.freq==='daily'||h.freq==='weekdays',sc=d=>h.freq!=='weekdays'||dowOf(d)<5;
+ const wk=wd.map(d=>({d,done:!!L[d],fut:d>c.todayStr,sc:sc(d),miss:db&&sc(d)&&d<c.todayStr&&d>=hs&&!L[d]}));
+ const wdone=wk.filter(x=>x.done).length,el=wk.filter(x=>x.sc&&x.d>=hs&&x.d<=c.todayStr).length;
+ const pct=db?(el?Math.min(100,Math.round(wdone/el*100)):null):Math.min(100,Math.round(wdone/n*100));
+ const u=[];
+ if(db){for(let d=hs;d<=c.todayStr;d=addDays(d,1)){if(!sc(d))continue;u.push(L[d]?1:d===c.todayStr?null:0)}}
+ else{for(let m=addDays(hs,-dowOf(hs));m<=c.todayStr;m=addDays(m,7)){let k=0;for(let i=0;i<7;i++)if(L[addDays(m,i)])k++;u.push(k>=n?1:m===wd[0]?null:0)}}
+ const st=streakOf(u);let tm=0;for(let i=u.length-1;i>=0;i--){if(u[i]===null)continue;if(u[i]===0)tm++;else break}
+ const total=Object.keys(L).length,dn=!!L[c.todayStr],unit=db?'day':'week';
+ let msg;
+ if(!total&&!dn)msg='Not started yet. Begin with the smallest version today.';
+ else if(tm>=2)msg=`Your streak paused after ${tm} misses in a row. Your ${total} completions still count. Do it today to start a new streak.`;
+ else if(tm===1&&!dn)msg=`You missed one ${unit}. That happens. Do it today and you stay on track.`;
+ else if(dn&&st.cur>0)msg=`Done today. ${st.cur}-${unit} streak, ${total} completions in total.`;
+ else msg=`${total} completion${total===1?'':'s'} so far. Keep going.`;
+ return{wk,wdone,pct,cur:st.cur,best:st.best,unit,tm,total,msg,dn};
+}
+function hcard(h,c){
+ const s=hstats(h,c),L='MTWTFSS'.split('');
+ const cells=s.wk.map((x,i)=>{const cls=x.done?'done':x.miss?'miss':x.d===c.todayStr?'today':!x.sc?'rest':'';return `<div class="cell"><small>${L[i]}</small><button class="${cls}" data-hd="${h.id}:${x.d}" ${x.fut?'disabled':''} aria-label="${esc(h.name)}, ${fd(x.d)}: ${x.done?'done':x.miss?'missed':'not done'}" aria-pressed="${x.done}">${x.done?'✓':x.miss?'–':''}</button></div>`}).join('');
+ return `<article class="card"><div class="gh"><div><h3 style="font:600 18px var(--sans);margin:0">${esc(h.name)}</h3><div class="chips"><span class="chip n">${esc(h.cat)}</span><span class="chip n">${FREQ[h.freq][0]}</span>${h.dur?`<span class="chip n">${h.dur} min</span>`:''}</div></div><button class="chk ${s.dn?'on':''}" data-hd="${h.id}:${c.todayStr}" aria-pressed="${s.dn}">${s.dn?'✓ Done today':'Mark done today'}</button></div>
+ ${h.desc?`<p style="margin:0 0 4px">${esc(h.desc)}</p>`:''}${h.why?`<p class="sub" style="margin:0;font-size:14px"><b>Why:</b> ${esc(h.why)}</p>`:''}
+ <div class="strip" role="group" aria-label="This week">${cells}</div>
+ <div class="mini"><div><small>Weekly consistency</small>${s.pct===null?'–':s.pct+'%'}</div><div><small>Streak</small>${s.cur} ${s.unit}${s.cur===1?'':'s'}</div><div><small>Best streak</small>${s.best} ${s.unit}${s.best===1?'':'s'}</div><div><small>Total completions</small>${s.total}</div></div>
+ <p class="sub" style="margin:0 0 10px;font-size:14px">${s.msg}</p>
+ <div class="actions" style="justify-content:flex-start"><button class="btn alt sm" data-hedit="${h.id}">Edit</button><button class="btn alt sm" data-hdel="${h.id}">Remove</button></div></article>`;
+}
+function habitsPage(){
+ const c=ctx(),H=hh(),S=H.map(h=>hstats(h,c));
+ const due=H.filter(h=>h.freq!=='weekdays'||dowOf(c.todayStr)<5),dn=due.filter(h=>hlog(h.id)[c.todayStr]).length,ps=S.filter(s=>s.pct!==null),avg=ps.length?Math.round(ps.reduce((a,s)=>a+s.pct,0)/ps.length):0;
+ const missed=S.reduce((a,s)=>a+s.wk.filter(x=>x.miss).length,0),done=S.reduce((a,s)=>a+s.wdone,0),slip=H.filter((h,i)=>S[i].tm>=1&&!S[i].dn).length;
+ const sum=H.length?`<section class="card" style="margin-bottom:18px"><div class="mini" style="margin-top:0"><div><small>Done today</small>${dn} of ${due.length}</div><div><small>Weekly consistency</small>${avg}%</div><div><small>Check-ins this week</small>${done}</div><div><small>Missed this week</small>${missed}</div></div><p style="margin:0">${slip?`<strong>Welcome back.</strong> ${slip} habit${slip>1?'s have':' has'} slipped recently. Missed days stay on your record and nothing resets. Pick one habit and do its smallest version now.`:'Nothing is slipping. Keep the pace.'}</p><p class="sub" style="margin:8px 0 0;font-size:13.5px">Missed days are shown, never hidden. A streak only pauses after two misses in a row, and your totals never reset.</p></section>`:'';
+ const ex=`<details class="card" style="margin-top:18px" ${H.length?'':'open'}><summary style="margin:0;font-weight:600">Starter examples</summary><p class="sub" style="margin:10px 0">Add any of these, then edit them to fit you.</p>${HEX.map((e,i)=>`<div class="task"><div style="flex:1"><b>${e[0]}</b><small>${e[1]} · ${FREQ[e[4]][0]}, ${e[5]} min</small></div>${H.some(h=>h.name===e[0])?'<span class="chip">Added</span>':`<button class="btn alt sm" data-hex="${i}">Add</button>`}</div>`).join('')}<div style="margin-top:12px"><button class="btn sm" data-hex="all">Add all seven</button></div></details>`;
+ return `<div class="head"><div><h1>Habit Tracker</h1><p class="sub">Small, repeatable actions. Resume quickly after any miss.</p></div><button class="btn" data-hnew>New habit</button></div>${sum}
+ ${H.length?`<div class="col">${H.map(h=>hcard(h,c)).join('')}</div>`:'<div class="card empty"><h2>No habits yet</h2><p>Create your own habit, or add the starter examples below.</p><button class="btn" data-hnew>New habit</button></div>'}${ex}`;
+}
+function openHabit(id){
+ const h=id?hh().find(x=>x.id===id):null,v=h||{freq:'daily',cat:HC[0],dur:''},c=ctx();
+ const o=(a,s)=>a.map(x=>`<option value="${x[0]}" ${x[0]===s?'selected':''}>${x[1]}</option>`).join('');
+ $('dlg').className='dlg wide';
+ $('dlg').innerHTML=`<h2 id="dt" style="font:600 22px var(--serif);margin-bottom:12px">${h?'Edit habit':'New habit'}</h2>
+ <div class="f"><label for="hf_n">Habit name</label><input id="hf_n" value="${esc(v.name)}" placeholder="e.g. Evening review"></div>
+ <div class="row2"><div class="f"><label for="hf_c">Category</label><select id="hf_c">${o(HC.map(x=>[x,x]),v.cat)}</select></div><div class="f"><label for="hf_f">Frequency</label><select id="hf_f">${o(Object.entries(FREQ).map(([k,x])=>[k,x[0]]),v.freq)}</select></div></div>
+ <div class="f"><label for="hf_d">Target duration (minutes per session)</label><input type="number" min="0" id="hf_d" value="${v.dur||''}" placeholder="Optional"></div>
+ <div class="f"><label for="hf_x">Description</label><textarea id="hf_x">${esc(v.desc)}</textarea></div>
+ <div class="f"><label for="hf_w">Reason for developing this habit</label><textarea id="hf_w">${esc(v.why)}</textarea></div>
+ <p class="err" id="gerr" role="alert"></p><div class="actions" style="justify-content:flex-end"><button class="btn alt" id="cx">Cancel</button><button class="btn" id="hsv">Save habit</button></div>`;
+ $('ov').classList.add('on');$('hf_n').focus();$('cx').onclick=closeRec;
+ $('hsv').onclick=()=>{
+  const nm=$('hf_n').value.trim(),du=Number($('hf_d').value||0);
+  if(!nm){$('gerr').textContent='Give your habit a name.';return}
+  if(du<0||!Number.isInteger(du)){$('gerr').textContent='Duration must be a whole number of minutes.';return}
+  const n={name:nm,cat:$('hf_c').value,freq:$('hf_f').value,dur:du,desc:$('hf_x').value.trim(),why:$('hf_w').value.trim()};
+  if(h)Object.assign(h,n);else hh().push(Object.assign({id:gid(),created:c.todayStr},n));
+  save();closeRec();render(1);toast(h?'Habit updated':'Habit added');
+ };
+}
+function askDel(title,msg,fn){
+ $('dlg').className='dlg';
+ $('dlg').innerHTML=`<h2 id="dt" style="font:600 22px var(--serif)">${title}</h2><p>${msg}</p><div class="actions" style="justify-content:flex-end"><button class="btn alt" id="cx">Keep it</button><button class="btn danger" id="cdel">Delete</button></div>`;
+ $('ov').classList.add('on');$('cx').focus();$('cx').onclick=closeRec;$('cdel').onclick=()=>{fn();save();closeRec();render(1)};
+}
+/* ---------- Practical Exercises ---------- */
+const XV={view:'lib',ph:'all',open:new Set()};
+const EXI=[[['Make hidden limiting beliefs visible so you can examine them.','A written list of 5 beliefs, each marked fact or story.'],['Turn fixed, harsh statements into growth-oriented ones.','Three “not yet” statements and one action taken.'],['Replace a vague or harsh self-image with an honest, constructive one.','A 10-line portrait you can read daily.'],['Build resilience by finding the lesson inside a setback.','One setback reframed, with a next step.'],['Rehearse success so effort feels familiar and finishing feels possible.','A daily visualisation practice you can repeat.'],['Anchor the new self-image in proof rather than hope.','A list of 10 pieces of evidence.']],
+[['Find what matters most so decisions get easier.','Your top five values, written down.'],['Discover your values through lived experience.','Three moments, each linked to a value.'],['Describe who you are becoming in your own words.','Ten identity statements to refine.'],['Turn values into rules you can actually keep.','Five measurable personal standards.'],['Move energy from blame to action.','A list of what is and isn’t in your control, with next steps.'],['Give your 42 days a direction beyond them.','One sentence you can put on a wall.']],
+[['See your current habits honestly before changing them.','A scored list of your daily habits.'],['Make a new habit easy by tying it to an existing one.','One tiny new habit with a clear cue.'],['Understand what a habit gives you so you can replace it.','A cue, craving, response and reward map.'],['Reduce reliance on willpower by changing your surroundings.','Three environment changes made.'],['Train sustained concentration.','Five 90-minute focus sessions completed.'],['Protect your progress after day 42.','A written plan with minimum versions and a recovery rule.']]];
+function exAll(){
+ const l=[];
+ PHASES.forEach(P=>P.w.forEach((w,i)=>{const t=w[2],k=t.indexOf(': ');l.push({id:'p'+P.id+'w'+(i+1),built:1,p:P.id,w:i+1,title:t.slice(0,k),ins:t.slice(k+2).replace(/^./,m=>m.toUpperCase()),pur:EXI[P.id-1][i][0],out:EXI[P.id-1][i][1],ad:addDays(START,i*7),dd:addDays(START,i*7+6)})}));
+ (mem.xs||[]).forEach(x=>l.push(Object.assign({built:0},x)));return l;
+}
+const xDone=e=>e.built?pv(e.p,'ex',e.w):!!(mem.xc||{})[e.id];
+const xSample=e=>e.built&&mem.sample&&pst(e.p).ex[e.w]===undefined&&SAMPLE_PH[e.p].ex.includes(e.w);
+function xst(e,c){return xDone(e)?'Completed':e.dd<c.todayStr?'Missed':e.ad>c.todayStr?'Upcoming':'Due now'}
+function xSet(e,on,c){mem.xc=mem.xc||{};if(e.built)pst(e.p).ex[e.w]=on;if(on)mem.xc[e.id]=c.todayStr;else delete mem.xc[e.id]}
+function xTog(id,o){o?XV.open.add(id):XV.open.delete(id)}
+function xcard(e,c){
+ const st=xst(e,c),sp=xSample(e),dn=st==='Completed';
+ const chip=dn?'<span class="chip">Completed</span>':st==='Missed'?'<span class="chip warn">Not done yet</span>':st==='Due now'?'<span class="chip">Due now</span>':'<span class="chip n">Upcoming</span>';
+ return `<article class="card"><div class="gh"><div><h3 style="font:600 18px var(--sans);margin:0">${esc(e.title)}</h3><div class="chips"><span class="chip n">Phase ${e.p}</span>${e.built?'':'<span class="chip n">My exercise</span>'}${chip}${sp?'<span class="chip warn">Sample</span>':''}</div></div><div class="gdue">Assigned ${fd(e.ad)}<br><small>Due ${fd(e.dd)}</small></div></div>
+ <p style="margin:0 0 8px">${esc(e.pur)}</p>${st==='Missed'?'<p class="warnt" style="margin:0 0 8px">The due date has passed, but you can still do this one. Start with the first step.</p>':''}
+ <details ${XV.open.has(e.id)?'open':''} ontoggle="xTog('${e.id}',this.open)"><summary>Instructions, outcome and reflection</summary><div class="gdet"><h4>Instructions</h4><p>${esc(e.ins)}</p><h4>Expected outcome</h4><p>${esc(e.out)}</p></div><div class="f" style="margin-top:12px"><label for="xr_${e.id}">Personal reflection</label><textarea id="xr_${e.id}" data-xr="${e.id}" placeholder="What did you notice? What will you do differently?">${esc((mem.xr||{})[e.id])}</textarea></div></details>
+ <div class="actions" style="justify-content:flex-start;margin-top:12px"><button class="btn ${dn?'alt':''} sm" data-xdone="${e.id}">${dn?'Mark not done':'Mark complete'}</button>${e.built?'':`<button class="btn alt sm" data-xedit="${e.id}">Edit</button><button class="btn alt sm" data-xdel="${e.id}">Delete</button>`}</div></article>`;
+}
+function exercisesPage(){
+ const c=ctx(),all=exAll(),T=[['lib','Exercise library'],['hist','Completion history']];
+ const body=XV.view==='hist'?xhist(all,c):xlib(all,c);
+ return `${sampleBanner()}<div class="head"><div><h1>Practical Exercises</h1><p class="sub">Each exercise is assigned to a week. All three phases stay open together.</p></div><button class="btn" data-xnew>New exercise</button></div>
+ <div class="tabs" role="group" aria-label="Exercise views">${T.map(t=>`<button data-xv="${t[0]}" aria-pressed="${XV.view===t[0]}">${t[1]}</button>`).join('')}</div>${body}`;
+}
+function xlib(all,c){
+ const f=[['all','All phases'],['1','Phase 1'],['2','Phase 2'],['3','Phase 3']];
+ return `<div class="filters">${f.map(x=>`<button data-xp="${x[0]}" aria-pressed="${XV.ph===x[0]}">${x[1]}</button>`).join('')}</div><p class="sub" style="font-size:13.5px;margin:-6px 0 16px">Library exercises are the same ones listed in Transformation Phases. Completing one in either place updates both.</p>`+PHASES.filter(P=>XV.ph==='all'||XV.ph===String(P.id)).map(P=>{const l=all.filter(e=>e.p===P.id).sort((a,b)=>a.ad.localeCompare(b.ad)),d=l.filter(xDone).length;return `<h2 style="margin-top:8px">Phase ${P.id}: ${P.n} <span class="chip n">${d} of ${l.length} done</span></h2><div class="col" style="margin-bottom:24px">${l.map(e=>xcard(e,c)).join('')}</div>`}).join('');
+}
+function xhist(all,c){
+ const done=all.filter(xDone).sort((a,b)=>((mem.xc||{})[b.id]||'').localeCompare((mem.xc||{})[a.id]||'')),open=all.filter(e=>!xDone(e)&&e.dd<c.todayStr);
+ const per=PHASES.map(P=>{const l=all.filter(e=>e.p===P.id);return `<div><small>Phase ${P.id}</small>${l.filter(xDone).length} of ${l.length}</div>`}).join('');
+ const row=e=>{const d=(mem.xc||{})[e.id],r=(mem.xr||{})[e.id]||'';return `<div class="note"><div class="chips"><span class="chip n">Phase ${e.p}</span>${xSample(e)?'<span class="chip warn">Sample</span>':''}<span class="sub" style="font-size:13px">${xSample(e)?'Sample completion':d?'Completed '+fd(d):'Completion date not recorded'}</span></div><p><b>${esc(e.title)}</b></p>${r?`<p class="sub">${esc(r.slice(0,160))}${r.length>160?'…':''}</p>`:''}</div>`};
+ return `<section class="card" style="margin-bottom:18px"><h2>Completed so far: ${done.length} of ${all.length}</h2><div class="mini">${per}</div><p class="sub" style="margin:0;font-size:13.5px">This shows what you have actually done. Nothing here ever resets.</p></section>
+ <section class="card" style="margin-bottom:18px"><h2>Completed</h2>${done.length?done.map(row).join(''):'<p class="sub">No exercises completed yet. Your first one is a good place to start.</p>'}</section>
+ <section class="card"><h2>Past due and still open</h2>${open.length?`<p class="sub" style="margin:0 0 6px">Past the due date, but never closed off. Pick one and do it today.</p>`+open.map(e=>`<div class="note"><div class="chips"><span class="chip n">Phase ${e.p}</span><span class="sub" style="font-size:13px">Was due ${fd(e.dd)}</span></div><p><b>${esc(e.title)}</b></p></div>`).join(''):'<p class="sub">Nothing is past due. Well done.</p>'}</section>`;
+}
+function openEx(id){
+ const x=id?(mem.xs||[]).find(i=>i.id===id):null,c=ctx(),v=x||{p:1,ad:c.todayStr,dd:addDays(c.todayStr,7)};
+ $('dlg').className='dlg wide';
+ $('dlg').innerHTML=`<h2 id="dt" style="font:600 22px var(--serif);margin-bottom:12px">${x?'Edit exercise':'New exercise'}</h2>
+ <div class="f"><label for="xf_t">Exercise title</label><input id="xf_t" value="${esc(v.title)}"></div>
+ <div class="f"><label for="xf_p">Phase</label><select id="xf_p">${PHASES.map(P=>`<option value="${P.id}" ${P.id===v.p?'selected':''}>Phase ${P.id}: ${P.n}</option>`).join('')}</select></div>
+ <div class="f"><label for="xf_u">Purpose</label><input id="xf_u" value="${esc(v.pur)}"></div>
+ <div class="f"><label for="xf_i">Instructions</label><textarea id="xf_i">${esc(v.ins)}</textarea></div>
+ <div class="f"><label for="xf_o">Expected outcome</label><input id="xf_o" value="${esc(v.out)}"></div>
+ <div class="row2"><div class="f"><label for="xf_a">Date assigned</label><input type="date" id="xf_a" value="${v.ad}"></div><div class="f"><label for="xf_d">Due date</label><input type="date" id="xf_d" value="${v.dd}"></div></div>
+ <p class="err" id="gerr" role="alert"></p><div class="actions" style="justify-content:flex-end"><button class="btn alt" id="cx">Cancel</button><button class="btn" id="xsv">Save exercise</button></div>`;
+ $('ov').classList.add('on');$('xf_t').focus();$('cx').onclick=closeRec;
+ $('xsv').onclick=()=>{
+  const t=$('xf_t').value.trim(),a=$('xf_a').value,d=$('xf_d').value;
+  if(!t){$('gerr').textContent='Give your exercise a title.';return}
+  if(!a||!d){$('gerr').textContent='Choose an assigned date and a due date.';return}
+  if(d<a){$('gerr').textContent='The due date must be on or after the assigned date.';return}
+  const n={title:t,p:+$('xf_p').value,pur:$('xf_u').value.trim(),ins:$('xf_i').value.trim(),out:$('xf_o').value.trim(),ad:a,dd:d};
+  mem.xs=mem.xs||[];if(x)Object.assign(x,n);else mem.xs.push(Object.assign({id:gid()},n));
+  save();closeRec();render(1);toast(x?'Exercise updated':'Exercise created');
+ };
+}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;const d=b.dataset,c=ctx();
+ if(d.hnew!==undefined)openHabit();
+ else if(d.hedit)openHabit(d.hedit);
+ else if(d.hdel){const h=hh().find(x=>x.id===d.hdel);if(h)askDel('Remove this habit?',`“${esc(h.name)}” and its check-in history will be deleted. This can’t be undone.`,()=>{mem.hb=hh().filter(x=>x.id!==h.id);delete mem.hl[h.id]})}
+ else if(d.hd){const[id,dt]=d.hd.split(':');mem.hl=mem.hl||{};mem.hl[id]=mem.hl[id]||{};if(mem.hl[id][dt])delete mem.hl[id][dt];else mem.hl[id][dt]=1;save();render(1)}
+ else if(d.hex){const add=i=>{const x=HEX[i];if(!hh().some(h=>h.name===x[0]))hh().push({id:gid(),created:c.todayStr,name:x[0],desc:x[1],why:x[2],cat:x[3],freq:x[4],dur:x[5]})};if(d.hex==='all')HEX.forEach((_,i)=>add(i));else add(+d.hex);save();render(1);toast('Habit added')}
+ else if(d.xnew!==undefined)openEx();
+ else if(d.xedit)openEx(d.xedit);
+ else if(d.xdel){const x=(mem.xs||[]).find(i=>i.id===d.xdel);if(x)askDel('Delete this exercise?',`“${esc(x.title)}” and its reflection will be deleted. This can’t be undone.`,()=>{mem.xs=mem.xs.filter(i=>i.id!==x.id);delete mem.xc[x.id];delete mem.xr[x.id]})}
+ else if(d.xdone){const x=exAll().find(i=>i.id===d.xdone);if(x){xSet(x,!xDone(x),c);save();render(1);toast(xDone(x)?'Exercise completed':'Marked not done')}}
+ else if(d.xv){XV.view=d.xv;render()}
+ else if(d.xp){XV.ph=d.xp;render(1)}
+});
+document.addEventListener('change',e=>{const d=e.target.dataset;if(d.xr){mem.xr=mem.xr||{};mem.xr[d.xr]=e.target.value;save();toast('Reflection saved')}});
+/* ---------- Reminders and Notifications ---------- */
+const NS={view:'centre'};
+const RC=[['reading','Daily reading'],['exercise','Practical exercise'],['reflection','Morning identity reflection'],['habit','Habit completion'],['checkin','Evening progress check-in'],['review','Weekly review'],['deadline','Goal deadline'],['incomplete','Incomplete activities'],['other','Other']];
+const rcName=k=>(RC.find(x=>x[0]===k)||['','Other'])[1];
+const DOW=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const TZS=['Africa/Johannesburg','UTC','Europe/London','Europe/Paris','America/New_York','Asia/Dubai','Asia/Kolkata','Australia/Sydney'];
+const DEFRM=[
+{id:'r1',title:'Morning identity reflection',msg:'Read your identity statement and set today’s intention.',cat:'reflection',freq:'daily',time:'07:00',on:true},
+{id:'r2',title:'Reading and practical exercises',msg:'Read your pages and work on this week’s exercise.',cat:'reading',freq:'daily',time:'19:00',on:true},
+{id:'r3',title:'Evening progress check-in',msg:'Tick off your habits and write three lines about today.',cat:'checkin',freq:'daily',time:'21:00',on:true},
+{id:'r4',title:'Weekly transformation review',msg:'Sunday review: wins, misses, lessons and next week’s focus.',cat:'review',freq:'weekly',day:6,time:'18:00',on:true},
+{id:'r5',title:'Daily reading reminder',msg:'Read your pages for today.',cat:'reading',freq:'daily',time:'12:30',on:false},
+{id:'r6',title:'Practical exercise reminder',msg:'Work on this week’s exercises.',cat:'exercise',freq:'daily',time:'17:00',on:false},
+{id:'r7',title:'Habit completion reminder',msg:'Check your habits. Do the smallest version of any you haven’t done.',cat:'habit',freq:'daily',time:'15:00',on:false},
+{id:'r8',title:'Goal deadlines approaching',msg:'These goals are due soon.',cat:'deadline',ahead:3,freq:'daily',time:'09:00',on:false},
+{id:'r9',title:'Incomplete activities today',msg:'Some of today’s activities are still open.',cat:'incomplete',freq:'daily',time:'20:30',on:false}];
+const rms=()=>mem.rm||(mem.rm=DEFRM.map(x=>Object.assign({date:''},x)));
+const tzn=()=>mem.rmTz||'Africa/Johannesburg';
+const mins=t=>+t.slice(0,2)*60+ +t.slice(3,5);
+const unread=()=>(mem.nc||[]).filter(n=>!n.read).length;
+function nowTz(){
+ try{const p=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:tzn(),year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',weekday:'short',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));return{date:`${p.year}-${p.month}-${p.day}`,time:`${p.hour}:${p.minute}`,dow:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].indexOf(p.weekday)}}
+ catch(e){const d=new Date();return{date:fmt(d),time:String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'),dow:(d.getDay()+6)%7}}
+}
+function occurs(r,n){if(r.freq!=='once'&&r.date&&n.date<r.date)return false;return r.freq==='once'?r.date===n.date:r.freq==='daily'?true:r.freq==='weekdays'?n.dow<5:n.dow===+r.day}
+const permState=()=>typeof Notification==='undefined'?'unsupported':Notification.permission;
+function addNC(o){mem.nc=mem.nc||[];const it={id:gid(),title:o.title,msg:o.msg,cat:o.cat,late:!!o.late,ts:new Date().toISOString(),read:false};mem.nc.unshift(it);mem.nc=mem.nc.slice(0,100);return it}
+function showBanner(it){const b=$('alertbar');b.innerHTML=`<div><strong>${esc(it.title)}</strong><div style="font-size:14px;color:#C9D3E6">${esc(it.msg)}</div></div><div class="actions"><a class="btn sm" href="#notifications">Open</a><button class="btn alt sm" data-bd="${it.id}">Dismiss</button></div>`;b.classList.add('on')}
+function browserNotify(t,b,tag){if(!mem.rmBrowser||permState()!=='granted')return'off';try{new Notification(t,{body:b,tag:tag||'t42'});return'sent'}catch(e){return'error'}}
+function extraFor(r,c){
+ if(r.cat==='deadline'){const L=(mem.goals||[]).filter(g=>!g.done).map(g=>({g,left:Math.round((pd(g.due)-c.t)/864e5)})).filter(x=>x.left<=(+r.ahead||3));if(!L.length)return null;return L.map(x=>`${x.g.title} (${x.left<0?'overdue':x.left===0?'due today':x.left+' day'+(x.left===1?'':'s')})`).join('; ')+'.'}
+ if(r.cat==='incomplete'){const h=hh().filter(h=>(h.freq!=='weekdays'||dowOf(c.todayStr)<5)&&!hlog(h.id)[c.todayStr]).length,x=exAll().filter(e=>xst(e,c)==='Due now'&&!xDone(e)).length;if(!h&&!x)return null;return `${h} habit${h===1?'':'s'} and ${x} exercise${x===1?'':'s'} still open.`}
+ return '';
+}
+function fire(r,late,extra){const msg=[r.msg,extra].filter(Boolean).join(' '),it=addNC({title:r.title,msg,cat:r.cat,late});if(!late){showBanner(it);browserNotify(r.title,msg,r.id)}}
+function tick(){
+ if(!mem.rmOn)return;
+ const n=nowTz(),c=ctx();let ch=false;mem.rmF=mem.rmF||{};
+ rms().forEach(r=>{
+  if(!r.on||!occurs(r,n)||n.time<r.time)return;
+  const key=n.date+' '+r.time;if(mem.rmF[r.id]===key)return;
+  mem.rmF[r.id]=key;ch=true;
+  if(mem.rmSince&&key<mem.rmSince)return;
+  const ex=extraFor(r,c);if(ex===null)return;
+  fire(r,mins(n.time)-mins(r.time)>5,ex);
+ });
+ if(ch){save();refreshUI()}
+}
+function refreshUI(){nav();const u=unread(),base=document.title.replace(/^\(\d+\) /,'');document.title=(u?`(${u}) `:'')+base;const h=location.hash.slice(1)||'dashboard';if((h==='dashboard'||h==='notifications')&&!$('ov').classList.contains('on'))render(1)}
+function alertStrip(){
+ const un=(mem.nc||[]).filter(n=>!n.read).slice(0,3);
+ if(un.length)return `<section class="card" style="margin-bottom:18px;border-left:4px solid var(--g)"><h2>Reminders for you <span class="chip">${unread()} unread</span></h2>${un.map(n=>`<div class="task"><div style="flex:1"><b>${esc(n.title)}</b>${n.late?' <span class="chip warn">Missed while closed</span>':''}<small>${esc(n.msg)}</small></div><button class="btn alt sm" data-ncread="${n.id}">Dismiss</button></div>`).join('')}<a href="#notifications">Open notification centre</a></section>`;
+ if(!mem.rmOn)return '<div class="info">Reminders are off. <a href="#notifications">Turn them on</a> for your morning reflection, reading, check-ins and Sunday review.</div>';
+ return '';
+}
+function upcomingHtml(){
+ if(!mem.rmOn)return '<li><span>Reminders are off</span><a href="#notifications">Turn on</a></li>';
+ const n=nowTz(),out=[];
+ rms().filter(r=>r.on).forEach(r=>{for(let i=0;i<8;i++){const d=addDays(n.date,i);if(!occurs(r,{date:d,dow:dowOf(d)}))continue;if(i===0&&r.time<=n.time)continue;out.push({k:d+' '+r.time,d,r,i});break}});
+ out.sort((a,b)=>a.k.localeCompare(b.k));
+ return out.slice(0,4).map(o=>`<li><span>${esc(o.r.title)}</span><span class="time">${o.i===0?'Today':o.i===1?'Tomorrow':DOW[dowOf(o.d)].slice(0,3)} ${o.r.time}</span></li>`).join('')||'<li><span>No upcoming reminders</span><a href="#notifications">Add one</a></li>';
+}
+const ftext=r=>r.freq==='once'?`${r.date?fd(r.date):'No date'} at ${r.time}`:(r.freq==='daily'?'Every day':r.freq==='weekdays'?'Weekdays':'Every '+DOW[+r.day])+` at ${r.time}`+(r.date?`, from ${fd(r.date)}`:'');
+function rStart(r){let d=r.freq==='once'?(r.date||START):(r.date&&r.date>START?r.date:START);if(r.freq==='weekdays')while(dowOf(d)>4)d=addDays(d,1);if(r.freq==='weekly')while(dowOf(d)!==+r.day)d=addDays(d,1);return d}
+function rrule(r){const u=';UNTIL=20261220T215959Z',D=['MO','TU','WE','TH','FR','SA','SU'];return r.freq==='daily'?'FREQ=DAILY'+u:r.freq==='weekdays'?'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR'+u:r.freq==='weekly'?'FREQ=WEEKLY;BYDAY='+D[+r.day]+u:''}
+const cd=s=>s.replace(/-/g,'');
+const endT=t=>{const m=mins(t)+15;return String(Math.floor(m/60)%24).padStart(2,'0')+String(m%60).padStart(2,'0')+'00'};
+function gcal(r){const d=cd(rStart(r)),rr=rrule(r),e=encodeURIComponent;return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${e(r.title)}&details=${e(r.msg)}&dates=${d}T${r.time.replace(':','')}00/${d}T${endT(r.time)}&ctz=${e(tzn())}${rr?'&recur='+e('RRULE:'+rr):''}`}
+function buildIcs(){
+ const q=s=>String(s||'').replace(/[\\;,]/g,m=>'\\'+m).replace(/\n/g,'\\n'),stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+ const L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//TRANSFORM 42//EN','CALSCALE:GREGORIAN'];
+ rms().filter(r=>r.on).forEach(r=>{const d=cd(rStart(r));L.push('BEGIN:VEVENT','UID:'+r.id+'@transform42','DTSTAMP:'+stamp,`DTSTART;TZID=${tzn()}:${d}T${r.time.replace(':','')}00`,`DTEND;TZID=${tzn()}:${d}T${endT(r.time)}`,'SUMMARY:'+q(r.title),'DESCRIPTION:'+q(r.msg));const rr=rrule(r);if(rr)L.push('RRULE:'+rr);L.push('BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+q(r.title),'TRIGGER:PT0M','END:VALARM','END:VEVENT')});
+ L.push('END:VCALENDAR');return L.join('\r\n');
+}
+async function exportIcs(){
+ if(!rms().some(r=>r.on)){toast('Turn on at least one reminder first');return}
+ let dl=null;try{if(typeof claude!=='undefined')dl=await claude.use('downloads')}catch(e){}
+ if(!dl){const r=await saveFile('transform42-reminders.ics',buildIcs(),'text/calendar');toast(r==='saved'?'Calendar file saved.':'Couldn’t save a file here. Use the Google Calendar links instead.');return}
+ try{await dl.save({filename:'transform42-reminders.ics.txt',data:buildIcs()});toast('Saved. Remove the .txt ending so it ends in .ics, then open it in your calendar app.')}catch(e){toast(e&&e.code==='declined'?'Download cancelled':'Couldn’t save the file in this view')}
+}
+async function askPerm(){
+ if(typeof Notification==='undefined'){toast('This browser doesn’t support notifications');return}
+ let r;try{r=await Notification.requestPermission()}catch(e){r='error'}
+ if(r==='granted'){mem.rmBrowser=true;save();toast('Browser notifications allowed')}
+ else if(r==='denied')toast('Blocked. Change this in your browser’s site settings.');
+ else toast('No permission was given. In-app alerts still work.');
+ render(1);
+}
+function testNotif(){
+ const it=addNC({title:'Test notification',msg:'If you can read this, in-app alerts are working.',cat:'other'});showBanner(it);save();
+ const p=permState(),res=p==='unsupported'?'In-app alert shown. This browser doesn’t support notifications.':p==='denied'?'In-app alert shown. Browser notifications are blocked for this site.':p!=='granted'?'In-app alert shown. Browser notifications haven’t been allowed yet.':!mem.rmBrowser?'In-app alert shown. Browser pop-ups are switched off in the settings below.':browserNotify('Test notification','If you can read this, browser notifications work.','test')==='sent'?'In-app alert shown and a browser notification was sent.':'In-app alert shown. The browser refused the pop-up. Some browsers need a service worker for this, which this page can’t register.';
+ refreshUI();const el=$('testmsg');if(el)el.textContent=res;toast('Test sent');
+}
+function notificationsPage(){
+ const on=!!mem.rmOn,u=unread(),T=[['centre','Notification centre'+(u?' ('+u+')':'')],['rem','Reminders'],['how','How alerts work']];
+ return `<div class="head"><div><h1>Notifications</h1><p class="sub">Times use ${esc(tzn())}. Reminders are ${on?'on':'off'}.</p></div><button class="btn ${on?'alt':''}" data-rmt>${on?'Turn reminders off':'Turn reminders on'}</button></div>
+ <div class="tabs" role="group" aria-label="Notification views">${T.map(t=>`<button data-nvw="${t[0]}" aria-pressed="${NS.view===t[0]}">${t[1]}</button>`).join('')}</div>${NS.view==='centre'?ncView():NS.view==='rem'?remView():howView()}`;
+}
+function ncWhen(ts){try{return new Date(ts).toLocaleString('en-ZA',{timeZone:tzn(),day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',hour12:false})}catch(e){return ts}}
+function ncView(){
+ const l=mem.nc||[];
+ return `${mem.rmOn?'':'<div class="info">Reminders are off. Turn them on to start receiving alerts. They fire while this app is open.</div>'}<div class="actions" style="justify-content:flex-start;margin-bottom:10px"><button class="btn alt sm" data-ncall>Mark all as read</button><button class="btn alt sm" data-ncclr>Clear all</button><button class="btn alt sm" data-test>Send test notification</button></div><p class="sub" id="testmsg" role="status" style="margin:0 0 14px;font-size:13.5px"></p>
+ <section class="card">${l.length?l.map(n=>`<div class="note" style="${n.read?'':'border-left:3px solid var(--g);padding-left:12px'}"><div class="chips"><span class="chip n">${rcName(n.cat)}</span>${n.late?'<span class="chip warn">Missed while closed</span>':''}<span class="sub" style="font-size:12.5px">${ncWhen(n.ts)}</span></div><p><b>${esc(n.title)}</b>${n.read?'':' <span class="chip">New</span>'}</p><p class="sub">${esc(n.msg)}</p><div class="actions" style="justify-content:flex-start;margin-top:8px">${n.read?'':`<button class="btn alt sm" data-ncread="${n.id}">Mark as read</button>`}<button class="btn alt sm" data-ncdel="${n.id}">Delete</button></div></div>`).join(''):'<div class="empty"><h2>No notifications yet</h2><p>Alerts appear here when a reminder fires. Use “Send test notification” to see how it looks.</p></div>'}</section>`;
+}
+function remView(){
+ const p=permState(),L={granted:'Allowed',denied:'Blocked',default:'Not asked yet',unsupported:'Not supported'};
+ const perm=`<section class="card" style="margin-bottom:18px"><h2>Browser notifications <span class="chip ${p==='granted'?'':'n'}">${L[p]}</span></h2>`+(p==='unsupported'?'<p class="sub" style="margin:0">This browser can’t show notifications. In-app alerts and calendar alerts still work.</p>':p==='denied'?'<p class="sub" style="margin:0">Notifications are blocked for this site. To change that, use the site permissions in your browser’s address bar or settings, then reload. The app can’t ask again once blocked.</p>':p==='granted'?`<label class="sw"><input type="checkbox" data-brw ${mem.rmBrowser?'checked':''}> Show browser pop-ups for reminders</label><p class="sub" style="margin:8px 0 0;font-size:13.5px">Turn this off to keep the permission but stop pop-ups.</p>`:`<p class="sub" style="margin:0 0 12px">Nothing has been requested. Your browser only asks when you press the button below.</p><button class="btn" data-perm ${mem.rmOn?'':'disabled'}>Allow browser notifications</button>${mem.rmOn?'':'<p class="sub" style="margin:8px 0 0;font-size:13.5px">Turn reminders on first.</p>'}`)+`<div class="f" style="margin-top:14px"><label for="tzs">Timezone</label><select id="tzs" data-tz>${TZS.map(z=>`<option ${z===tzn()?'selected':''}>${z}</option>`).join('')}</select></div><button class="btn alt sm" data-test>Send test notification</button><p class="sub" id="testmsg" role="status" style="margin:10px 0 0;font-size:13.5px"></p></section>`;
+ const R=rms();
+ return perm+`<div class="actions" style="justify-content:flex-start;margin-bottom:14px"><button class="btn" data-rmn>New reminder</button><button class="btn alt" data-rmrestore>Restore default reminders</button></div><div class="col">`+(R.length?R.map(r=>`<article class="card"><div class="gh"><div><h3 style="font:600 17px var(--sans);margin:0">${esc(r.title)}</h3><div class="chips"><span class="chip n">${rcName(r.cat)}</span><span class="chip n">${ftext(r)}</span></div></div><label class="sw"><input type="checkbox" data-rmx="${r.id}" ${r.on?'checked':''}> ${r.on?'On':'Off'}</label></div><p class="sub" style="margin:0 0 10px">${esc(r.msg)}</p><div class="actions" style="justify-content:flex-start"><button class="btn alt sm" data-rme="${r.id}">Edit</button><button class="btn alt sm" data-rmd="${r.id}">Delete</button><a href="${gcal(r)}" target="_blank" rel="noopener" style="font-size:14px">Add to Google Calendar</a></div></article>`).join(''):'<div class="card empty"><h2>No reminders</h2><p>Create one, or restore the defaults.</p></div>')+'</div>';
+}
+function howView(){
+ const yn=v=>v?'<span class="ok2">Yes</span>':'<span class="no2">No</span>',p=permState();
+ let sa=false;try{sa=matchMedia('(display-mode: standalone)').matches}catch(e){}
+ let emb=false;try{emb=window.top!==window.self}catch(e){emb=true}
+ const rows=[['Secure connection (HTTPS)',window.isSecureContext],['Notification support',typeof Notification!=='undefined'],['Service workers available',!!navigator.serviceWorker],['Push messaging (PushManager)','PushManager' in window],['Installed as an app',sa],['Shown inside another page',emb]];
+ return `<section class="card" style="margin-bottom:18px"><h2>Three kinds of reminder</h2>
+ <div class="task"><div><b>1. In-app reminders</b><small>Banner, notification centre and dashboard alerts inside TRANSFORM 42. They fire only while the app is open in a browser tab. If you open the app late, today’s missed reminders appear marked “Missed while closed”. <b>Closed browser: no.</b> Status: working.</small></div></div>
+ <div class="task"><div><b>2. Browser notifications</b><small>System pop-ups shown by your browser. They can appear while the tab is in the background, but only while the page is still loaded. Closing the tab or browser stops them, and phones may pause background tabs, so they can be late. <b>Closed browser: no.</b> Status: ${p==='granted'?'allowed':p==='denied'?'blocked':p==='unsupported'?'not supported here':'not yet allowed'}.</small></div></div>
+ <div class="task"><div><b>3. Persistent scheduled push</b><small>True background alerts. A server sends a Web Push message at the scheduled time, and a service worker on your device shows it even when the browser is closed. <b>Closed browser: yes.</b> Status: <b>not available in this build.</b> This page is one file shown inside Claude, whose security rules block service workers and requests to other servers, and no scheduling server exists yet.</small></div></div></section>
+ <section class="card" style="margin-bottom:18px"><h2>What works with the app closed: calendar alerts</h2><p style="margin:0 0 10px">Your phone or computer calendar fires alerts on schedule whether or not a browser is open. Add reminders from the Reminders tab with “Add to Google Calendar”, or export them all at once. Recurring reminders end on 20 December 2026.</p><button class="btn" data-ics>Download calendar file</button><p class="sub" style="margin:10px 0 0;font-size:13.5px">The file is saved as <b>transform42-reminders.ics.txt</b> because this page can only save certain file types. Remove the .txt ending so it ends in <b>.ics</b>, then open it in your calendar app. Your calendar’s own alert settings apply.</p></section>
+ <section class="card" style="margin-bottom:18px"><h2>Setup needed for persistent push</h2><ol style="margin:0;padding-left:20px"><li>Host the app on your own HTTPS address, such as Netlify or GitHub Pages.</li><li>Add a service worker file (sw.js) that listens for push messages and shows them.</li><li>Generate a VAPID key pair for Web Push.</li><li>In the app, subscribe the device with PushManager after you choose to allow alerts.</li><li>Run a small backend that stores each subscription and your reminder times, and sends a push at each time (for example a Cloudflare Worker or Supabase function on a schedule).</li><li>On iPhone or iPad, add the app to the Home Screen first. Web Push only works for installed apps there.</li></ol><p class="sub" style="margin:10px 0 0">I haven’t built these files yet. Ask me and I’ll create the service worker, subscription code and scheduler as a separate package you can deploy.</p></section>
+ <section class="card"><h2>This device and view</h2>${rows.map(r=>`<div class="task"><div style="flex:1">${r[0]}</div><div>${yn(r[1])}</div></div>`).join('')}</section>`;
+}
+function openRem(id){
+ const r=id?rms().find(x=>x.id===id):null,v=r||{title:'',msg:'',cat:'other',freq:'daily',time:'08:00',on:true,date:'',day:0,ahead:3};
+ const o=(a,s)=>a.map(x=>`<option value="${x[0]}" ${String(x[0])===String(s)?'selected':''}>${x[1]}</option>`).join('');
+ $('dlg').className='dlg wide';
+ $('dlg').innerHTML=`<h2 id="dt" style="font:600 22px var(--serif);margin-bottom:12px">${r?'Edit reminder':'New reminder'}</h2>
+ <div class="f"><label for="rf_t">Reminder title</label><input id="rf_t" value="${esc(v.title)}"></div>
+ <div class="f"><label for="rf_m">Reminder message</label><textarea id="rf_m">${esc(v.msg)}</textarea></div>
+ <div class="row2"><div class="f"><label for="rf_c">Notification category</label><select id="rf_c">${o(RC,v.cat)}</select></div><div class="f"><label for="rf_f">Frequency</label><select id="rf_f">${o([['once','One-off'],['daily','Every day'],['weekdays','Weekdays'],['weekly','Weekly']],v.freq)}</select></div></div>
+ <div class="row2"><div class="f" id="rf_dayw"><label for="rf_dy">Day of the week</label><select id="rf_dy">${o(DOW.map((d,i)=>[i,d]),v.day||0)}</select></div><div class="f"><label for="rf_d" id="rf_dl">Date</label><input type="date" id="rf_d" value="${v.date||''}"></div></div>
+ <div class="row2"><div class="f"><label for="rf_tm">Time (${esc(tzn())})</label><input type="time" id="rf_tm" value="${v.time}"></div><div class="f" id="rf_aw"><label for="rf_a">Warn this many days ahead</label><input type="number" min="1" max="30" id="rf_a" value="${v.ahead||3}"></div></div>
+ <label class="sw"><input type="checkbox" id="rf_on" ${v.on?'checked':''}> Enabled</label>
+ <p class="err" id="gerr" role="alert"></p><div class="actions" style="justify-content:flex-end"><button class="btn alt" id="cx">Cancel</button><button class="btn" id="rsv">Save reminder</button></div>`;
+ const upd=()=>{if(!$('rf_f'))return;const f=$('rf_f').value;$('rf_dayw').style.display=f==='weekly'?'':'none';$('rf_aw').style.display=$('rf_c').value==='deadline'?'':'none';$('rf_dl').textContent=f==='once'?'Date':'Start date (optional)'};
+ $('dlg').oninput=upd;upd();$('ov').classList.add('on');$('rf_t').focus();$('cx').onclick=closeRec;
+ $('rsv').onclick=()=>{
+  const t=$('rf_t').value.trim(),tm=$('rf_tm').value,f=$('rf_f').value,d=$('rf_d').value,ah=Math.round(Number($('rf_a').value)||3),err=m=>{$('gerr').textContent=m};
+  if(!t)return err('Give the reminder a title.');
+  if(!tm)return err('Choose a time.');
+  if(f==='once'&&!d)return err('A one-off reminder needs a date.');
+  const n={title:t,msg:$('rf_m').value.trim(),cat:$('rf_c').value,freq:f,day:+$('rf_dy').value,date:d,time:tm,ahead:Math.min(30,Math.max(1,ah)),on:$('rf_on').checked};
+  if(r){Object.assign(r,n);delete mem.rmF[r.id]}else rms().push(Object.assign({id:gid()},n));
+  save();closeRec();render(1);toast(r?'Reminder updated':'Reminder added');
+ };
+}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+ if(d.nvw){NS.view=d.nvw;render()}
+ else if(d.rmt!==undefined){mem.rmOn=!mem.rmOn;if(mem.rmOn){const n=nowTz();mem.rmSince=n.date+' '+n.time}save();render(1);toast(mem.rmOn?'Reminders on. They fire while this page is open.':'Reminders off');if(mem.rmOn)tick()}
+ else if(d.rmn!==undefined)openRem();
+ else if(d.rme)openRem(d.rme);
+ else if(d.rmd){const r=rms().find(x=>x.id===d.rmd);if(r)askDel('Delete this reminder?',`“${esc(r.title)}” will be removed. You can bring defaults back with Restore default reminders.`,()=>{mem.rm=rms().filter(x=>x.id!==r.id)})}
+ else if(d.rmrestore!==undefined){let k=0;DEFRM.forEach(x=>{if(!rms().some(r=>r.id===x.id)){rms().push(Object.assign({date:''},x));k++}});save();render(1);toast(k?k+' default reminder'+(k===1?'':'s')+' restored':'All defaults are already there')}
+ else if(d.perm!==undefined)askPerm();
+ else if(d.test!==undefined)testNotif();
+ else if(d.ics!==undefined)exportIcs();
+ else if(d.ncread){const it=(mem.nc||[]).find(n=>n.id===d.ncread);if(it)it.read=true;save();refreshUI();render(1)}
+ else if(d.ncall!==undefined){(mem.nc||[]).forEach(n=>n.read=true);save();refreshUI();render(1)}
+ else if(d.ncdel){mem.nc=(mem.nc||[]).filter(n=>n.id!==d.ncdel);save();refreshUI();render(1)}
+ else if(d.ncclr!==undefined){askDel('Clear all notifications?','Every notification in the centre will be removed. Your reminders stay as they are.',()=>{mem.nc=[]})}
+ else if(d.bd){const it=(mem.nc||[]).find(n=>n.id===d.bd);if(it)it.read=true;$('alertbar').classList.remove('on');save();refreshUI()}
+});
+document.addEventListener('change',e=>{const d=e.target.dataset;
+ if(d.rmx){const r=rms().find(x=>x.id===d.rmx);if(r){r.on=e.target.checked;delete mem.rmF[r.id];save();render(1);toast(r.on?'Reminder on':'Reminder off')}}
+ else if(d.brw!==undefined){mem.rmBrowser=e.target.checked;save();toast(mem.rmBrowser?'Browser pop-ups on':'Browser pop-ups off')}
+ else if(d.tz!==undefined){mem.rmTz=e.target.value;if(mem.rmOn){const n=nowTz();mem.rmSince=n.date+' '+n.time}mem.rmF={};save();render(1);toast('Timezone changed to '+mem.rmTz)}});
+{const ab=document.createElement('div');ab.id='alertbar';ab.className='alertbar';ab.setAttribute('role','alert');document.body.appendChild(ab)}
+setInterval(tick,20000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)tick()});
+window.addEventListener('hashchange',()=>render());
+/* ---------- Weekly Reviews ---------- */
+const RV={w:0,auto:''};
+const RQ=[['Mindset',[['m1','Which chapters did I read?'],['m2','Which limiting beliefs did I identify?'],['m3','Which beliefs did I challenge?'],['m4','What did I learn about myself?']]],['Identity',[['i1','Which identity exercises did I complete?'],['i2','What personal values did I identify?'],['i3','Did my actions reflect my desired identity?'],['i4','Where did I fail to uphold my standards?']]],['Behaviour',[['b1','Which habits did I practise?'],['b2','How consistent was I?'],['b3','What distractions affected me?'],['b4','What did I do differently this week?']]],['Accountability',[['a1','What did I intend to do?'],['a2','What did I actually complete?'],['a3','What prevented me from completing the rest?'],['a4','What evidence shows that I followed through?']]]];
+const xReal=e=>e.built?pst(e.p).ex[e.w]===true:!!(mem.xc||{})[e.id];
+const capT=c=>c.todayStr>END?END:c.todayStr;
+function wrx(w){mem.wr=mem.wr||{};const r=mem.wr[w]=mem.wr[w]||{};r.a=r.a||{};['ach','imp','pri'].forEach(k=>{r[k]=r[k]||['','','']});r.lesson=r.lesson||'';r.adj=r.adj||'';return r}
+function revDue(){const c=ctx();return !c.before&&!c.after&&dowOf(c.todayStr)===6&&!(mem.wr&&mem.wr[c.week]&&mem.wr[c.week].done)}
+function sundayCard(){if(!revDue())return '';const c=ctx();return `<section class="card" style="margin-bottom:18px;border-left:4px solid var(--amber)"><h2>It’s Sunday: time for your Week ${c.week} review</h2><p style="margin:0 0 12px">Look back honestly, then set up next week. It takes about 15 minutes.</p><a class="btn" href="#reviews">Start my review</a></section>`}
+function wkStats(w,c){
+ const ws=addDays(START,(w-1)*7),we=addDays(ws,6),t=capT(c),started=!c.before&&ws<=t,habits=[];
+ if(started)hh().forEach(h=>{const L=hlog(h.id),n=FREQ[h.freq][1],db=h.freq==='daily'||h.freq==='weekdays',hs=hstart(h);let done=0,exp=0;
+  for(let i=0;i<7;i++){const d=addDays(ws,i);if(L[d]&&d<=t&&!(h.freq==='weekdays'&&dowOf(d)>4))done++}
+  if(db){for(let i=0;i<7;i++){const d=addDays(ws,i);if(d<hs||d>t)continue;if(h.freq==='weekdays'&&dowOf(d)>4)continue;if(d===t&&!L[d])continue;exp++}}else if(we>=hs)exp=n;
+  done=Math.min(done,exp);if(exp)habits.push({h,done,exp,pct:Math.round(done/exp*100)})});
+ const ex=exAll().filter(e=>e.built?e.w===w:(e.dd>=ws&&e.dd<=we)),R3=[1,2,3];
+ const rd=R3.filter(p=>pst(p).read[w]===true).length,ob=R3.filter(p=>pst(p).wk[w]===true).length,rf=R3.filter(p=>(pst(p).refl[w]||'').trim()).length;
+ const hd=habits.reduce((a,x)=>a+x.done,0),he=habits.reduce((a,x)=>a+x.exp,0);
+ const parts=[['Habit check-ins',hd,he],['Exercises',ex.filter(xReal).length,ex.length],['Reading assignments',rd,3],['Weekly objectives',ob,3],['Reflections written',rf,3]];
+ const done=parts.reduce((a,x)=>a+x[1],0),exp=parts.reduce((a,x)=>a+x[2],0);
+ return{ws,we,started,habits,ex,parts,done,exp,pct:started&&exp?Math.round(done/exp*100):null,hpct:started&&he?Math.round(hd/he*100):null};
+}
+function compBlock(S){
+ if(!S.started)return '<p class="sub" style="margin:0">This week hasn’t started yet, so there is nothing to summarise.</p>';
+ return S.parts.map(p=>`<div class="area"><div class="r"><span>${p[0]}</span><strong>${p[1]} of ${p[2]}</strong></div><div class="bar"><i style="width:${p[2]?p[1]/p[2]*100:0}%"></i></div></div>`).join('')+`<p style="margin:12px 0 0"><strong>${S.done} of ${S.exp}</strong> tracked items marked complete${S.pct!==null?` (${S.pct}%)`:''}.</p><p class="sub" style="margin:4px 0 0;font-size:13.5px">Only items you marked count. Anything unmarked is shown as not done.</p>`;
+}
+function qHints(w,S){
+ const h={},st=b=>b?'marked done':'not marked';
+ h.m1='Assigned this week: '+PHASES.map(P=>{const r=P.w[w-1][1].split('|');return `${r[0]}, ${r[1]} (${st(pst(P.id).read[w]===true)})`}).join('; ')+'.';
+ const e2=S.ex.filter(e=>e.p===2);if(e2.length)h.i1='Tracked: '+e2.map(e=>`${e.title} (${st(xReal(e))})`).join('; ')+'.';
+ h.b1=S.habits.length?'Tracked: '+S.habits.map(x=>`${x.h.name} ${x.done}/${x.exp}`).join(', ')+'.':'No habits were tracked this week.';
+ if(S.hpct!==null)h.b2=`Tracked habit consistency this week: ${S.hpct}%.`;
+ if(S.started)h.a2=`Marked complete this week: ${S.done} of ${S.exp} tracked items.`;
+ return h;
+}
+function draftFor(w,c,r){
+ const S=wkStats(w,c),ach=[],imp=[];
+ S.habits.filter(x=>x.pct>=70).sort((a,b)=>b.pct-a.pct).forEach(x=>ach.push(`${x.h.name}: ${x.done} of ${x.exp} check-ins (${x.pct}%).`));
+ if(S.parts[1][1])ach.push(`Completed ${S.parts[1][1]} of ${S.parts[1][2]} exercises assigned this week.`);
+ if(S.parts[2][1])ach.push(`Finished ${S.parts[2][1]} of 3 reading assignments.`);
+ if(S.parts[3][1])ach.push(`Completed ${S.parts[3][1]} of 3 weekly objectives.`);
+ if(S.parts[4][1])ach.push(`Wrote ${S.parts[4][1]} of 3 phase reflections.`);
+ (mem.goals||[]).forEach(g=>{const k=Object.keys(g.wk||{}).map(Number).filter(x=>x<w).sort((a,b)=>b-a),prev=k.length?g.wk[k[0]]:(g.p0||0);if(g.wk&&g.wk[w]!=null&&g.wk[w]>prev)ach.push(`Moved “${g.title}” forward (${prev}% to ${g.wk[w]}%).`)});
+ S.habits.filter(x=>x.pct<60).sort((a,b)=>a.pct-b.pct).forEach(x=>imp.push(`${x.h.name}: only ${x.done} of ${x.exp} check-ins.`));
+ const miss=S.ex.filter(e=>!xReal(e));if(S.started&&miss.length)imp.push(`${miss.length} exercise${miss.length===1?'':'s'} not completed (${miss.slice(0,2).map(e=>e.title).join(', ')}).`);
+ if(S.started&&S.parts[2][1]<3)imp.push(`${3-S.parts[2][1]} reading assignment${3-S.parts[2][1]===1?'':'s'} not marked done.`);
+ if(S.started&&S.parts[4][1]<3)imp.push(`${3-S.parts[4][1]} phase reflection${3-S.parts[4][1]===1?'':'s'} not written.`);
+ (mem.goals||[]).filter(g=>!g.done).forEach(g=>{const x=gx(g,c);if(x.st==='overdue')imp.push(`“${g.title}” is overdue.`);else if(x.st==='risk')imp.push(`“${g.title}” is behind pace.`)});
+ let n=0;const put=(a,l)=>l.forEach((t,i)=>{if(i<3&&!a[i]){a[i]=t;n++}});
+ put(r.ach,ach);put(r.imp,imp);
+ if(!r.lesson&&r.a.m4){r.lesson=r.a.m4;n++}
+ put(r.pri,w<6?PHASES.map(P=>`Phase ${P.id}: ${P.w[w][0]}`):['Finish your most important open goal.','Write your plan for after day 42.','Complete any unfinished exercises and reflections.']);
+ if(!r.adj){const wk=S.habits.slice().sort((a,b)=>a.pct-b.pct)[0];r.adj=wk?`On days I can’t do the full session of “${wk.h.name}”, I will do its smallest version so I never miss twice.`:'Pick one habit and do its smallest version at the same time every day.';n++}
+ return{n,ach:ach.length,imp:imp.length};
+}
+function reviewsPage(){
+ const c=ctx();if(!RV.w||(revDue()&&RV.auto!==c.todayStr)){RV.w=Math.min(6,Math.max(1,c.week));RV.auto=c.todayStr}
+ const w=RV.w,r=wrx(w),S=wkStats(w,c),ws=addDays(START,(w-1)*7),we=addDays(ws,6),HI=qHints(w,S);
+ const st=r.done?'Completed':c.todayStr>we?'Past due, still open':c.todayStr===we?'Due today':ws>c.todayStr?'Not started':'In progress';
+ const ans=Object.values(r.a).filter(v=>String(v).trim()).length;
+ const tabs=[1,2,3,4,5,6].map(n=>`<button data-rw="${n}" aria-pressed="${n===w}">Week ${n}${mem.wr&&mem.wr[n]&&mem.wr[n].done?' ✓':''}</button>`).join('');
+ const form=RQ.map(([t,qs])=>`<section class="card f" style="margin-bottom:14px"><h2>${t}</h2>${qs.map(([k,q])=>`<div class="f"><label for="wq_${k}">${q}</label>${HI[k]?`<div class="qh">${esc(HI[k])}</div>`:''}<textarea id="wq_${k}" data-wq="${w}:${k}">${esc(r.a[k])}</textarea></div>`).join('')}</section>`).join('');
+ const three=(lab,f)=>`<div class="f"><label>${lab}</label>${[0,1,2].map(i=>`<input style="margin-bottom:6px" aria-label="${lab} ${i+1}" data-ws="${w}:${f}:${i}" value="${esc(r[f][i])}">`).join('')}</div>`;
+ return `<div class="head"><div><h1>Weekly Reviews</h1><p class="sub">Six reviews, one every Sunday. 9 November to 20 December 2026.</p></div></div>
+ ${revDue()&&w===c.week?`<section class="card" style="margin-bottom:18px;border-left:4px solid var(--amber)"><h2>It’s Sunday: your Week ${w} review is due</h2><p style="margin:0">Answer the questions below, then generate your summary.</p></section>`:''}
+ <div class="tabs" role="group" aria-label="Weeks">${tabs}</div>
+ <section class="card" style="margin-bottom:14px"><h2>Week ${w}: ${fd(ws)} to ${fd(we)} <span class="chip ${r.done?'':'n'}">${st}</span></h2><p class="sub" style="margin:0">${S.started?`Tracked so far: ${S.done} of ${S.exp} items marked complete${S.pct!==null?' ('+S.pct+'%)':''}. The hints under some questions come from what you marked.`:'This week hasn’t started yet. You can still write notes.'}</p></section>
+ ${form}
+ <section class="card f"><h2>Review summary</h2><h3 style="font:600 15px var(--sans);margin:0 0 8px">1. Weekly completion summary</h3>${compBlock(S)}
+ <div style="margin:18px 0 12px"><button class="btn alt" data-wdraft>Generate draft from my tracked data</button><p class="sub" style="margin:8px 0 0;font-size:13.5px">Fills only empty boxes with suggestions built from what you marked. Nothing is invented. Edit anything.</p></div>
+ ${three('2. Three biggest achievements','ach')}${three('3. Three areas requiring improvement','imp')}
+ <div class="f"><label for="wl">4. Main lesson learned</label><textarea id="wl" data-ws="${w}:lesson">${esc(r.lesson)}</textarea></div>
+ ${three('5. Three priorities for next week','pri')}
+ <div class="f"><label for="wa">6. One small adjustment to improve consistency</label><input id="wa" data-ws="${w}:adj" value="${esc(r.adj)}"></div>
+ <div style="margin:0 0 12px"><button class="btn alt sm" data-jwk>Write a Weekly Review journal entry</button></div><p class="sub" id="wqcount" style="margin:0 0 12px;font-size:13.5px">${ans} of 16 questions answered.</p>
+ <button class="btn ${r.done?'alt':''}" data-wdone>${r.done?'Reopen this review':'Mark review complete'}</button>${r.done?`<span class="sub" style="margin-left:10px">Completed ${fd(r.doneOn)}</span>`:''}</section>`;
+}
+/* ---------- Analytics ---------- */
+function phReal(p){const s=pst(p),R=[1,2,3,4,5,6],cnt=k=>R.filter(i=>s[k][i]===true).length;const parts=[['Reading',cnt('read'),6],['Exercises',cnt('ex'),6],['Weekly objectives',cnt('wk'),6],['Objectives',[0,1,2,3,4].filter(i=>s.obj[i]===true).length,5],['Reflections',R.filter(i=>(s.refl[i]||'').trim()).length,6]];const d=parts.reduce((a,x)=>a+x[1],0);return{parts,d,pct:Math.round(d/29*100)}}
+function habitOverall(h,c){
+ const L=hlog(h.id),hs=hstart(h),t=capT(c),n=FREQ[h.freq][1];let done=0,exp=0;
+ if(h.freq==='daily'||h.freq==='weekdays'){for(let d=hs;d<=t;d=addDays(d,1)){if(h.freq==='weekdays'&&dowOf(d)>4)continue;if(d===t&&!L[d])continue;exp++;if(L[d])done++}}
+ else{for(let m=addDays(hs,-dowOf(hs));addDays(m,6)<t;m=addDays(m,7)){let k=0;for(let i=0;i<7;i++)if(L[addDays(m,i)])k++;exp+=n;done+=Math.min(k,n)}}
+ return{done,exp,pct:exp?Math.round(done/exp*100):null};
+}
+function dailyData(c){const last=c.before?-1:Math.min(c.day,42)-1;return Array.from({length:42},(_,i)=>{const d=addDays(START,i);let hb=0;hh().forEach(h=>{if(hlog(h.id)[d])hb++});return{d,i,hb,ex:Object.values(mem.xc||{}).filter(v=>v===d).length,tk:Object.keys((mem.done||{})[d]||{}).length,fut:i>last}})}
+function stackSvg(D){
+ const mx=Math.max(4,...D.map(x=>x.hb+x.ex+x.tk)),W=600,H=190,L=26,cw=(W-L-4)/42,bw=Math.max(4,cw-3),ch=H-34,base=10+ch;
+ let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Marked activities for each day of the programme">`;
+ [0,.5,1].forEach(f=>{const y=10+ch*(1-f);s+=`<line x1="${L}" x2="${W}" y1="${y}" y2="${y}" style="stroke:var(--line)"/><text x="${L-4}" y="${y+4}" text-anchor="end" style="fill:var(--mut);font-size:10px">${Math.round(mx*f)}</text>`});
+ D.forEach((x,i)=>{if(x.fut)return;const tt=x.hb+x.ex+x.tk;if(!tt){s+=`<rect x="${L+i*cw}" y="${base-2}" width="${bw}" height="2" style="fill:var(--mut);opacity:.45"><title>${fd(x.d)}: nothing marked</title></rect>`;return}let y=base;[['hb','var(--g)','Habits'],['ex','#7FA8E8','Exercises'],['tk','#9FB0CE','Dashboard tasks']].forEach(([k,col,nm])=>{const h=x[k]/mx*ch;if(h>0){y-=h;s+=`<rect x="${L+i*cw}" y="${y}" width="${bw}" height="${h}" rx="1.5" style="fill:${col}"><title>${fd(x.d)}: ${x[k]} ${nm.toLowerCase()}</title></rect>`}})});
+ [0,7,14,21,28,35].forEach(i=>{s+=`<text x="${L+i*cw}" y="${H-8}" style="fill:var(--mut);font-size:10px">${pd(addDays(START,i)).toLocaleDateString('en-ZA',{day:'numeric',month:'short'})}</text>`});
+ return s+'</svg>';
+}
+function weekSvg(W6,c){
+ const W=600,H=210,L=34,gw=(W-L)/6,bw=Math.min(34,gw/2-6),ch=150,top=22,t=capT(c);
+ let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Weekly overall completion and habit consistency">`;
+ [0,50,100].forEach(v=>{const y=top+ch*(1-v/100);s+=`<line x1="${L}" x2="${W}" y1="${y}" y2="${y}" style="stroke:var(--line)"/><text x="${L-5}" y="${y+4}" text-anchor="end" style="fill:var(--mut);font-size:10px">${v}%</text>`});
+ W6.forEach((o,i)=>{[o.S.pct,o.S.hpct].forEach((v,j)=>{if(v===null)return;const h=v/100*ch,x=L+i*gw+gw/2-bw-2+j*(bw+4),y=top+ch-h;s+=`<rect x="${x}" y="${y}" width="${bw}" height="${Math.max(h,1)}" rx="3" style="fill:${j?'#7FA8E8':'var(--g)'}"><title>Week ${o.w}: ${v}%</title></rect><text x="${x+bw/2}" y="${y-4}" text-anchor="middle" style="fill:var(--ink);font-size:10px">${v}</text>`});s+=`<text x="${L+i*gw+gw/2}" y="${top+ch+18}" text-anchor="middle" style="fill:var(--mut);font-size:11px">Week ${o.w}${o.S.started&&o.S.we>t?'*':''}</text>`});
+ return s+'</svg>';
+}
+function analyticsPage(){
+ const c=ctx(),PH=[1,2,3].map(phReal),tot=PH.reduce((a,x)=>a+x.d,0),pct=Math.round(tot/87*100),dn=c.before?0:Math.min(c.day,42),circ=263.9;
+ const D=dailyData(c),el=D.filter(x=>!x.fut),act=el.filter(x=>x.hb+x.ex+x.tk>0).length;
+ const W6=[1,2,3,4,5,6].map(w=>({w,S:wkStats(w,c)})),rev=[1,2,3,4,5,6].filter(w=>mem.wr&&mem.wr[w]&&mem.wr[w].done).length;
+ const books=BOOKS.map(b=>{const x=rb(b[0]);return{b:x,r:rcalc(x,c)}}),withP=books.filter(x=>x.r.pct!==null),readA=[1,2,3].reduce((a,p)=>a+[1,2,3,4,5,6].filter(i=>pst(p).read[i]===true).length,0);
+ const H=hh().map(h=>({h,o:habitOverall(h,c)}));
+ const row=(l,p,sub)=>`<div class="area"><div class="r"><span>${l}${sub?`<small>${sub}</small>`:''}</span><strong>${p===null?'–':p+'%'}</strong></div><div class="bar" role="progressbar" aria-valuenow="${p||0}" aria-valuemin="0" aria-valuemax="100" aria-label="${esc(l)}"><i style="width:${p||0}%"></i></div></div>`;
+ return `<div class="head"><div><h1>Analytics</h1><p class="sub">An honest record of what you have marked.</p></div></div>
+ <div class="info">Everything here counts only what you marked as done or entered yourself. Nothing is estimated.</div>
+ <div class="col">
+ <section class="card"><h2>Overall programme completion</h2><div class="rsum"><svg class="ring" width="120" height="120" viewBox="0 0 100 100" role="img" aria-label="${pct}% of tracked programme items marked complete"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--line)" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="var(--g)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${(pct/100*circ).toFixed(1)} ${circ}" transform="rotate(-90 50 50)"/><text x="50" y="57" text-anchor="middle">${pct}%</text></svg><div style="width:100%"><div class="mini" style="margin-top:0"><div><small>Programme day</small>${dn} of 42</div><div><small>Phase items marked</small>${tot} of 87</div><div><small>Days with activity</small>${act} of ${el.length}</div><div><small>Weeks reviewed</small>${rev} of 6</div></div><p class="sub" style="margin:0;font-size:13.5px">The percentage is phase items you marked (readings, exercises, weekly objectives, objectives and reflections) out of 87.</p></div></div></section>
+ <section class="card"><h2>Progress by transformation phase</h2>${PH.map((x,i)=>row(`Phase ${i+1}: ${PHASES[i].n}`,x.pct,x.parts.map(p=>`${p[0]} ${p[1]}/${p[2]}`).join(' · '))).join('')}</section>
+ <section class="card"><h2>Reading completion</h2>${books.map(x=>row(x.b.title,x.r.pct,x.r.pct===null?'No page count entered, so not counted':x.r.read+' of '+x.r.range+' pages')).join('')}<p class="sub" style="margin:8px 0 0;font-size:13.5px">${withP.length} of ${books.length} books have page counts. Reading assignments marked done in the phases: ${readA} of 18.</p></section>
+ <section class="card"><h2>Habit consistency</h2>${H.length?H.map(x=>row(x.h.name,x.o.pct,x.o.exp?`${x.o.done} of ${x.o.exp} expected check-ins`:'Too early to measure')).join('')+'<p class="sub" style="margin:8px 0 0;font-size:13.5px">Today counts only once done. For habits with a weekly target, only finished weeks count.</p>':'<p class="sub" style="margin:0">No habits tracked yet. <a href="#habits">Add one in the Habit Tracker</a>.</p>'}</section>
+ <section class="card"><h2>Daily activity history</h2>${stackSvg(D)}<div class="lg2"><span style="--c:var(--g)">Habit check-ins</span><span style="--c:#7FA8E8">Exercises completed</span><span style="--c:#9FB0CE">Dashboard tasks ticked</span></div><p class="sub" style="margin:8px 0 0;font-size:13.5px">${el.length?`${act} of ${el.length} days so far have at least one marked activity. A thin grey line marks a day with nothing marked.`:'The programme hasn’t started yet.'}</p></section>
+ <section class="card"><h2>Weekly performance comparison</h2>${weekSvg(W6,c)}<div class="lg2"><span style="--c:var(--g)">Overall completion</span><span style="--c:#7FA8E8">Habit consistency</span></div><div class="tbl"><table><thead><tr><th>Week</th><th>Items marked</th><th>Overall</th><th>Habits</th><th>Review</th></tr></thead><tbody>${W6.map(o=>`<tr><td>Week ${o.w}${o.S.started&&o.S.we>capT(c)?' (in progress)':''}</td><td>${o.S.started?o.S.done+' of '+o.S.exp:'–'}</td><td>${o.S.pct===null?'–':o.S.pct+'%'}</td><td>${o.S.hpct===null?'–':o.S.hpct+'%'}</td><td>${mem.wr&&mem.wr[o.w]&&mem.wr[o.w].done?'Done':'Not done'}</td></tr>`).join('')}</tbody></table></div><p class="sub" style="margin:8px 0 0;font-size:13.5px">Overall compares what you marked with what the programme expected that week. * marks a week still in progress.</p></section></div>`;
+}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;const d=b.dataset,c=ctx();
+ if(d.rw){RV.w=+d.rw;render(1)}
+ else if(d.wdraft!==undefined){const r=wrx(RV.w),x=draftFor(RV.w,c,r);save();render(1);toast(x.n?'Draft added. Edit anything.':'Nothing more to add from your tracked data.')}
+ else if(d.wdone!==undefined){const r=wrx(RV.w);r.done=!r.done;r.doneOn=r.done?c.todayStr:'';save();render(1);toast(r.done?'Review marked complete':'Review reopened');if(r.done)refreshUI()}
+});
+document.addEventListener('change',e=>{const d=e.target.dataset;
+ if(d.wq){const[w,k]=d.wq.split(':'),r=wrx(+w);r.a[k]=e.target.value;save();const n=Object.values(r.a).filter(v=>String(v).trim()).length,el=$('wqcount');if(el)el.textContent=n+' of 16 questions answered.';toast('Saved')}
+ else if(d.ws){const[w,f,i]=d.ws.split(':'),r=wrx(+w);if(i!==undefined)r[f][+i]=e.target.value;else r[f]=e.target.value;save();toast('Saved')}});
+/* ---------- Storage, backup and install ---------- */
+function defMem(){return{sample:false,modeNotice:0,done:{},logs:{},goals:[],reasons:[],ph:{},rd:{},rn:[],hb:[],hl:{},xs:[],xc:{},xr:{},rm:null,rmOn:false,rmTz:'Africa/Johannesburg',rmBrowser:false,rmSince:'',rmF:{},nc:[],wr:{},jn:[],jbuf:null,lastBackup:'',lastSaved:''}}
+function clean(src){const d=defMem(),o={};Object.keys(d).forEach(k=>{const v=src[k],x=d[k];if(v===undefined){o[k]=x;return}if(Array.isArray(x))o[k]=Array.isArray(v)?v:x;else if(x===null)o[k]=(v===null||typeof v==='object')?v:x;else if(typeof x==='object')o[k]=(v&&typeof v==='object'&&!Array.isArray(v))?v:x;else o[k]=typeof v===typeof x?v:x});o.jn=o.jn.filter(e=>e&&typeof e==='object'&&typeof e.id==='string').map(e=>({id:e.id,title:String(e.title||''),date:/^\d{4}-\d\d-\d\d$/.test(e.date)?e.date:realToday(),cat:JC.some(x=>x[0]===e.cat)?e.cat:'free',tracks:(Array.isArray(e.tracks)?e.tracks:[]).map(Number).filter(n=>n>=1&&n<=3),body:String(e.body||''),goal:String(e.goal||''),book:String(e.book||''),draft:!!e.draft,created:String(e.created||''),upd:String(e.upd||'')}));o.sample=false;return o}
+function hasData(){return !!(mem.goals.length||mem.reasons.length||mem.rn.length||mem.hb.length||mem.xs.length||Object.keys(mem.hl||{}).length||Object.keys(mem.wr||{}).length||Object.keys(mem.rd||{}).length||Object.keys(mem.xc||{}).length||Object.keys(mem.xr||{}).length||Object.keys(mem.done||{}).length||(mem.nc||[]).length||(mem.jn||[]).length||[1,2,3].some(p=>phReal(p).d>0||(pst(p).notes||'').trim()))}
+function counts(m){const L=m.hl||{};return[['Goals',(m.goals||[]).length],['Reasons why',(m.reasons||[]).length],['Habits',(m.hb||[]).length],['Habit check-ins',Object.values(L).reduce((a,x)=>a+Object.keys(x||{}).length,0)],['Books with details entered',Object.keys(m.rd||{}).length],['Reading notes',(m.rn||[]).length],['Your own exercises',(m.xs||[]).length],['Exercises completed (dated)',Object.keys(m.xc||{}).length],['Weekly reviews started',Object.keys(m.wr||{}).length],['Reminders',(m.rm||[]).length],['Journal entries',(m.jn||[]).length]]}
+const snaps=()=>{try{return JSON.parse(localStorage.getItem('t42_snaps')||'[]')}catch(e){return[]}};
+function snap(reason){if(REAL)return;try{const a=snaps();a.unshift({ts:new Date().toISOString(),reason,data:mem});a.length=Math.min(a.length,6);while(a.length){try{localStorage.setItem('t42_snaps',JSON.stringify(a));break}catch(e){a.pop()}}}catch(e){}}
+const whenS=ts=>{if(!ts)return 'Never';try{return new Date(ts).toLocaleString('en-ZA',{timeZone:tzn(),day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false})}catch(e){return ts}};
+async function saveFile(name,text,mime,alt){
+ const inC=typeof claude!=='undefined';let dl=null;
+ if(inC){try{dl=await claude.use('downloads')}catch(e){}}
+ if(dl){try{await dl.save({filename:alt||name,data:text});return 'saved'}catch(e){return e&&e.code==='declined'?'declined':'error'}}
+ if(inC)return 'unavailable';
+ try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:mime}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);return 'saved'}catch(e){return 'error'}
+}
+function fileDone(r,msg,onOk){if(r==='saved'){if(onOk)onOk();toast(msg)}else if(r==='declined')toast('Download cancelled');else toast('Couldn’t save a file in this view. Use “Show backup text” to copy it instead.');render(1)}
+const exportObj=()=>({app:'TRANSFORM 42',format:1,exportedAt:new Date().toISOString(),timezone:tzn(),data:REAL||mem});
+const csvCell=v=>{let s=String(v==null?'':v);if(/^[=+\-@\t\r]/.test(s))s="'"+s;return /[",\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s};
+const toCsv=rows=>'\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n')+'\r\n';
+function readingCsv(){const c=ctx(),rows=[['Book','Author','Category','Reading list','Status','Total pages','Starting page','Current page (last page finished)','Pages read','Percent read','Chapters completed','Total chapters','Start date','Target date','Notes saved']];BOOKS.forEach(b=>{const x=rb(b[0]),r=rcalc(x,c);rows.push([x.title,x.author,x.cat,x.role==='main'?'Main programme':'Supporting or future',r.st,x.total||'',x.sp,x.cur||'',r.read,r.pct===null?'':r.pct,x.chd||'',x.cht||'',x.start,x.target,(mem.rn||[]).filter(n=>n.b===x.id).length])});return toCsv(rows)}
+function habitCsv(){const c=ctx(),t=capT(c),rows=[['Date','Habit','Category','Frequency','Target minutes','Scheduled','Completed']];hh().forEach(h=>{const L=hlog(h.id),hs=hstart(h),ds=new Set(Object.keys(L));for(let d=hs;d<=t;d=addDays(d,1))ds.add(d);[...ds].sort().forEach(d=>{const db=h.freq==='daily'||h.freq==='weekdays';rows.push([d,h.name,h.cat,FREQ[h.freq][0],h.dur||'',db?(h.freq==='weekdays'&&dowOf(d)>4?'No':'Yes'):'Any day',L[d]?'Yes':'No'])})});return toCsv(rows)}
+function backupNudge(){
+ if(STORE.corrupt)return '<section class="card" style="margin-bottom:18px;border-left:4px solid #C0392B"><h2>Saved data couldn’t be read</h2><p style="margin:0">A copy was kept. <a href="#backup">Open Backup and Restore</a> to recover it.</p></section>';
+ if(!STORE.ok)return `<div class="info" style="background:#FDE7E7;color:#5A1A12">${esc(STORE.err)}. Your changes may not be kept. <a href="#backup">Export a backup</a> after making changes.</div>`;
+ if(!hasData())return '';
+ const lb=mem.lastBackup,age=lb?Math.floor((Date.now()-new Date(lb))/864e5):null;if(age!==null&&age<3)return '';
+ return `<div class="info">${lb?`Your last backup file was ${age} day${age===1?'':'s'} ago.`:'You haven’t made a backup file yet.'} Your data lives only in this browser. <a href="#backup">Back it up now</a>.</div>`;
+}
+const IM={res:null,name:''};
+function parseBackup(text){let j;try{j=JSON.parse(text)}catch(e){return{err:'This isn’t valid JSON. Choose a backup file saved from TRANSFORM 42.'}}
+ const d=j&&j.app==='TRANSFORM 42'&&j.data&&typeof j.data==='object'?j.data:(j&&typeof j==='object'&&('goals' in j||'hb' in j||'rd' in j)?j:null);
+ if(!d)return{err:'This file doesn’t look like a TRANSFORM 42 backup.'};return{data:clean(d),at:j.exportedAt||''}}
+function askDo(title,msg,label,fn,typed){
+ $('dlg').className='dlg';
+ $('dlg').innerHTML=`<h2 id="dt" style="font:600 22px var(--serif)">${title}</h2><p>${msg}</p>${typed?`<div class="f"><label for="tp">Type ${typed} to confirm</label><input id="tp" autocomplete="off"></div>`:''}<div class="actions" style="justify-content:flex-end"><button class="btn alt" id="cx">Cancel</button><button class="btn danger" id="cdo" ${typed?'disabled':''}>${label}</button></div>`;
+ $('ov').classList.add('on');$('cx').focus();$('cx').onclick=closeRec;
+ if(typed)$('dlg').oninput=()=>{const t=$('tp');if(t&&$('cdo'))$('cdo').disabled=t.value.trim()!==typed};
+ $('cdo').onclick=()=>{closeRec();fn()};
+}
+function applyData(d,reason){snap(reason);mem=Object.assign(defMem(),d);save();IM.res=null;refreshUI();render(1)}
+async function fillInfo(){const set=(i,t)=>{const el=$(i);if(el)el.textContent=t};
+ try{set('si_p',navigator.storage&&navigator.storage.persisted?(await navigator.storage.persisted())?'Protected: the browser has agreed not to clear it automatically.':'Not protected: the browser may clear it if the device runs low on space.':'Protection requests aren’t available in this browser.')}catch(e){set('si_p','Protection status unknown.')}
+ try{if(navigator.storage&&navigator.storage.estimate){const e=await navigator.storage.estimate();set('si_u',`Browser storage: ${Math.round(e.usage/1024)} KB used of about ${Math.round(e.quota/1048576)} MB available to this site.`)}else set('si_u','Browser storage size isn’t available here.')}catch(e){set('si_u','Browser storage size unknown.')}}
+async function askPersist(){if(!(navigator.storage&&navigator.storage.persist)){toast('This browser doesn’t support that request');return}let ok=false;try{ok=await navigator.storage.persist()}catch(e){}toast(ok?'The browser agreed to keep your data':'The browser declined. Keep backup files.');render(1)}
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();window.t42Install=e;if((location.hash||'').slice(1)==='backup')render(1)});
+window.addEventListener('appinstalled',()=>{window.t42Install=null;toast('App installed')});
+function installCard(){
+ let sa=false,emb=false;try{sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){}try{emb=window.top!==window.self}catch(e){emb=true}
+ const sw=!!(navigator.serviceWorker&&navigator.serviceWorker.controller),ios=/iPad|iPhone|iPod/.test(navigator.userAgent);
+ let msg;
+ if(sa)msg='You’re running the installed app.';
+ else if(window.t42Install)msg='This browser can install the app now.';
+ else if(emb)msg='This copy runs inside Claude, which blocks installing and offline caching. To install it, host the installable package on your own HTTPS address. It comes as a separate download in the conversation where this app was built.';
+ else if(sw)msg='Offline files are cached. Use your browser menu (Install app, or Add to Home Screen) to install it.';
+ else msg='Installing isn’t available in this browser right now. It needs the installable package served over HTTPS.';
+ return `<section class="card" style="margin-bottom:18px"><h2>Install and offline use <span class="chip ${sw?'':'n'}">${sw?'Offline ready':'Offline not active'}</span></h2><p style="margin:0 0 12px">${msg}</p>${window.t42Install&&!sa?'<button class="btn" data-install>Install TRANSFORM 42</button>':''}${ios&&!sa?'<p class="sub" style="margin:10px 0 0;font-size:13.5px">On iPhone or iPad: tap Share, then Add to Home Screen. The Home Screen app can keep a separate copy of your data from Safari, so export before you install.</p>':''}<p class="sub" style="margin:10px 0 0;font-size:13.5px">An installed copy on your own address is a different place from this one, so it starts empty. Export here, then import there.</p></section>`;
+}
+function backupPage(){
+ if(REAL)return '<div class="head"><div><h1>Backup and Restore</h1></div></div><div class="card empty"><h2>Not available in the sample preview</h2><p>Backups, imports and restore points only work on your own data. Return to your data first.</p><button class="btn" data-prevoff>Return to my data</button></div>';
+ const L=STORE.ok,sn=snaps(),kb=Math.round(JSON.stringify(mem).length/1024),r=IM.res;let corrupt='';try{corrupt=localStorage.getItem('t42_corrupt')||''}catch(e){}
+ setTimeout(fillInfo,0);
+ const cmp=r&&r.data?`<div class="tbl cmp"><table style="min-width:0"><thead><tr><th>Item</th><th>In this file</th><th>Right now</th></tr></thead><tbody>${counts(r.data).map((x,i)=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${counts(mem)[i][1]}</td></tr>`).join('')}</tbody></table></div><p class="sub" style="margin:10px 0">${r.at?'Backup made '+whenS(r.at)+'. ':''}Importing <b>replaces</b> everything now in the app. A restore point of your current data is saved first.</p><div class="actions" style="justify-content:flex-start"><button class="btn danger" data-imgo>Replace my data with this backup</button><button class="btn alt" data-imclear>Cancel</button></div>`:'';
+ return `<div class="head"><div><h1>Backup and Restore</h1><p class="sub">Your progress, kept safe without an account.</p></div></div>
+ <div class="col">
+ <section class="card"><h2>Where your data is stored <span class="chip ${L?'':'bad'}">${L?'Saving works':'Saving is not working'}</span></h2><p style="margin:0 0 12px">Every change is saved automatically in this browser, on this device. There is <b>no account and no cloud storage</b>.</p>${L?'':`<p class="warnt">${esc(STORE.err)}. Changes may be lost when you close this page. Export a backup after making changes.</p>`}
+ <div class="mini"><div><small>Last saved</small>${whenS(mem.lastSaved)}</div><div><small>Last backup file</small>${whenS(mem.lastBackup)}</div><div><small>Your data size</small>${kb} KB</div></div>
+ <p class="sub" style="margin:0 0 4px;font-size:14px" id="si_u">Checking storage…</p><p class="sub" style="margin:0 0 12px;font-size:14px" id="si_p"></p><button class="btn alt sm" data-persist>Ask the browser to protect my data</button>
+ <h3 style="font:600 15px var(--sans);margin:18px 0 6px">Limits of local-only storage</h3><ul style="margin:0;padding-left:20px"><li>It does not sync. A phone, a laptop and another browser each keep their own separate copy.</li><li>Clearing browsing or site data, resetting the browser, private windows or a full disk can erase it.</li><li>A different web address is a different place with its own data. This copy inside Claude and an installed copy on your own site do not share anything.</li><li>If a device is lost or wiped, only a backup file can bring your data back.</li></ul><h3 style="font:600 15px var(--sans);margin:14px 0 6px">Moving to another device</h3><ol style="margin:0;padding-left:20px"><li>Download a backup file here.</li><li>Send it to the other device (email, messaging or a USB drive).</li><li>Open the app there, go to Backup and Restore, and import it.</li></ol><p class="sub" style="margin:8px 0 0;font-size:13.5px">The two copies don’t stay in step. Whichever you import last replaces the other.</p></section>
+ <section class="card"><h2>Export</h2><p class="sub" style="margin:0 0 12px">A backup holds goals, reasons, habits and check-ins, reading progress and notes, journal entries, exercises, reflections, phase progress, weekly reviews and reminders. It contains your private writing, so keep it somewhere safe.</p><div class="actions" style="justify-content:flex-start"><button class="btn" data-bx>Download backup (JSON)</button><button class="btn alt" data-bcr>Reading progress (CSV)</button><button class="btn alt" data-bch>Habit history (CSV)</button></div>
+ <details style="margin-top:14px"><summary>Show backup text (copy and paste)</summary><textarea class="pre" readonly onfocus="this.select()" aria-label="Backup text">${esc(JSON.stringify(exportObj(),null,2))}</textarea></details></section>
+ <section class="card f"><h2>Import and recovery</h2><div class="f"><label for="imf">Choose a backup file (.json)</label><input type="file" id="imf" accept=".json,.txt,application/json,text/plain" data-imfile></div><div class="f"><label for="imt">Or paste backup text</label><textarea class="pre" id="imt"></textarea></div><button class="btn alt" data-imcheck>Check pasted text</button>${r&&r.err?`<p class="err" role="alert" style="margin-top:10px">${esc(r.err)}</p>`:''}<div style="margin-top:14px">${cmp}</div></section>
+ <section class="card"><h2>Restore points</h2><p class="sub" style="margin:0 0 12px">Copies kept in this browser: one a day automatically, and one before any import, restore or erase. They protect against mistakes but not against clearing browser data, so keep backup files too.</p><button class="btn alt sm" data-snapnow>Create restore point now</button>${sn.length?sn.map(s=>`<div class="note"><div class="chips"><span class="chip n">${esc(s.reason)}</span><span class="sub" style="font-size:13px">${whenS(s.ts)}</span></div><p class="sub">${counts(clean(s.data||{})).slice(0,4).map(x=>x[0]+': '+x[1]).join(' · ')}</p><div class="actions" style="justify-content:flex-start"><button class="btn alt sm" data-snaprest="${esc(s.ts)}">Restore</button><button class="btn alt sm" data-snapdel="${esc(s.ts)}">Delete</button></div></div>`).join(''):'<p class="sub" style="margin:12px 0 0">No restore points yet.</p>'}</section>
+ ${installCard()}
+ ${corrupt?'<section class="card" style="border-left:4px solid #C0392B"><h2>Unreadable saved data</h2><p style="margin:0 0 12px">The app couldn’t read what was saved earlier, so it kept a raw copy. Download it to keep it safe or to ask for help recovering it.</p><button class="btn alt" data-corrupt>Download unreadable data</button></section>':''}
+ <section class="card"><h2>Erase all data</h2><p class="sub" style="margin:0 0 12px">Removes everything in this browser. A restore point is kept so you can undo it.</p><button class="btn danger" data-erase>Erase all my data</button></section></div>`;
+}
+let AS=0;
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+ if(d.bx!==undefined)saveFile('transform42-backup-'+realToday()+'.json',JSON.stringify(exportObj(),null,2),'application/json').then(r=>fileDone(r,'Backup saved. Keep it somewhere safe.',()=>{mem.lastBackup=new Date().toISOString();save()}));
+ else if(d.bcr!==undefined)saveFile('transform42-reading-'+realToday()+'.csv',readingCsv(),'text/csv').then(r=>fileDone(r,'Reading CSV saved'));
+ else if(d.bch!==undefined){if(!hh().length){toast('No habits to export yet');return}saveFile('transform42-habits-'+realToday()+'.csv',habitCsv(),'text/csv').then(r=>fileDone(r,'Habit CSV saved'))}
+ else if(d.imcheck!==undefined){const t=($('imt')||{}).value||'';IM.res=t.trim()?parseBackup(t):{err:'Paste your backup text first.'};render(1)}
+ else if(d.imgo!==undefined){const x=IM.res;if(x&&x.data)askDo('Replace your data?','Everything now in the app will be replaced by this backup. A restore point of your current data is saved first.','Replace my data',()=>{applyData(x.data,'Before import');toast('Backup imported')})}
+ else if(d.imclear!==undefined){IM.res=null;render(1)}
+ else if(d.snapnow!==undefined){snap('Manual restore point');render(1);toast('Restore point saved')}
+ else if(d.snaprest){const s=snaps().find(x=>x.ts===d.snaprest);if(s)askDo('Restore this copy?','Your current data will be replaced by the copy from '+whenS(s.ts)+'. A restore point of your current data is saved first.','Restore',()=>{applyData(clean(s.data||{}),'Before restoring a copy');toast('Restored')})}
+ else if(d.snapdel){const s=snaps().find(x=>x.ts===d.snapdel);if(s)askDel('Delete this restore point?','The copy from '+whenS(s.ts)+' will be removed permanently.',()=>{try{localStorage.setItem('t42_snaps',JSON.stringify(snaps().filter(x=>x.ts!==s.ts)))}catch(e){}})}
+ else if(d.persist!==undefined)askPersist();
+ else if(d.install!==undefined){const p=window.t42Install;if(p){p.prompt();Promise.resolve(p.userChoice).catch(()=>{}).then(()=>{window.t42Install=null;render(1)})}}
+ else if(d.erase!==undefined)askDo('Erase all your data?','Every goal, habit, note, review and setting in this browser will be erased. A restore point is kept so you can undo this from Restore points.','Erase everything',()=>{snap('Before erasing all data');mem=defMem();save();refreshUI();render(1);toast('All data erased')},'DELETE');
+ else if(d.corrupt!==undefined){let raw='';try{raw=localStorage.getItem('t42_corrupt')||''}catch(x){}saveFile('transform42-unreadable-data.txt',raw,'text/plain').then(r=>fileDone(r,'Saved'))}
+});
+document.addEventListener('change',e=>{const t=e.target;if(t.dataset&&t.dataset.imfile!==undefined){const f=t.files&&t.files[0];if(!f)return;if(f.size>1e7){IM.res={err:'That file is too large to be a backup.'};render(1);return}const fr=new FileReader();fr.onload=()=>{IM.res=parseBackup(String(fr.result));IM.name=f.name;render(1)};fr.onerror=()=>{IM.res={err:'Couldn’t read that file.'};render(1)};fr.readAsText(f)}});
+document.addEventListener('input',e=>{const d=e.target.dataset;if(d&&(d.wq||d.ws||d.pr||d.pn||d.xr)){clearTimeout(AS);const t=e.target;AS=setTimeout(()=>t.dispatchEvent(new Event('change',{bubbles:true})),1500)}});
+function flush(){const a=document.activeElement;if(a&&(a.tagName==='TEXTAREA'||a.tagName==='INPUT')&&a.dataset&&(a.dataset.wq||a.dataset.ws||a.dataset.pr||a.dataset.pn||a.dataset.xr))a.dispatchEvent(new Event('change',{bubbles:true}))}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)flush()});window.addEventListener('pagehide',flush);
+window.addEventListener('storage',e=>{if(e.key!=='t42'||!e.newValue)return;try{const nm=Object.assign(defMem(),JSON.parse(e.newValue));nm.sample=false;if(REAL){REAL=nm;return}mem=nm;if(!$('ov').classList.contains('on'))render(1);refreshUI()}catch(x){}});
+/* ---------- Journal ---------- */
+const JC=[['morning','Morning Reflection'],['evening','Evening Reflection'],['mental','Mental Reprogramming'],['identity','Identity Development'],['behaviour','Behavioural Transformation'],['gratitude','Gratitude'],['challenges','Challenges and Lessons'],['weekly','Weekly Review'],['free','Free Writing']];
+const jcName=k=>(JC.find(x=>x[0]===k)||['','Free Writing'])[1];
+const JT={morning:['How am I feeling this morning?','What kind of person do I want to be today?','What is the most important thing I need to accomplish today?','What negative thought or behaviour do I need to challenge?','What action will prove that I am making progress?'],
+evening:['What did I accomplish today?','Did I follow through on my commitments?','What did I learn about myself today?','What challenged me, and how did I respond?','What could I improve tomorrow?','What am I grateful for today?'],
+mental:['What limiting belief did I notice?','What situation triggered this belief?','What evidence supports or challenges this belief?','What more realistic and constructive belief can replace it?','What action can I take to reinforce the new belief?'],
+identity:['What personal value did I practise today?','Did my actions reflect the person I want to become?','What standard did I maintain or fail to maintain?','What responsibility did I take today?','What is one action that supports my long-term identity?'],
+behaviour:['Which habit did I intend to complete?','Did I complete it?','What made it easier or more difficult?','What triggered any unwanted behaviour?','What adjustment can help me tomorrow?'],
+weekly:['What were my biggest achievements this week?','Which commitments did I fail to complete?','What patterns are emerging in my behaviour?','What did I learn about my mindset and identity?','What is one thing I need to improve next week?','What are my three priorities for the coming week?']};
+const JTRK={mental:[1],identity:[2],behaviour:[3]};
+const tplBody=k=>JT[k].map((q,i)=>`## ${i+1}. ${q}\n\n`).join('\n');
+if(!DEFRM.some(x=>x.id==='r10'))DEFRM.push({id:'r10',title:'Journal reflection',msg:'Take a few minutes to write in your journal.',cat:'reflection',freq:'daily',time:'21:15',on:false});
+const JN={view:'home',id:null,f:null,init:'',newDate:'',q:'',cat:'all',trk:'all',st:'all',from:'',to:'',sort:'new',day:''};
+let JB=0;
+const dayNo=d=>Math.round((pd(d)-pd(START))/864e5)+1;
+const dayLabel=d=>{if(!d)return '';const n=dayNo(d);return n<1?'Before the programme starts':n>42?'After the programme ends':`Day ${n} of 42`};
+const keyed=o=>JSON.stringify([o.id||'',o.title,o.date,o.cat,(o.tracks||[]).join(','),o.body,o.goal||'',o.book||'']);
+const inDlg=()=>{const b=$('jf_b');return !!(b&&$('dlg').contains(b))};
+function mdHtml(s){
+ const inl=t=>t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*(?!\s)(.+?)\*(?!\*)/g,'$1<em>$2</em>');
+ const out=[];let ul=false;
+ esc(s).split('\n').forEach(l=>{let m;
+  if(m=l.match(/^(#{1,3})\s+(.*)$/)){if(ul){out.push('</ul>');ul=false}const h=m[1].length+2;out.push(`<h${h}>${inl(m[2])}</h${h}>`)}
+  else if(m=l.match(/^[-*]\s+(.*)$/)){if(!ul){out.push('<ul>');ul=true}out.push(`<li>${inl(m[1])}</li>`)}
+  else{if(ul){out.push('</ul>');ul=false}if(l.trim())out.push(`<p>${inl(l)}</p>`)}});
+ if(ul)out.push('</ul>');return out.join('');
+}
+function jStats(){
+ const done=mem.jn.filter(e=>!e.draft),dates=[...new Set(done.map(e=>e.date))].sort(),set=new Set(dates),c=ctx();
+ let best=0,run=0,prev='';dates.forEach(d=>{run=prev&&addDays(prev,1)===d?run+1:1;best=Math.max(best,run);prev=d});
+ let d=set.has(c.todayStr)?c.todayStr:addDays(c.todayStr,-1),cur=0;while(set.has(d)){cur++;d=addDays(d,-1)}
+ const byCat={};done.forEach(e=>{byCat[e.cat]=(byCat[e.cat]||0)+1});
+ return{total:done.length,drafts:mem.jn.length-done.length,daysIn:dates.filter(x=>x>=START&&x<=END).length,cur,best,byCat,wk:[1,2,3,4,5,6].map(w=>done.filter(e=>e.date>=addDays(START,(w-1)*7)&&e.date<=addDays(START,w*7-1)).length)};
+}
+function jFiltered(){
+ const q=JN.q.trim().toLowerCase();
+ return mem.jn.filter(e=>{
+  if(JN.day&&e.date!==JN.day)return false;if(JN.cat!=='all'&&e.cat!==JN.cat)return false;
+  if(JN.trk!=='all'&&!(e.tracks||[]).includes(+JN.trk))return false;
+  if(JN.st==='done'&&e.draft)return false;if(JN.st==='draft'&&!e.draft)return false;
+  if(JN.from&&e.date<JN.from)return false;if(JN.to&&e.date>JN.to)return false;
+  if(q){const hay=(e.title+' '+e.body+' '+jcName(e.cat)).toLowerCase();if(!q.split(/\s+/).every(w=>hay.includes(w)))return false}
+  return true}).sort((a,b)=>(a.date===b.date?(a.upd||'').localeCompare(b.upd||''):a.date.localeCompare(b.date))*(JN.sort==='old'?1:-1));
+}
+function jRow(e){
+ return `<div class="note"><div class="chips"><span class="chip n">${esc(jcName(e.cat))}</span>${e.draft?'<span class="chip warn">Draft</span>':''}${(e.tracks||[]).map(n=>`<span class="chip">${PHASES[n-1].n}</span>`).join('')}<span class="sub" style="font-size:13px">${fd(e.date)} · ${dayLabel(e.date)}</span></div><p style="margin:6px 0 0"><b>${esc(e.title)}</b></p><div class="actions" style="justify-content:flex-start;margin-top:8px"><button class="btn alt sm" data-jopen="${e.id}">${e.draft?'Open draft':'Read'}</button><button class="btn alt sm" data-jedit="${e.id}">Edit</button></div></div>`;
+}
+function jListHtml(){
+ const l=jFiltered(),n=mem.jn.length;
+ if(!n)return '<div class="empty"><h2>No entries yet</h2><p>Your first entry can be a single sentence. Try a guided template if a blank page feels hard.</p><button class="btn" data-jnew>New Journal Entry</button></div>';
+ return `<p class="sub" style="margin:0 0 6px;font-size:13.5px">${l.length} of ${n} entr${n===1?'y':'ies'}${JN.day?' on '+fd(JN.day):''}</p>`+(l.length?l.map(jRow).join(''):'<p class="sub">No entries match.</p>');
+}
+function jCal(){
+ const c=ctx(),by={};mem.jn.forEach(e=>{(by[e.date]=by[e.date]||[]).push(e)});
+ let cells='';
+ for(let i=0;i<42;i++){const d=addDays(START,i),L=by[d]||[],dn=L.filter(e=>!e.draft).length,dr=L.length-dn,dt=pd(d),first=i===0||dt.getDate()===1;
+  const lab=`${dt.toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'})}, day ${i+1}: ${L.length?dn+' completed'+(dr?', '+dr+' draft'+(dr>1?'s':''):''):'no entries'}`;
+  cells+=`<button class="jc ${dn?'has':dr?'dr':''} ${d===c.todayStr?'today':''} ${JN.day===d?'sel':''} ${d>c.todayStr?'fut':''}" data-jday="${d}" aria-pressed="${JN.day===d}" aria-label="${lab}" title="${lab}"><small>${first?dt.toLocaleDateString('en-ZA',{month:'short'}):'\u00a0'}</small><span>${dt.getDate()}</span><em>Day ${i+1}</em><b class="jm">${L.length?(dn?'●':'○')+(L.length>1?L.length:''):'\u00a0'}</b></button>`}
+ const sel=JN.day?`<div class="actions" style="justify-content:flex-start;margin-top:12px"><button class="btn sm" data-jnewday>Write an entry for ${fd(JN.day)}</button><button class="btn alt sm" data-jclrday>Show all days</button></div>${(by[JN.day]||[]).length?'':'<p class="sub" style="margin:8px 0 0;font-size:13.5px">Nothing written on this day. That’s fine. You can add something now, or leave it.</p>'}`:'';
+ return `<div class="jcal">${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(x=>`<div class="jwd">${x}</div>`).join('')}${cells}</div><p class="sub" style="margin:10px 0 0;font-size:13px">● completed entry · ○ draft only · a number means several entries · outlined square is today. Empty days are just empty.</p>${sel}`;
+}
+function jWk(wk){
+ const W=420,H=130,L=8,gw=(W-L)/6,bw=Math.min(34,gw-12),mx=Math.max(3,...wk),ch=80,top=18;
+ let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Completed journal entries in each week"><line x1="${L}" x2="${W}" y1="${top+ch}" y2="${top+ch}" style="stroke:var(--line)"/>`;
+ wk.forEach((n,i)=>{const h=n/mx*ch,x=L+i*gw+(gw-bw)/2;s+=`<rect x="${x}" y="${top+ch-h}" width="${bw}" height="${h}" rx="3" style="fill:var(--g)"/><text x="${x+bw/2}" y="${top+ch-h-5}" text-anchor="middle" style="fill:var(--ink);font-size:11px">${n}</text><text x="${x+bw/2}" y="${top+ch+16}" text-anchor="middle" style="fill:var(--mut);font-size:11px">Week ${i+1}</text>`});
+ return s+'</svg>';
+}
+function jHome(){
+ const S=jStats(),opt=(a,s)=>a.map(x=>`<option value="${x[0]}" ${String(x[0])===String(s)?'selected':''}>${x[1]}</option>`).join('');
+ const resume=mem.jbuf?`<section class="card" style="margin-bottom:18px;border-left:4px solid var(--amber)"><h2>You have unsaved writing</h2><p style="margin:0 0 12px">From ${whenS(mem.jbuf.at)}. It was kept safely in this browser.</p><div class="actions" style="justify-content:flex-start"><button class="btn" data-jresume>Continue writing</button><button class="btn alt" data-jdiscard>Discard it</button></div></section>`:'';
+ const cats=JC.filter(x=>S.byCat[x[0]]).map(x=>`<div class="area" style="margin-bottom:8px"><div class="r" style="font-size:14px"><span>${x[1]}</span><strong>${S.byCat[x[0]]}</strong></div><div class="bar" style="height:7px"><i style="width:${S.byCat[x[0]]/S.total*100}%"></i></div></div>`).join('');
+ const sty='border:1px solid var(--line);border-radius:20px;padding:7px 12px;font:inherit;background:var(--panel);color:var(--ink)';
+ return `${resume}<div class="head"><div><h1>Your Transformation Journal</h1><p class="sub" style="max-width:62ch">This is where you record your thoughts, experiences, challenges, lessons and personal growth throughout the 42 days.</p></div><button class="btn" data-jnew>New Journal Entry</button></div>
+ <div class="info"><b>Private by design.</b> Entries are saved only in this browser on this device. They are not encrypted, not stored in the cloud, and never sent to any service. The app uses them only for the counts on this page, and they don’t appear on the Dashboard. Clearing browser data or losing the device can erase them, so keep a backup file from <a href="#backup">Backup and Restore</a>.</div>
+ <section class="card" style="margin-bottom:18px"><div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap"><div><div class="pbig" style="margin:0">${S.total}</div><div class="sub">completed ${S.total===1?'entry':'entries'}${S.drafts?' · '+S.drafts+' draft'+(S.drafts>1?'s':''):''}</div></div><div style="flex:1;min-width:200px"><div class="bar" role="progressbar" aria-valuenow="${S.daysIn}" aria-valuemin="0" aria-valuemax="42" aria-label="Days journalled"><i style="width:${S.daysIn/42*100}%"></i></div><div class="sub" style="font-size:13.5px;margin-top:6px">${S.daysIn} of 42 days journalled</div></div></div></section>
+ <section class="card" style="margin-bottom:18px"><h2>The 42 days</h2>${jCal()}</section>
+ <section class="card" style="margin-bottom:18px"><h2>Your entries</h2><div class="filters"><input id="jq" type="search" placeholder="Search titles and words" aria-label="Search entries" value="${esc(JN.q)}" style="flex:1;min-width:180px;${sty}"><select id="jx_c" aria-label="Category"><option value="all">All categories</option>${opt(JC,JN.cat)}</select><select id="jx_k" aria-label="Transformation track"><option value="all">All tracks</option>${opt(PHASES.map(p=>[p.id,p.n]),JN.trk)}</select><select id="jx_s" aria-label="Status">${opt([['all','All entries'],['done','Completed'],['draft','Drafts']],JN.st)}</select><label style="font-size:13.5px;color:var(--mut)">From <input type="date" id="jx_f" value="${JN.from}" style="${sty}"></label><label style="font-size:13.5px;color:var(--mut)">To <input type="date" id="jx_t" value="${JN.to}" style="${sty}"></label><select id="jx_o" aria-label="Sort order">${opt([['new','Newest first'],['old','Oldest first']],JN.sort)}</select><button class="btn alt sm" data-jclr>Clear filters</button></div><div id="jlist">${jListHtml()}</div><div class="actions" style="justify-content:flex-start;margin-top:14px"><button class="btn alt sm" data-jcsv>Export entries (CSV)</button><button class="btn alt sm" data-jmd>Export entries (Markdown)</button></div><p class="sub" style="font-size:13px;margin:8px 0 0">Exports contain your private writing. PDF export isn’t included.</p></section>
+ <section class="card"><h2>Journaling activity</h2><div class="mini" style="margin-top:0"><div><small>Completed entries</small>${S.total}</div><div><small>Days journalled</small>${S.daysIn} of 42</div><div><small>Current streak</small>${S.cur} day${S.cur===1?'':'s'}</div><div><small>Longest streak</small>${S.best} day${S.best===1?'':'s'}</div></div>${S.total?`<h3 style="font:600 15px var(--sans);margin:14px 0 8px">By category</h3>${cats}<h3 style="font:600 15px var(--sans);margin:14px 0 4px">By week</h3>${jWk(S.wk)}`:'<p class="sub" style="margin:0">Charts appear after your first completed entry.</p>'}<p class="sub" style="font-size:13.5px;margin:10px 0 0">These numbers measure journaling activity only. They say nothing about personal growth, and a day without an entry is not a failure.</p></section>`;
+}
+function jChoose(){
+ const tp=Object.keys(JT).map(k=>`<button class="card" style="text-align:left;cursor:pointer;font:inherit;color:inherit" data-jstart="${k}"><b>${jcName(k)}</b><div class="sub" style="font-size:13.5px;margin-top:4px">${JT[k].length} guided questions. You can edit everything.</div></button>`).join('');
+ return `<div class="jwrap"><div class="head"><div><h1>How would you like to begin?</h1><p class="sub">${JN.newDate?'For '+fd(JN.newDate)+'. ':''}Choose a blank page or a guided template.</p></div></div><div class="g3"><button class="card" style="text-align:left;cursor:pointer;font:inherit;color:inherit;border-color:var(--g)" data-jstart="blank"><b>Blank entry</b><div class="sub" style="font-size:13.5px;margin-top:4px">Free writing with no prompts.</div></button>${tp}</div><div style="margin-top:14px"><button class="btn alt" data-jback>Cancel</button></div></div>`;
+}
+function jEditorHtml(dlg){
+ const f=JN.f,opt=(a,s)=>a.map(x=>`<option value="${x[0]}" ${x[0]===s?'selected':''}>${x[1]}</option>`).join('');
+ return `${dlg?`<h2 id="dt" style="font:600 22px var(--serif);margin-bottom:12px">${f.id?'Edit journal entry':'New journal entry'}</h2>`:''}
+ <div class="f"><label for="jf_t">Entry title</label><input class="jtitle" id="jf_t" value="${esc(f.title)}" placeholder="Optional. A short title helps you find it later"></div>
+ <div class="row2"><div class="f"><label for="jf_d">Date</label><input type="date" id="jf_d" value="${esc(f.date)}"><small id="jf_day">${dayLabel(f.date)}</small></div><div class="f"><label for="jf_c">Journal category</label><select id="jf_c">${opt(JC,f.cat)}</select></div></div>
+ <div class="f"><label>Transformation tracks</label><div class="seg" style="flex-wrap:wrap">${PHASES.map(p=>`<label><input type="checkbox" id="jf_k${p.id}" ${f.tracks.includes(p.id)?'checked':''}><span>${p.n}</span></label>`).join('')}</div></div>
+ <div class="jtool" role="toolbar" aria-label="Formatting"><button type="button" class="btn alt sm" data-jfmt="h">Heading</button><button type="button" class="btn alt sm" data-jfmt="b"><b>Bold</b></button><button type="button" class="btn alt sm" data-jfmt="i"><i>Italic</i></button><button type="button" class="btn alt sm" data-jfmt="ul">• List</button><button type="button" class="btn alt sm" data-jtpl>Add guided questions</button></div>
+ <div class="f"><textarea class="jtext" id="jf_b" aria-label="Your writing" placeholder="Start writing…">${esc(f.body)}</textarea><small>Formatting: ## heading, **bold**, *italic*, - bullet. It shows formatted when you read the entry.</small></div>
+ <details><summary>Link to a goal or book (optional)</summary><div class="row2"><div class="f"><label for="jf_g">Goal</label><select id="jf_g"><option value="">None</option>${(mem.goals||[]).map(g=>`<option value="${g.id}" ${f.goal===g.id?'selected':''}>${esc(g.title)}</option>`).join('')}</select></div><div class="f"><label for="jf_bk">Book</label><select id="jf_bk"><option value="">None</option>${BOOKS.map(b=>`<option value="${b[0]}" ${f.book===b[0]?'selected':''}>${esc(b[1])}</option>`).join('')}</select></div></div></details>
+ <p class="err" id="jerr" role="alert"></p><div class="actions" style="justify-content:flex-start"><button class="btn" data-jsave="1">Save Entry</button><button class="btn alt" data-jsave="0">Save as Draft</button><button class="btn alt" data-jcancel>Cancel</button>${f.id&&!dlg?'<button class="btn danger" data-jdel>Delete Entry</button>':''}</div>`;
+}
+function jEditor(){
+ setTimeout(()=>{const t=$('jf_b');if(t&&!inDlg()&&document.activeElement===document.body){t.focus();const p=JN.f.body.indexOf('\n\n');const i=JN.f.body&&JN.f.body===JN.f.tpl&&p>=0?p+2:t.value.length;t.setSelectionRange(i,i)}},0);
+ return `<div class="jwrap"><div class="head"><div><h1>${JN.f.id?'Edit journal entry':'New journal entry'}</h1></div></div><section class="card f">${jEditorHtml(false)}</section></div>`;
+}
+function jReadView(){
+ const e=mem.jn.find(x=>x.id===JN.id);if(!e){JN.view='home';return jHome()}
+ const g=e.goal&&(mem.goals||[]).find(x=>x.id===e.goal),bk=e.book&&BOOKS.find(b=>b[0]===e.book),hb=hh().find(h=>/journal/i.test(h.name)),c=ctx();
+ const canH=hb&&!e.draft&&e.date<=c.todayStr&&!hlog(hb.id)[e.date];
+ return `<div class="jwrap"><div class="head"><div><button class="btn alt sm" data-jback>← Back to journal</button></div></div><article class="card"><h1 style="font:600 28px/1.2 var(--serif);margin:0 0 8px">${esc(e.title)}</h1><div class="chips" style="margin-bottom:6px"><span class="chip n">${esc(jcName(e.cat))}</span>${e.draft?'<span class="chip warn">Draft</span>':'<span class="chip">Completed</span>'}${(e.tracks||[]).map(n=>`<span class="chip">${PHASES[n-1].n}</span>`).join('')}${g?`<span class="chip n">Goal: ${esc(g.title)}</span>`:''}${bk?`<span class="chip n">Book: ${esc(bk[1])}</span>`:''}</div><p class="sub" style="font-size:13.5px;margin:0 0 16px">${fd(e.date)} · ${dayLabel(e.date)}${e.upd?' · Last edited '+whenS(e.upd):''}</p><div class="jbody">${mdHtml(e.body)||'<p class="sub">This entry is empty.</p>'}</div><div class="actions" style="justify-content:flex-start;margin-top:18px"><button class="btn" data-jedit="${e.id}">${e.draft?'Continue writing':'Edit'}</button>${canH?`<button class="btn alt" data-jhab="${hb.id}:${e.date}">Mark my “${esc(hb.name)}” habit done for this day</button>`:''}<button class="btn alt" data-jrdel="${e.id}">Delete</button></div></article></div>`;
+}
+function journalPage(){const v=JN.view;return v==='choose'?jChoose():v==='edit'&&JN.f?jEditor():v==='read'?jReadView():jHome()}
+function journalCard(){const n=mem.jn.filter(e=>!e.draft),c=ctx(),t=n.some(e=>e.date===c.todayStr);return `<section class="card"><h2>Journal</h2><p style="margin:0 0 12px">${n.length} entr${n.length===1?'y':'ies'} written${t?'. Today’s entry is done.':'.'}</p><button class="btn alt sm" data-jnew>Write in my journal</button></section>`}
+function jPhaseCard(P){const n=mem.jn.filter(e=>!e.draft&&(e.tracks||[]).includes(P.id)).length;return `<section class="card"><h2>Journal for this phase</h2><p class="sub" style="margin:0 0 12px">${n} completed entr${n===1?'y':'ies'} linked to this phase.</p><div class="actions" style="justify-content:flex-start"><button class="btn sm" data-jph="${P.id}">Write about this phase</button><button class="btn alt sm" data-jphv="${P.id}">View linked entries</button></div></section>`}
+function goJournal(){if(location.hash!=='#journal')location.hash='#journal';else render()}
+function jStart(k){const c=ctx(),cat=k==='blank'?'free':k,body=JT[cat]?tplBody(cat):'';JN.f={id:null,title:'',date:JN.newDate||c.todayStr,cat,tracks:(JTRK[cat]||[]).slice(),body,goal:'',book:'',tpl:body};JN.init=keyed(JN.f);JN.view='edit';JN.newDate=''}
+function jEdit(id){const e=mem.jn.find(x=>x.id===id);if(!e)return;JN.f={id:e.id,title:e.title,date:e.date,cat:e.cat,tracks:(e.tracks||[]).slice(),body:e.body,goal:e.goal||'',book:e.book||'',tpl:''};JN.init=keyed(JN.f);JN.view='edit'}
+function jDialog(t){const c=ctx(),cat=['','mental','identity','behaviour'][t],body=tplBody(cat);JN.f={id:null,title:'',date:c.todayStr,cat,tracks:[t],body,goal:'',book:'',tpl:body};JN.init=keyed(JN.f);$('dlg').className='dlg wide';$('dlg').innerHTML=jEditorHtml(true);$('ov').classList.add('on');setTimeout(()=>{const x=$('jf_b');if(x){x.focus();const p=body.indexOf('\n\n')+2;x.setSelectionRange(p,p)}},0)}
+function jForm(){const g=i=>$(i)?$(i).value:'',f=JN.f;if(!$('jf_b'))return f;return{id:f.id,title:g('jf_t'),date:g('jf_d'),cat:g('jf_c'),tracks:[1,2,3].filter(n=>$('jf_k'+n)&&$('jf_k'+n).checked),body:g('jf_b'),goal:g('jf_g'),book:g('jf_bk'),tpl:f.tpl}}
+function jFlush(){if(!$('jf_b')||!JN.f)return;JN.f=jForm();if(keyed(JN.f)!==JN.init){mem.jbuf=Object.assign({},JN.f,{at:new Date().toISOString()});save()}}
+function jSave(draft){
+ const f=jForm(),err=m=>{$('jerr').textContent=m},body=f.body.trim();
+ if(!f.date)return err('Choose a date.');
+ if(!draft&&(!body||body===(f.tpl||'').trim()))return err('Write something first, or save it as a draft.');
+ if(draft&&!body&&!f.title.trim())return err('Add a title or some writing to save a draft.');
+ const now=new Date().toISOString(),data={title:f.title.trim()||`${jcName(f.cat)}, ${fd(f.date)}`,date:f.date,cat:f.cat,tracks:f.tracks,body:f.body,goal:f.goal,book:f.book,draft:!!draft,upd:now};
+ let e=f.id&&mem.jn.find(x=>x.id===f.id);
+ if(e)Object.assign(e,data);else{e=Object.assign({id:gid(),created:now},data);mem.jn.push(e)}
+ mem.jbuf=null;save();const dl=inDlg();
+ if(dl){closeRec();render(1);toast(draft?'Draft saved':'Entry saved');return}
+ if(draft)JN.view='home';else{JN.id=e.id;JN.view='read'}
+ render();toast(draft?'Draft saved':'Entry saved');
+}
+function jCancel(){
+ const dirty=keyed(jForm())!==JN.init,back=()=>{mem.jbuf=null;save();JN.view=JN.f&&JN.f.id&&mem.jn.some(x=>x.id===JN.f.id)?'read':'home';JN.id=JN.f&&JN.f.id;render()};
+ if(inDlg()){if(dirty){jFlush();toast('Your unsaved writing was kept. Find it in the Journal.')}else{mem.jbuf=null;save()}closeRec();return}
+ if(dirty)askDo('Discard your changes?','Your unsaved writing will be lost.','Discard',back);else back();
+}
+function jDelete(id){const e=mem.jn.find(x=>x.id===id);if(!e)return;askDel('Delete this entry?',`\u201c${esc(e.title)}\u201d will be deleted permanently. This can\u2019t be undone. A backup file is the only way to bring it back.`,()=>{mem.jn=mem.jn.filter(x=>x.id!==id);mem.jbuf=null;JN.id=null;JN.view='home'})}
+function jFmt(k){
+ const t=$('jf_b');if(!t)return;const s=t.selectionStart,e=t.selectionEnd,v=t.value,sel=v.slice(s,e);
+ if(k==='b'||k==='i'){const m=k==='b'?'**':'*',ph=k==='b'?'bold text':'italic text',ins=m+(sel||ph)+m;t.value=v.slice(0,s)+ins+v.slice(e);t.focus();t.setSelectionRange(s+m.length,s+ins.length-m.length)}
+ else{const ls=v.lastIndexOf('\n',s-1)+1,i=v.indexOf('\n',e),le=i<0?v.length:i,pre=k==='h'?'## ':'- ',lines=v.slice(ls,le).split('\n').map((l,n)=>k==='h'&&n>0?l:pre+l);const blk=lines.join('\n');t.value=v.slice(0,ls)+blk+v.slice(le);t.focus();t.setSelectionRange(ls+pre.length,ls+blk.length)}
+ t.dispatchEvent(new Event('input',{bubbles:true}));
+}
+function jTplBtn(){const cat=$('jf_c').value;if(!JT[cat]){toast('No guided questions for this category');return}const t=$('jf_b'),tb=tplBody(cat),had=t.value.trim();t.value=(had?t.value.replace(/\s+$/,'')+'\n\n':'')+tb;if(!had)JN.f.tpl=tb;t.dispatchEvent(new Event('input',{bubbles:true}));t.focus();t.setSelectionRange(t.value.length,t.value.length)}
+function jCsv(){const rows=[['Date','Programme day','Title','Category','Tracks','Status','Goal','Book','Text']];mem.jn.slice().sort((a,b)=>a.date.localeCompare(b.date)).forEach(e=>{const g=(mem.goals||[]).find(x=>x.id===e.goal),b=BOOKS.find(x=>x[0]===e.book);rows.push([e.date,dayLabel(e.date),e.title,jcName(e.cat),(e.tracks||[]).map(n=>PHASES[n-1].n).join('; '),e.draft?'Draft':'Completed',g?g.title:'',b?b[1]:'',e.body])});return toCsv(rows)}
+function jMd(){return '# TRANSFORM 42 journal\n\n'+mem.jn.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(e=>`## ${e.title}\n\n*${fd(e.date)} · ${dayLabel(e.date)} · ${jcName(e.cat)}${e.draft?' · Draft':''}${(e.tracks||[]).length?' · '+e.tracks.map(n=>PHASES[n-1].n).join(', '):''}*\n\n${e.body}\n`).join('\n---\n\n')}
+$('nav').addEventListener('click',e=>{const a=e.target.closest('a');jFlush();if(a&&a.getAttribute('href')==='#journal'){JN.view='home';if(location.hash==='#journal'){e.preventDefault();render()}}});
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+ if(d.jnew!==undefined){JN.view='choose';JN.newDate='';goJournal()}
+ else if(d.jnewday!==undefined){JN.view='choose';JN.newDate=JN.day;render()}
+ else if(d.jstart){jStart(d.jstart);render()}
+ else if(d.jopen){JN.id=d.jopen;JN.view='read';render()}
+ else if(d.jedit){jEdit(d.jedit);render()}
+ else if(d.jback!==undefined){JN.view='home';render()}
+ else if(d.jday){JN.day=JN.day===d.jday?'':d.jday;render(1)}
+ else if(d.jclrday!==undefined){JN.day='';render(1)}
+ else if(d.jclr!==undefined){Object.assign(JN,{q:'',cat:'all',trk:'all',st:'all',from:'',to:'',sort:'new',day:''});render(1)}
+ else if(d.jsave!==undefined)jSave(d.jsave==='0');
+ else if(d.jcancel!==undefined)jCancel();
+ else if(d.jdel!==undefined)jDelete(JN.f&&JN.f.id);
+ else if(d.jrdel)jDelete(d.jrdel);
+ else if(d.jfmt)jFmt(d.jfmt);
+ else if(d.jtpl!==undefined)jTplBtn();
+ else if(d.jph)jDialog(+d.jph);
+ else if(d.jphv){JN.trk=d.jphv;JN.view='home';JN.day='';goJournal()}
+ else if(d.jwk!==undefined){jStart('weekly');goJournal()}
+ else if(d.jresume!==undefined){const j=mem.jbuf||{};JN.f={id:j.id||null,title:String(j.title||''),date:String(j.date||ctx().todayStr),cat:JC.some(x=>x[0]===j.cat)?j.cat:'free',tracks:(Array.isArray(j.tracks)?j.tracks:[]).filter(n=>n>=1&&n<=3),body:String(j.body||''),goal:String(j.goal||''),book:String(j.book||''),tpl:String(j.tpl||'')};JN.init='';JN.view='edit';render()}
+ else if(d.jdiscard!==undefined)askDo('Discard unsaved writing?','The writing kept from your last session will be deleted. This can\u2019t be undone.','Discard',()=>{mem.jbuf=null;save();render(1)});
+ else if(d.jcsv!==undefined){if(REAL){toast('Exports are off in the sample preview');return}if(!mem.jn.length){toast('No entries to export yet');return}saveFile('transform42-journal-'+realToday()+'.csv',jCsv(),'text/csv').then(r=>fileDone(r,'Journal CSV saved'))}
+ else if(d.jmd!==undefined){if(REAL){toast('Exports are off in the sample preview');return}if(!mem.jn.length){toast('No entries to export yet');return}saveFile('transform42-journal-'+realToday()+'.md',jMd(),'text/markdown').then(r=>fileDone(r,'Journal saved'))}
+ else if(d.jhab){const[id,dt]=d.jhab.split(':');mem.hl=mem.hl||{};mem.hl[id]=mem.hl[id]||{};mem.hl[id][dt]=1;save();render(1);toast('Habit marked done for that day')}
+});
+document.addEventListener('input',e=>{const t=e.target;
+ if(t.id==='jq'){JN.q=t.value;const el=$('jlist');if(el)el.innerHTML=jListHtml()}
+ else if(t.id&&t.id.indexOf('jf_')===0){JN.f=jForm();clearTimeout(JB);JB=setTimeout(jFlush,900)}
+});
+document.addEventListener('change',e=>{const t=e.target,m={jx_c:'cat',jx_k:'trk',jx_s:'st',jx_f:'from',jx_t:'to',jx_o:'sort'};
+ if(t.id&&m[t.id]){JN[m[t.id]]=t.value;const el=$('jlist');if(el)el.innerHTML=jListHtml()}
+ else if(t.id&&t.id.indexOf('jf_')===0){
+  if(t.id==='jf_c'){const k=JTRK[t.value];if(k&&![1,2,3].some(n=>$('jf_k'+n).checked))k.forEach(n=>{$('jf_k'+n).checked=true})}
+  if(t.id==='jf_d'&&$('jf_day'))$('jf_day').textContent=dayLabel(t.value);
+  JN.f=jForm();clearTimeout(JB);JB=setTimeout(jFlush,900)}
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)jFlush()});window.addEventListener('pagehide',jFlush);
+/* ---------- Real dates by default; sample preview as an isolated sandbox ---------- */
+const prevBarHtml=()=>`<div class="sample" role="status"><strong>Sample preview.</strong> You’re looking at demonstration data, as if today were Day 12 (20 Nov 2026). Your own data is hidden and untouched, and nothing you do here is saved. <button class="btn alt sm" data-prevoff>Return to my data</button></div>`;
+function enterPreview(){if(REAL)return;REAL=mem;mem=Object.assign(defMem(),{sample:true});try{sessionStorage.setItem('t42_preview','1')}catch(e){}}
+function leavePreview(){if(!REAL)return;mem=REAL;REAL=null;mem.sample=false;try{sessionStorage.removeItem('t42_preview')}catch(e){}}
+function resetUi(){clearTimeout(JB);JN.view='home';JN.f=null;JN.id=null;JN.day='';JN.q='';closeRec();IM.res=null;const a=$('alertbar');if(a)a.classList.remove('on')}
+function togglePreview(){jFlush();if(REAL){leavePreview();resetUi();render();toast('Back to your own data')}else{enterPreview();resetUi();render();toast('Sample preview on. Nothing here is saved.')}}
+function modeNotice(){if(REAL||!mem.modeNotice)return '';return '<div class="info"><b>Real dates are now the default.</b> TRANSFORM 42 was showing sample dates, so anything you recorded may carry a sample-mode date such as 20 Nov. Nothing was changed or removed. You can still preview samples from <a href="#settings">Settings</a>. <button class="btn alt sm" data-nodismiss>Got it</button></div>'}
+function dayTasks(c){
+ const today=c.todayStr;
+ if(mem.sample)return TASKS.map(t=>({id:t[0],label:t[1],sub:t[2],tag:t[3],done:!!(mem.done[today]||{})[t[0]],kind:'static'}));
+ if(c.before||c.after)return [];
+ const out=[],dow=dowOf(today);
+ hh().forEach(h=>{if(h.freq==='weekdays'&&dow>4)return;out.push({id:'h:'+h.id,label:h.name,sub:FREQ[h.freq][0]+(h.dur?' · '+h.dur+' min':''),tag:'Habit',done:!!hlog(h.id)[today],kind:'habit'})});
+ const P=PHASES[c.phase-1],w=c.week,r=P.w[w-1][1].split('|'),ex=exAll().find(e=>e.built&&e.p===P.id&&e.w===w);
+ out.push({id:'r:'+P.id+':'+w,label:'Read: '+r[0]+', '+r[1],sub:'Phase '+P.id+' reading for week '+w,tag:'Reading',done:pst(P.id).read[w]===true,kind:'read'});
+ if(ex)out.push({id:'x:'+ex.id,label:'Exercise: '+ex.title,sub:'Phase '+P.id+' exercise for week '+w,tag:'Exercise',done:xReal(ex),kind:'ex'});
+ out.push({id:'j',label:'Write in your journal',sub:'Ticks itself when you save a completed entry today',tag:'Journal',done:mem.jn.some(e=>!e.draft&&e.date===today),kind:'journal'});
+ return out;
+}
+function setTask(id,on,c){
+ if(id.indexOf('h:')===0){const hid=id.slice(2);mem.hl=mem.hl||{};mem.hl[hid]=mem.hl[hid]||{};if(on)mem.hl[hid][c.todayStr]=1;else delete mem.hl[hid][c.todayStr]}
+ else if(id.indexOf('r:')===0){const a=id.split(':');pst(+a[1]).read[a[2]]=on}
+ else if(id.indexOf('x:')===0){const e=exAll().find(x=>x.id===id.slice(2));if(e)xSet(e,on,c)}
+ else if(id!=='j'){mem.done[c.todayStr]=mem.done[c.todayStr]||{};if(on)mem.done[c.todayStr][id]=1;else delete mem.done[c.todayStr][id]}
+}
+function tasksCard(c){
+ const T=dayTasks(c),live=mem.sample||(!c.before&&!c.after),n=T.filter(t=>t.done).length;let body;
+ if(live)body=T.map((t,i)=>`<div class="task"><input type="checkbox" id="tk${i}" data-t="${esc(t.id)}" ${t.done?'checked':''} ${t.kind==='journal'?'disabled':''}><label for="tk${i}">${esc(t.label)}<small>${esc(t.sub)}</small></label><span class="chip">${esc(t.tag)}</span></div>`).join('')+(mem.sample?'<p class="sub" style="font-size:13px;margin:10px 0 0">Task names are sample content in this preview.</p>':'<p class="sub" style="font-size:13px;margin:10px 0 0">These come from your own habits and this week’s phase work. Ticking one updates the tracker it belongs to. <a href="#phases">See all three phases</a></p>');
+ else if(c.before){const d=1-c.day;body=`<p style="margin:0 0 8px">Your 42 days start on Monday 9 November, in ${d} day${d===1?'':'s'}. Tasks appear here from Day 1.</p><p class="sub" style="margin:0;font-size:14px">Until then you can <a href="#habits">add habits</a>, <a href="#goals">set goals</a> and <a href="#reading">enter your book details</a>.</p>`}
+ else body='<p style="margin:0 0 8px">The programme finished on 20 December. All your records are still here.</p><p class="sub" style="margin:0;font-size:14px">See <a href="#analytics">Analytics</a>, and download a backup from <a href="#backup">Backup and Restore</a>.</p>';
+ return `<section class="card"><h2>Today’s tasks${live&&T.length?` <span class="chip">${n} of ${T.length} done</span>`:''}</h2>${body}</section>`;
+}
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+ if(d.prevoff!==undefined)togglePreview();
+ else if(d.nodismiss!==undefined){mem.modeNotice=0;save();render(1)}
+});
+(function(){
+ if(mem.sample===true){const had=hasData();mem.sample=false;if(had)mem.modeNotice=1}   // existing saved data: kept as is, only the mode switches; nothing is written here
+ try{if(sessionStorage.getItem('t42_preview')==='1')enterPreview()}catch(e){}
+})();
+let LAST_DAY=realToday();
+function dayRollover(){const d=realToday();if(d!==LAST_DAY){LAST_DAY=d;nav();const h=location.hash.slice(1)||'dashboard';if(!REAL&&h==='dashboard'&&!$('ov').classList.contains('on'))render(1)}}
+setInterval(dayRollover,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)dayRollover()});
+render();tick();
+</script>
+<script src="pwa.js"></script>
+</body>
+</html>
